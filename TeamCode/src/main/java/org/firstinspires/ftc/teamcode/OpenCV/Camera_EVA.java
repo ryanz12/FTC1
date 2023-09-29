@@ -113,6 +113,18 @@ public class Camera_EVA extends LinearOpMode
                         tagFound = true;
                         break;
                     }
+                    else{
+                        try {
+                            if(tag.id == Left || tag.id == Center || tag.id == Right)
+                            {
+                                tagOfInterest = tag;
+                                tagFound = true;
+                                break;
+                            }
+                        }catch (EnumConstantNotPresentException e){
+                            System.out.printf("Did not identify object tag. Try again!!!");
+                        }
+                    }
                 }
 
                 if(tagFound)
