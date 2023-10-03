@@ -87,7 +87,7 @@ public class Camera_EVA extends LinearOpMode
             @Override
             public void onError(int errorCode)
             {
-
+                System.out.println("Could not detect");
             }
         });
 
