@@ -87,7 +87,7 @@ public class Camera_EVA extends LinearOpMode
             @Override
             public void onError(int errorCode)
             {
-                System.out.println("Could not detect");
+                telemetry.addLine("(The tag has not been seen check the error code use try catch statement?)");
             }
         });
 
@@ -122,7 +122,7 @@ public class Camera_EVA extends LinearOpMode
                                 break;
                             }
                         }catch (EnumConstantNotPresentException e){
-                            System.out.printf("Did not identify object tag. Try again!!!");
+                            telemetry.addLine("Error " + e);
                         }
                     }
                 }
