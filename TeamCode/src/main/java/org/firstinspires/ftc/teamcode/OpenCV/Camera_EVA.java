@@ -123,7 +123,7 @@ public class Camera_EVA extends LinearOpMode
                             }
                         }catch (EnumConstantNotPresentException e){
                             telemetry.addLine("Error " + e);
-                            ///
+                            //
                         }
                     }
                 }
