@@ -203,6 +203,10 @@ public class Camera_EVA extends LinearOpMode
         }
         */
 
+        if(colorDetectionOpenCV.strictHighS > 0){
+            telemetry.addLine("YO");
+        }
+
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive()) {sleep(20);}
     }

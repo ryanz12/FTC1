@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Themika
-
+@Autonomous
 public class colorDetectionOpenCV extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
@@ -32,9 +34,9 @@ public class colorDetectionOpenCV extends OpenCvPipeline {
             return input;
         }
 
-        // lenient bounds will filter out near yellow, this should filter out all near yellow things(tune this if needed)
-        Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
-        Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
+        // bounds will filter out near yellow, this should filter out all near yellow things(tune this if needed)
+        Scalar lowHSV = new Scalar(20, 70, 80); //  lower bound HSV for yellow change later
+        Scalar highHSV = new Scalar(32, 255, 255); //  higher bound HSV for yellow change later
 
         Mat thresh = new Mat();
 
@@ -50,7 +52,7 @@ public class colorDetectionOpenCV extends OpenCvPipeline {
 
         Mat scaledMask = new Mat();
         //scale the average saturation to 150
-        masked.convertTo(scaledMask, -1, 150 / average.val[1], 0);
+        masked.convertTo(scaledMask, -1, 150 / average.val[1], 0); //change later
 
 
         Mat scaledThresh = new Mat();
