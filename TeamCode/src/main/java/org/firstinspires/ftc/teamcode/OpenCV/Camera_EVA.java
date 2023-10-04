@@ -40,11 +40,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
-
+// Open cv code Edited and refactored by: Themika.
 @Autonomous
 public class Camera_EVA extends LinearOpMode
 {
     OpenCvCamera camera;
+
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
     static final double FEET_PER_METER = 3.28084;
@@ -72,7 +73,7 @@ public class Camera_EVA extends LinearOpMode
     public void runOpMode()
     {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
@@ -124,6 +125,7 @@ public class Camera_EVA extends LinearOpMode
                         }catch (EnumConstantNotPresentException e){
                             telemetry.addLine("Error " + e);
                             //
+
                         }
                     }
                 }
@@ -188,14 +190,18 @@ public class Camera_EVA extends LinearOpMode
         }
 
         /* Actually do something useful */
-            ///Left Code;
+
+       /*     ///Left Code;
         if(tagOfInterest.id == Left){
+            telemetry.addLine("left");
 
         }else if(tagOfInterest == null || tagOfInterest.id == Center){
-
+            telemetry.addLine("CENTER detected");
         }else if(tagOfInterest.id == Right){
+            telemetry.addLine("Right detected");
 
         }
+        */
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive()) {sleep(20);}
