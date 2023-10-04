@@ -45,7 +45,7 @@ import java.util.ArrayList;
 public class Camera_EVA extends LinearOpMode
 {
     OpenCvCamera camera;
-
+    private colorDetectionOpenCV Open = null;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
     static final double FEET_PER_METER = 3.28084;
@@ -202,10 +202,8 @@ public class Camera_EVA extends LinearOpMode
 
         }
         */
+        Open = new colorDetectionOpenCV();
 
-        if(colorDetectionOpenCV.strictHighS > 0){
-            telemetry.addLine("YO");
-        }
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive()) {sleep(20);}
