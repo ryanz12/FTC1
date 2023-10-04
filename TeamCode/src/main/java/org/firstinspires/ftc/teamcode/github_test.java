@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 public class github_test {
-    public void main(String[] args){
+    public void main(String[] args) {
         System.out.println("github test");
     }
+
+    ;
 
     //putting files into github:
     //Step 1: install git
@@ -13,4 +15,7 @@ public class github_test {
 
     //getting updated files from github:
     //update project, (ctrl t)
+
+
+    //jigger diggerjjddddnig
 }
