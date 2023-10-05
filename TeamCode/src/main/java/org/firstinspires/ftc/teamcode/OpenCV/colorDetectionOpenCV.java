@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Themika
-@Autonomous
 public class colorDetectionOpenCV extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
