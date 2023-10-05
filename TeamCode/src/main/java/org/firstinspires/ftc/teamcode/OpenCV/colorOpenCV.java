@@ -30,7 +30,7 @@ public class colorOpenCV {
             public void onOpened()
             {
 
-                /////////////////////////
+                //////////////////////////
                 //Autonomous code is here
                 //////////////////////////
 
