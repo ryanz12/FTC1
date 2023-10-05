@@ -15,7 +15,6 @@ import org.openftc.easyopencv.OpenCvWebcam;
 //Themika
 @Autonomous
 public class colorOpenCV {
-
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
     private LinearOpMode op;
