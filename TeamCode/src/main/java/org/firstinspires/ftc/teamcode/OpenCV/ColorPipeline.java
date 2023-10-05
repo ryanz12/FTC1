@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.openftc.easyopencv.OpenCvPipeline;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -11,15 +11,14 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 import java.util.List;
 
-//Themika
-public class colorDetectionOpenCV extends OpenCvPipeline {
+public class ColorPipeline extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
     //these are public static to be tuned in dashboard
     public static double strictLowS = 140;
     public static double strictHighS = 255;
 
-    public colorDetectionOpenCV() {
+    public ColorPipeline() {
         frameList = new ArrayList<>();
     }
 
@@ -99,5 +98,5 @@ public class colorDetectionOpenCV extends OpenCvPipeline {
         return input;
     }
 
-}
 
+}
