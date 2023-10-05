@@ -14,7 +14,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 //Themika
 @Autonomous
-public class colorOpenCV {
+public class colorOpenCV extends LinearOpMode{
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+    }
+
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
     private LinearOpMode op;
@@ -22,7 +27,7 @@ public class colorOpenCV {
         //you can input  a hardwareMap instead of linearOpMode if you want
         op = p_op;
         //initialize webcam
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(op.hardwareMap.get(WebcamName.class, "webcam"));
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(op.hardwareMap.get(WebcamName.class, "Webcam"));
     }
     public void observeStick(){
         //create the pipeline
