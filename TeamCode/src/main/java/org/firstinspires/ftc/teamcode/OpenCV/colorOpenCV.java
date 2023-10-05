@@ -29,9 +29,14 @@ public class colorOpenCV {
             @Override
             public void onOpened()
             {
-                /*
-                Autonomous code is here
-                 */
+
+                /////////////////////////
+                //Autonomous code is here
+                //////////////////////////
+
+                //After running code use the function stopStreaming();
+
+
                 webcam.setPipeline(cv);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
