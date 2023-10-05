@@ -188,6 +188,7 @@ public class Camera_EVA extends LinearOpMode
             telemetry.update();
         }
 
+
         /* Actually do something useful */
 
 //        Left Code;
