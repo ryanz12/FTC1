@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -11,6 +15,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 //Themika
 @Autonomous
 public class colorOpenCV {
+
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
     private LinearOpMode op;
