@@ -45,7 +45,6 @@ import java.util.ArrayList;
 public class Camera_EVA extends LinearOpMode
 {
     OpenCvCamera camera;
-    private colorDetectionOpenCV Open = null;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
     static final double FEET_PER_METER = 3.28084;
@@ -191,19 +190,16 @@ public class Camera_EVA extends LinearOpMode
 
         /* Actually do something useful */
 
-       /*     ///Left Code;
-        if(tagOfInterest.id == Left){
-            telemetry.addLine("left");
-
-        }else if(tagOfInterest == null || tagOfInterest.id == Center){
-            telemetry.addLine("CENTER detected");
-        }else if(tagOfInterest.id == Right){
-            telemetry.addLine("Right detected");
-
-        }
-        */
-        Open = new colorDetectionOpenCV();
-
+//        Left Code;
+//        if(tagOfInterest.id == Left){
+//            telemetry.addLine("left");
+//
+//        }else if(tagOfInterest == null || tagOfInterest.id == Center){
+//            telemetry.addLine("CENTER detected");
+//        }else if(tagOfInterest.id == Right){
+//            telemetry.addLine("Right detected");
+//
+//        }
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive()) {sleep(20);}
