@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -15,7 +17,12 @@ public class camStarter extends LinearOpMode {
         cv.observeStick();
         waitForStart();
         while (opModeIsActive()) {
-
+            if(ColorPipeline.canSee == true){
+                // Autonomous code
+            }
+            else{
+                // Look for object
+            }
         }
 //        stopStreaming
         cv.stopCamera();

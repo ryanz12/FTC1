@@ -15,7 +15,7 @@ public class ColorPipeline extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
     //these are public static to be tuned in dashboard
-    private boolean canSee = false;
+    public static boolean canSee = false;
     public static double strictLowS = 140;
     public static double strictHighS = 255;
 
