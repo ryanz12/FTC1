@@ -5,6 +5,8 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import  org.firstinspires.ftc.teamcode.OpenCV.colorOpenCV;
 @Autonomous
 public class camStarter extends LinearOpMode {
@@ -17,11 +19,19 @@ public class camStarter extends LinearOpMode {
         cv.observeStick();
         waitForStart();
         while (opModeIsActive()) {
-            if(ColorPipeline.canSee == true){
-                // Autonomous code
-            }
-            else{
-                // Look for object
+            try{
+                if(ColorPipeline.canSee == true){
+                    // Autonomous code
+                    telemetry.addLine("HAS FOUND THING RUN AUTONOMOUS CODE");
+                }
+                else{
+                    // Look for object
+                    telemetry.addLine("HAS NOT FOUND THING RUN AUTONOMOUS CODE");
+
+                }
+            }catch (Exception e){
+                telemetry.addLine("CHECK THE WONKY BOOLEAN CODE");
+                telemetry.addLine(e.getMessage());
             }
         }
 //        stopStreaming
