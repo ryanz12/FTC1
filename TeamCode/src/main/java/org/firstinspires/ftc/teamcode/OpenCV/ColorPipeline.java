@@ -38,9 +38,12 @@ public class ColorPipeline extends OpenCvPipeline {
         Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
 
         for(int i =0; i < lowHSV.val.length; i++){
-            if(lowHSV.val[i] > 0){
+            if(lowHSV.val[i] >= 0){
                 canSee = true;
                 break;
+            }
+            else if(highHSV.val[i] <= 0){
+                canSee = true;
             }
             else{
                 canSee = false;
