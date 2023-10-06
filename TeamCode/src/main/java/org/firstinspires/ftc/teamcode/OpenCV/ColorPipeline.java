@@ -45,6 +45,7 @@ public class ColorPipeline extends OpenCvPipeline {
             else{
                 canSee = false;
             }
+            //
         }
 
         Mat thresh = new Mat();
