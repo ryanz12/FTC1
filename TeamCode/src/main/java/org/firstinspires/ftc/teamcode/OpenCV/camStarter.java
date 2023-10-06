@@ -15,6 +15,7 @@ public class camStarter extends LinearOpMode {
         cv.observeStick();
         waitForStart();
         while (opModeIsActive()) {
+
         }
 //        stopStreaming
         cv.stopCamera();

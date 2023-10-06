@@ -19,7 +19,6 @@ public class colorOpenCV extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
 
     }
-
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
     private LinearOpMode op;
