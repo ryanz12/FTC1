@@ -28,7 +28,7 @@ public class teleop extends LinearOpMode {
         rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
         leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
         rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
-
+/*gggg*/
 
         leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int position = leftFrontMotor.getCurrentPosition();
