@@ -16,7 +16,7 @@ public class ColorPipeline extends OpenCvPipeline {
     ArrayList<double[]> frameList;
     //these are public static to be tuned in dashboard
     public static boolean canSee = false;
-    public static double strictLowS = 140;
+    public static double strictLowS = 150;
     public static double strictHighS = 255;
 
     public ColorPipeline() {
@@ -36,10 +36,6 @@ public class ColorPipeline extends OpenCvPipeline {
         // lenient bounds will filter out near yellow, this should filter out all near yellow things(tune this if needed)
         Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
         Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
-
-        if(isYellowDetected(mat)){
-            canSee = true;
-        }
 
 
         Mat thresh = new Mat();
