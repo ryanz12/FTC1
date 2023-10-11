@@ -101,5 +101,8 @@ public class ColorPipeline extends OpenCvPipeline {
         return input;
     }
 
+    public boolean isYellowDetected(Mat threshold) {
+        return Core.countNonZero(threshold) > 0;
+    }
 
 }
