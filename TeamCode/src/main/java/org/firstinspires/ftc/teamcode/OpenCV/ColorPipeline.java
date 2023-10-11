@@ -37,7 +37,9 @@ public class ColorPipeline extends OpenCvPipeline {
         Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
         Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
 
-
+        if(isYellowDetected(mat) == true){
+            canSee = true;
+        }
         Mat thresh = new Mat();
 
         // Get a black and white image of yellow objects
