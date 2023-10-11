@@ -14,7 +14,7 @@ public class Autonomous extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             try{
-                if(ColorPipeline.canSee == true){
+                if(true){
                     // Autonomous code
                     telemetry.addLine("HAS FOUND THING RUN AUTONOMOUS CODE");
                 }
