@@ -80,7 +80,7 @@ public class ColorPipeline extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-
+//
         //release all the data
         input.release();
         scaledThresh.copyTo(input);
