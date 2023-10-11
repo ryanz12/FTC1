@@ -12,7 +12,7 @@ public class Autonomous extends LinearOpMode {
     private DcMotor rightBackMotor;
 
     int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
-
+/*gg*/
     public void runOpMode() {
         leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
         rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
@@ -53,3 +53,4 @@ public class Autonomous extends LinearOpMode {
     }
 
 }
+/*hello ryan*/
