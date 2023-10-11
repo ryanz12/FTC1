@@ -4,12 +4,18 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+
 @TeleOp
 public class teleop extends LinearOpMode {
     private DcMotor leftFrontMotor;
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
+
+    int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
+
+
 
 
     public double tgtPowerlfw;
@@ -24,6 +30,10 @@ public class teleop extends LinearOpMode {
         rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
 
 
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int position = leftFrontMotor.getCurrentPosition();
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 // Wait for the game to start (driver presses PLAY)
@@ -32,7 +42,11 @@ public class teleop extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-
+            // how many turns do I need to turn 18 inches?
+            double circumference = 3.14*2.938;
+            double rotationsNeeded = 18/circumference;
+            int encoderDrivingTarget = (int)(rotationsNeeded*1200);
+            leftFrontMotor.setTargetPosition(encoderDrivingTarget);
 
             //dpad controls robot movements, joystick strafes robot
 
