@@ -37,7 +37,14 @@ public class ColorPipeline extends OpenCvPipeline {
         Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
         Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
 
-        canSee = true;
+        for(int i = 0; i < lowHSV.val.length; i++){
+            if(lowHSV.val[i] > 0) {
+                canSee = true;
+            }
+            else {
+                canSee = false;
+            }
+        }
 
         Mat thresh = new Mat();
 
@@ -60,6 +67,7 @@ public class ColorPipeline extends OpenCvPipeline {
         //you probably want to tune this
         Scalar strictLowHSV = new Scalar(0, strictLowS, 0); //strict lower bound HSV for yellow
         Scalar strictHighHSV = new Scalar(255, strictHighS, 255); //strict higher bound HSV for yellow
+
         //apply strict HSV filter onto scaledMask to get rid of any yellow other than pole
         Core.inRange(scaledMask, strictLowHSV, strictHighHSV, scaledThresh);
 

@@ -34,7 +34,7 @@ public class Autonomous extends LinearOpMode {
             int encoderDrivingTarget = (int)(rotationsNeeded*1200);
             leftFrontMotor.setTargetPosition(encoderDrivingTarget);
             try{
-                if(true){
+                if(ColorPipeline.canSee == true){
                     // Autonomous code
                     telemetry.addLine("HAS FOUND THING RUN AUTONOMOUS CODE");
                 }
