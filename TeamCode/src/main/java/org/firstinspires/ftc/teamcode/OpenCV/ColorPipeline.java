@@ -101,5 +101,5 @@ public class ColorPipeline extends OpenCvPipeline {
         return input;
     }
 
-//
+
 }
