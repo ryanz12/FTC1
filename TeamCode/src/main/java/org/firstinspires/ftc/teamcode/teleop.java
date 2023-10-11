@@ -24,7 +24,7 @@ public class teleop extends LinearOpMode {
         rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
         leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
         rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
-
+        planeLauncher = hardwareMap.get(Servo.class, "planeServo");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
