@@ -4,6 +4,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 @TeleOp
 public class teleop extends LinearOpMode {
     private DcMotor leftFrontMotor;
@@ -11,7 +13,7 @@ public class teleop extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
-
+    private Servo planeLauncher;
     public double tgtPowerlfw;
     public double tgtPowerrfw;
     public double tgtPowerlbw;
@@ -55,7 +57,11 @@ public class teleop extends LinearOpMode {
             else{
                 resetMotors();
             }
-
+            if(gamepad2.y){
+                planeLauncher.setPosition(1);
+            }else {
+                planeLauncher.setPosition(0);
+            }
 
             leftFrontMotor.setPower(tgtPowerlfw);
             rightFrontMotor.setPower(tgtPowerrfw);
