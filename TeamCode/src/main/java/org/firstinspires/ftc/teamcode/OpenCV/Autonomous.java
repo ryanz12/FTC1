@@ -1,15 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
-import android.graphics.Color;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import  org.firstinspires.ftc.teamcode.OpenCV.colorOpenCV;
-@Autonomous
-public class camStarter extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous
+public class Autonomous extends LinearOpMode {
     @Override
 
     public void runOpMode() {
