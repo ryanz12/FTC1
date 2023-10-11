@@ -37,8 +37,6 @@ public class ColorPipeline extends OpenCvPipeline {
         Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
         Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
 
-        canSee = true;
-
         Mat thresh = new Mat();
 
         // Get a black and white image of yellow objects
@@ -82,7 +80,7 @@ public class ColorPipeline extends OpenCvPipeline {
             frameList.remove(0);
         }
 
-
+//
         //release all the data
         input.release();
         scaledThresh.copyTo(input);
@@ -93,13 +91,11 @@ public class ColorPipeline extends OpenCvPipeline {
         edges.release();
         thresh.release();
         finalMask.release();
-        //change the return to whatever mat you want
-        //for example, if I want to look at the lenient thresh:
-        // return thresh;
-        // note that you must not do thresh.release() if you want to return thresh
-        // you also need to release the input if you return thresh(release as much as possible)
+
         return input;
     }
 
-
+    public boolean isYellowDetected(Mat threshold) {
+        return Core.countNonZero(threshold) > 0;
+    }
 }
