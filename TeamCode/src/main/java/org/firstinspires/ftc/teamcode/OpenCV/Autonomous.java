@@ -9,6 +9,7 @@ public class Autonomous extends LinearOpMode {
 /*gg*/
     public void runOpMode() {
 
+
 //        initialize camera and pipeline
         colorOpenCV cv = new colorOpenCV(this);
 //      call the function to startStreaming
