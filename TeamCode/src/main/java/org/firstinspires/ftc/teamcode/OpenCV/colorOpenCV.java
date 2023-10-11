@@ -43,7 +43,7 @@ public class colorOpenCV extends LinearOpMode{
                 //if you are using dashboard, update dashboard camera view
                 /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*/
                 try{
-                    if(ColorPipeline.canSee == true){
+                    if(true){
                         // Autonomous code
                         telemetry.addLine("HAS FOUND THING RUN AUTONOMOUS CODE");
                     }
