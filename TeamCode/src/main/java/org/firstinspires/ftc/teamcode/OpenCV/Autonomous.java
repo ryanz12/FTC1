@@ -14,15 +14,15 @@ public class Autonomous extends LinearOpMode {
     int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
 /*gg*/
     public void runOpMode() {
-//        leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
-//        rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
-//        leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
-//        rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
-//
-//
-//        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        int position = leftFrontMotor.getCurrentPosition();
-//        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
+        rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
+        leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
+        rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
+
+
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        int position = leftFrontMotor.getCurrentPosition();
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        initialize camera and pipeline
         colorOpenCV cv = new colorOpenCV(this);
 //      call the function to startStreaming
