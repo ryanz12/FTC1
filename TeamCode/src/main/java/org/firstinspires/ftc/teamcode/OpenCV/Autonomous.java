@@ -16,11 +16,15 @@ public void runOpMode() {
     cv.observeStick();
     waitForStart();
     while (opModeIsActive()) {
-        if (colorPipeline.canSee = true){
-            telemetry.addLine("Hello");
-        }
-        else{
-            telemetry.addLine("NOOOOO none detected");
+        try {
+            if (colorPipeline.canSee = true){
+                telemetry.addLine("Hello");
+            }
+            else{
+                telemetry.addLine("NOOOOO none detected");
+            }
+        }catch (Exception e){
+            telemetry.addLine(String.valueOf(e));
         }
     }
 //        stopStreaming
