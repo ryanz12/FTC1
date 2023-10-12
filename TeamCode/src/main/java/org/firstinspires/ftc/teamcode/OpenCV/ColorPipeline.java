@@ -105,8 +105,10 @@ public class ColorPipeline extends OpenCvPipeline {
             double contourArea = Imgproc.contourArea(contour);
 
             if (contourArea >= minContourArea) {
-                // Here, you can process the detected yellow object as needed.
-                // For example, you can draw a bounding box around it or extract its position.
+                canSee = true;
+            }
+            else{
+                canSee = false;
             }
         }
 
