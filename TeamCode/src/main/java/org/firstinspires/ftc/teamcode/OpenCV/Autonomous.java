@@ -7,20 +7,25 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Autonomous extends LinearOpMode {
 
 /*gg*/
-    public void runOpMode() {
-
-//       initialize camera and pipeline
-        colorOpenCV cv = new colorOpenCV(this);
+@Override
+public void runOpMode() {
+//        initialize camera and pipeline
+    colorOpenCV cv = new colorOpenCV(this);
+    ColorPipeline colorPipeline = new ColorPipeline();
 //      call the function to startStreaming
-        cv.observeStick();
-        cv.observeStick();
-        waitForStart();
-        while (opModeIsActive()) {
-
+    cv.observeStick();
+    waitForStart();
+    while (opModeIsActive()) {
+        if (colorPipeline.canSee = true){
+            telemetry.addLine("Hello");
         }
-//        stopStreaming
-        cv.stopCamera();
+        else{
+            telemetry.addLine("NOOOOO none detected");
+        }
     }
+//        stopStreaming
+    cv.stopCamera();
+}
 
 }
 /*hello ryan*/

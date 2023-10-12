@@ -15,7 +15,7 @@ public class ColorPipeline extends OpenCvPipeline {
     //backlog of frames to average out to reduce noise
     ArrayList<double[]> frameList;
     //these are public static to be tuned in dashboard
-    public static boolean canSee = true;
+    public  boolean canSee = true;
     public static double strictLowS = 150;
     public static double strictHighS = 255;
 
@@ -97,6 +97,11 @@ public class ColorPipeline extends OpenCvPipeline {
         // return thresh;
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
+        if(ColorPipeline.strictHighS <= 255 && ColorPipeline.strictLowS >=150){
+            canSee = true;
+        }else{
+            canSee = false;
+        }
         return input;
     }
 
