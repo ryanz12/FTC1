@@ -16,20 +16,7 @@ public class Autonomous extends LinearOpMode {
         cv.observeStick();
         waitForStart();
         while (opModeIsActive()) {
-            try{
-                if(ColorPipeline.canSee == true){
-                    // Autonomous code
-                    telemetry.addLine("HAS FOUND THING RUN AUTONOMOUS CODE");
-                }
-                else{
-                    // Look for object
-                    telemetry.addLine("HAS NOT FOUND THING RUN AUTONOMOUS CODE");
 
-                }
-            }catch (Exception e){
-                telemetry.addLine("CHECK THE WONKY BOOLEAN CODE");
-                telemetry.addLine(e.getMessage());
-            }
         }
 //        stopStreaming
         cv.stopCamera();
