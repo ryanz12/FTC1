@@ -74,6 +74,44 @@ public void runOpMode() {
 
     }
 
+    private void turnClockwise(int whatAngle, double speed) {
+        // whatAngle is in degrees. A negative whatAngle turns counterclockwise.
+        int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
+        // fetch motor positions
+        int lfPos = leftFrontMotor.getCurrentPosition();
+        int rfPos = rightFrontMotor.getCurrentPosition();
+        int lrPos = leftBackMotor.getCurrentPosition();
+        int rrPos = rightBackMotor.getCurrentPosition();
+
+        // calculate new targets
+        lfPos += whatAngle * MOTOR_TICKS_COUNT;
+        rfPos -= whatAngle * MOTOR_TICKS_COUNT;
+        lrPos += whatAngle * MOTOR_TICKS_COUNT;
+        rrPos -= whatAngle * MOTOR_TICKS_COUNT;
+
+        // move robot to new position
+        leftFrontMotor.setTargetPosition(lfPos);
+        rightFrontMotor.setTargetPosition(rfPos);
+        leftBackMotor.setTargetPosition(lrPos);
+        rightBackMotor.setTargetPosition(rrPos);
+        leftFrontMotor.setPower(speed);
+        rightFrontMotor.setPower(speed);
+        leftBackMotor.setPower(speed);
+        rightBackMotor.setPower(speed);
+        while (leftFrontMotor.isBusy() && rightFrontMotor.isBusy() &&
+                leftBackMotor.isBusy() && rightBackMotor.isBusy()) {
+
+            // Display it for the driver.
+            telemetry.addLine("Turn Clockwise");
+
+        }
+
+        leftFrontMotor.setPower(0);
+        rightFrontMotor.setPower(0);
+        leftBackMotor.setPower(0);
+        rightBackMotor.setPower(0);
+
+    }
 }
 
 /*hello ryan*/
