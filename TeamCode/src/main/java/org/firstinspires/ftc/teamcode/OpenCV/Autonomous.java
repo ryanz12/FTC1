@@ -48,7 +48,7 @@ public void runOpMode() {
     while (opModeIsActive()) {
         try {
             if (colorPipeline.canSee = true){
-                telemetry.addLine("Hello");
+                leftBackMotor.setPower(1);
             }
             else{
                 telemetry.addLine("NOOOOO none detected");
