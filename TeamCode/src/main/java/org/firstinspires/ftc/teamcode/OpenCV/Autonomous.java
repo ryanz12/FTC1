@@ -13,6 +13,7 @@ public class Autonomous extends LinearOpMode {
 /*gg*/
 @Override
 public void runOpMode() {
+
     ////Encoder code
     leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
     rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
@@ -27,12 +28,20 @@ public void runOpMode() {
     double circumference = 3.14*2.938;
     double rotationsNeeded = 18/circumference;
     int encoderDrivingTarget = (int)(rotationsNeeded*1200);
-    leftFrontMotor.setTargetPosition(encoderDrivingTarget);
+    /*leftFrontMotor.setTargetPosition(encoderDrivingTarget);*/
+
 
     leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    int position = leftFrontMotor.getCurrentPosition();
+    rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    int position = 0;
     leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     ////Encoder code
+
 
     cv.observeStick();
     waitForStart();
@@ -52,5 +61,19 @@ public void runOpMode() {
     cv.stopCamera();
 }
 
+    public void forward(int inchesForward) {
+        double circumference = 3.14*2.938;
+
+
+        double rotationsNeeded = inchesForward/circumference;
+        int encoderDrivingTarget = (int)(rotationsNeeded*1200);
+        leftFrontMotor.setTargetPosition(encoderDrivingTarget);
+        rightFrontMotor.setTargetPosition(encoderDrivingTarget);
+        leftBackMotor.setTargetPosition(encoderDrivingTarget);
+        rightBackMotor.setTargetPosition(encoderDrivingTarget);
+
+    }
+
 }
+
 /*hello ryan*/
