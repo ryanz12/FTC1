@@ -97,20 +97,7 @@ public class ColorPipeline extends OpenCvPipeline {
         // return thresh;
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
-        double minContourArea = 100;
-        Mat binary = new Mat();
-        Core.inRange(scaledThresh, lowHSV, highHSV, binary);
 
-        for (MatOfPoint contour : contours) {
-            double contourArea = Imgproc.contourArea(contour);
-
-            if (contourArea >= minContourArea) {
-                canSee = true;
-            }
-            else{
-                canSee = false;
-            }
-        }
 
         return input;
     }
