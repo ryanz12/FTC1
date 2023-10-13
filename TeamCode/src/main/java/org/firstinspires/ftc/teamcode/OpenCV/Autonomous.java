@@ -22,7 +22,6 @@ public void runOpMode() {
 
 //        initialize camera and pipeline
     colorOpenCV cv = new colorOpenCV(this);
-    ColorPipeline colorPipeline = new ColorPipeline();
 //      call the function to startStreaming
     int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
     double circumference = 3.14*2.938;
@@ -47,7 +46,7 @@ public void runOpMode() {
     waitForStart();
     while (opModeIsActive()) {
         try {
-            if (colorPipeline.canSee = true){
+            if (cv.canSee = true){
                 leftBackMotor.setPower(1);
             }
             else{

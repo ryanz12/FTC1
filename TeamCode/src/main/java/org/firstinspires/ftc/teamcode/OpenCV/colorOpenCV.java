@@ -23,6 +23,8 @@ public class colorOpenCV extends LinearOpMode{
     }
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
+    public  boolean canSee = false;
+
     private LinearOpMode op;
     public colorOpenCV(LinearOpMode p_op){
         //you can input  a hardwareMap instead of linearOpMode if you want
@@ -60,6 +62,9 @@ public class colorOpenCV extends LinearOpMode{
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 //if you are using dashboard, update dashboard camera view
                 /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*/
+                if(ColorPipeline.strictHighS <= 255 && ColorPipeline.strictLowS >= 150){
+                    canSee = true;
+                }
             }
 
             @Override
