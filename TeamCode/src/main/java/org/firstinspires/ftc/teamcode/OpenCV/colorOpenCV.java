@@ -61,10 +61,10 @@ public class colorOpenCV extends LinearOpMode{
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 //if you are using dashboard, update dashboard camera view
-                /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*/
-                if(ColorPipeline.strictHighS <= 255 && ColorPipeline.strictLowS >= 150){
-                    canSee = true;
-                }
+                /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*
+
+                */
+
             }
 
             @Override

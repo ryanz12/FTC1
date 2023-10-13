@@ -46,9 +46,6 @@ android {
             storePassword 'android'
         }
     }
-    repositories {
-        mavenCentral()
-    }
 
 
     aaptOptions {
