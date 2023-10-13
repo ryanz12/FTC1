@@ -38,8 +38,8 @@ public class colorOpenCV extends LinearOpMode{
     public void observeStick(){
         //create the pipeline
         opencv = new ColorPipeline();
+        //EASY PIPELINE
         UGBasicHighGoalPipeline pipeline = new UGBasicHighGoalPipeline();
-        webcam.setPipeline(pipeline);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -62,6 +62,7 @@ public class colorOpenCV extends LinearOpMode{
                  * away from the user.
                  */
                 webcam.setPipeline(pipeline);
+
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 //if you are using dashboard, update dashboard camera view
