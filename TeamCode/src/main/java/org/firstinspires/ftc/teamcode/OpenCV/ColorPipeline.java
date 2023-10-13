@@ -33,10 +33,10 @@ public class ColorPipeline extends OpenCvPipeline {
         }
 
         // lenient bounds will filter out near yellow, this should filter out all near yellow things(tune this if needed)
-//        Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
-//        Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
-          Scalar lowHSV =  new Scalar(0, 57, 49);//RED
-          Scalar highHSV = new Scalar(10, 100, 50);//RED
+        Scalar lowHSV = new Scalar(20, 70, 80); // lenient lower bound HSV for yellow
+        Scalar highHSV = new Scalar(32, 255, 255); // lenient higher bound HSV for yellow
+//          Scalar lowHSV =  new Scalar(0, 57, 49);//RED
+//          Scalar highHSV = new Scalar(10, 100, 50);//RED
 
 
         Mat thresh = new Mat();
