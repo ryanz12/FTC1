@@ -69,10 +69,12 @@ public class colorOpenCV extends LinearOpMode{
                 if(pipeline.isRedVisible()){
                     Rect redRect = pipeline.getRedRect();
                     Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
-
                     telemetry.addData("Red goal position",
                             centerOfRedGoal.toString());
-                    canSee =true;
+
+                    if(redRect.area() >= 60){
+                        canSee =true;
+                    }
                 }
                 else{
                     canSee = false;
