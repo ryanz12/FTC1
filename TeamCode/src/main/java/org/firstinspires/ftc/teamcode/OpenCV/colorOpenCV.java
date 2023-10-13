@@ -66,6 +66,7 @@ public class colorOpenCV extends LinearOpMode{
                 /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*
 
                 */
+
                 if(pipeline.isRedVisible()){
                     Rect redRect = pipeline.getRedRect();
                     Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
