@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvPipeline;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class ColorPipeline extends OpenCvPipeline {
     public static double strictLowS = 150;
     public static double strictHighS = 255;
 
+    public boolean canSee= false;
     public ColorPipeline() {
         frameList = new ArrayList<>();
     }
@@ -100,8 +103,12 @@ public class ColorPipeline extends OpenCvPipeline {
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
 
-
+        if(hierarchy.empty() == false){
+            canSee = true;
+        }
+        else {
+            canSee = false;
+        }
         return input;
     }
-
 }

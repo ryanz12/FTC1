@@ -46,7 +46,7 @@ public void runOpMode() {
     waitForStart();
     while (opModeIsActive()) {
         try {
-            if (cv.canSee = true){
+            if (cv.canSEEN = true){
                 leftBackMotor.setPower(1);
             }
             else{

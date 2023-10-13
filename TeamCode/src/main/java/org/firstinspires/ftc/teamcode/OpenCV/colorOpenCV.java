@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -23,8 +24,8 @@ public class colorOpenCV extends LinearOpMode{
     }
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
-    public  boolean canSee = false;
 
+    public boolean canSEEN = false;
     private LinearOpMode op;
     public colorOpenCV(LinearOpMode p_op){
         //you can input  a hardwareMap instead of linearOpMode if you want
@@ -35,6 +36,7 @@ public class colorOpenCV extends LinearOpMode{
     public void observeStick(){
         //create the pipeline
         opencv = new ColorPipeline();
+        canSEEN = opencv.canSee;
         //EASY PIPELINE
         UGBasicHighGoalPipeline pipeline = new UGBasicHighGoalPipeline();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -58,7 +60,7 @@ public class colorOpenCV extends LinearOpMode{
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.setPipeline(pipeline);
+                webcam.setPipeline(opencv);
 //                webcam.setPipeline(opencv);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
@@ -67,19 +69,21 @@ public class colorOpenCV extends LinearOpMode{
 
                 */
 
-                if(pipeline.isRedVisible()){
-                    Rect redRect = pipeline.getRedRect();
-                    Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
-                    telemetry.addData("Red goal position",
-                            centerOfRedGoal.toString());
 
-                    if(redRect.area() >= 60){
-                        canSee =true;
-                    }
-                }
-                else{
-                    canSee = false;
-                }
+
+//                if(pipeline.isRedVisible()){
+//                    Rect redRect = pipeline.getRedRect();
+//                    Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
+//                    telemetry.addData("Red goal position",
+//                            centerOfRedGoal.toString());
+//
+//                    if(redRect.area() >= 60){
+//                        canSee =true;
+//                    }
+//                }
+//                else{
+//                    canSee = false;
+//                }
 
             }
 
