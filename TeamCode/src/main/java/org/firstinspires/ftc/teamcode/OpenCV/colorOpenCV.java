@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 
 import android.graphics.Color;
 
+import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -35,7 +36,6 @@ public class colorOpenCV extends LinearOpMode{
     public void observeStick(){
         //create the pipeline
         opencv = new ColorPipeline();
-
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
