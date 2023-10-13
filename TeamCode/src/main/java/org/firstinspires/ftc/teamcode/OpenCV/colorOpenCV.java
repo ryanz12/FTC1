@@ -11,6 +11,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -66,6 +68,17 @@ public class colorOpenCV extends LinearOpMode{
                 /*FtcDashboard.getInstance().startCameraStream(webcam, 5);*
 
                 */
+                if(pipeline.isRedVisible()){
+                    Rect redRect = pipeline.getRedRect();
+                    Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
+
+                    telemetry.addData("Red goal position",
+                            centerOfRedGoal.toString());
+                    canSee =true;
+                }
+                else{
+                    canSee = false;
+                }
 
             }
 
