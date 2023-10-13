@@ -59,7 +59,7 @@ public class colorOpenCV extends LinearOpMode{
                  * away from the user.
                  */
                 webcam.setPipeline(pipeline);
-
+//                webcam.setPipeline(opencv);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 //if you are using dashboard, update dashboard camera view
