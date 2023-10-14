@@ -18,6 +18,7 @@ public class new_teleop extends LinearOpMode {
                 new Motor(hardwareMap, "RightBackMotor", Motor.GoBILDA.RPM_435)
         );
 
+        //move robot when dpad forward
         GamepadEx gamepad = new GamepadEx(gamepad1);
 
         if(gamepad.getButton(GamepadKeys.Button.DPAD_UP)){
