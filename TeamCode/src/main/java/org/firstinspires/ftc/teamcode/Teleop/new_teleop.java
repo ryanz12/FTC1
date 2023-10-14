@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -19,7 +20,10 @@ public class new_teleop extends LinearOpMode {
 
         GamepadEx gamepad = new GamepadEx(gamepad1);
 
-        drive.driveRobotCentric(0, 1, 0);
-
+        if(gamepad.getButton(GamepadKeys.Button.DPAD_UP)){
+            drive.driveRobotCentric(0, 1, 0);
+        }else{
+            drive.driveRobotCentric(0, 0, 0);
+        }
     }
 }
