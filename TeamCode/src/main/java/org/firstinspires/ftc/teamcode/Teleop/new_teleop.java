@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp
 public class new_teleop extends LinearOpMode {
 
-    boolean isMoving;
+    boolean isMoving=false;
 
     MecanumDrive drive = new MecanumDrive(
             new Motor(hardwareMap, "LeftFrontMotor", Motor.GoBILDA.RPM_312),
