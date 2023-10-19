@@ -21,10 +21,10 @@ public class Autonomous extends LinearOpMode {
 public void runOpMode() {
 
     ////Encoder code
-    leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
-    rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
-    leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
-    rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
+    leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
+    rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
+    leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+    rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
 
 //        initialize camera and pipeline
     colorOpenCV cv = new colorOpenCV(this);
@@ -54,10 +54,10 @@ public void runOpMode() {
         try {
 
             while(true){
-                if(cv.canSEEN == true){
+                if(cv.canSEEN){
                     leftBackMotor.setPower(1);
                 }
-                else if(cv.canSEEN ==false){
+                else{
                     leftBackMotor.setPower(0);
                 }
             }

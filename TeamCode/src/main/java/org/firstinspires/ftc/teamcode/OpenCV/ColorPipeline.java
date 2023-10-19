@@ -103,16 +103,17 @@ public class ColorPipeline extends OpenCvPipeline {
         // return thresh;
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
-        while (true){
-            Scalar AVG = Core.mean(hierarchy);
-            if(AVG.val[1] >= 150){
-                canSee = true;
-                return input;
-            }
-            else if(AVG.val[0] < 150) {
-                canSee = false;
-            }
+
+        Scalar AVG = Core.mean(hierarchy);
+        if(AVG.val[1] >= 150){
+            canSee = true;
+            return input;
         }
+        else if(AVG.val[0] < 150) {
+            canSee = false;
+        }
+
+        return input;
 
     }
 }

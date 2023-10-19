@@ -14,10 +14,12 @@ public class new_teleop extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
+        leftBack.setInverted(true);
         MecanumDrive drive = new MecanumDrive(
                 new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312),
                 new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312),
-                new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312),
+                leftBack,
                 new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312)
         );
 
@@ -27,15 +29,12 @@ public class new_teleop extends LinearOpMode {
 
         while (!isStopRequested()) {
 
-            if (!FIELD_CENTRIC) {
-
                 drive.driveRobotCentric(
                         driverOp.getLeftX(),
                         driverOp.getLeftY(),
-                        driverOp.getRightX(),
-                        false
+                        driverOp.getRightX()
                 );
-            }
+
         }
     }
 
