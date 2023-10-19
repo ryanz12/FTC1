@@ -10,8 +10,8 @@ public class teleop extends LinearOpMode {
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
-    private DcMotor armMotorLeft;
-    private DcMotor armMotorRight;
+//    private DcMotor armMotorLeft;
+//    private DcMotor armMotorRight;
 
 
     public double tgtPowerlfw;
@@ -26,8 +26,8 @@ public class teleop extends LinearOpMode {
         rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
         leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
         rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
-        armMotorLeft = hardwareMap.get(DcMotor.class, "armMotorLeft");
-        armMotorRight = hardwareMap.get(DcMotor.class, "armMotorRight");
+//        armMotorLeft = hardwareMap.get(DcMotor.class, "armMotorLeft");
+//        armMotorRight = hardwareMap.get(DcMotor.class, "armMotorRight");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -49,10 +49,13 @@ public class teleop extends LinearOpMode {
             else if(gamepad2.dpad_right){
                 moveMotors("strafeRight");
             }
-            else if(gamepad2.left_stick_x < 0){
-                moveMotors("turnLeft");
+            else if(gamepad2.dpad_left){
+                moveMotors("strafeRight");
             }
             else if(gamepad2.left_stick_x > 0){
+                moveMotors("turnLeft");
+            }
+            else if(gamepad2.left_stick_x < 0){
                 moveMotors("turnRight");
             }
             else if(gamepad2.left_bumper){
@@ -70,8 +73,8 @@ public class teleop extends LinearOpMode {
             rightFrontMotor.setPower(tgtPowerrfw);
             leftBackMotor.setPower(tgtPowerlbw);
             rightBackMotor.setPower(tgtPowerrbw);
-            armMotorLeft.setPower(armTgtPower);
-            armMotorRight.setPower(armTgtPower);
+//            armMotorLeft.setPower(armTgtPower);
+//            armMotorRight.setPower(armTgtPower);
 
             telemetry.addData("Status", "Running");
             telemetry.addData("Status", "compliing?");
@@ -82,36 +85,42 @@ public class teleop extends LinearOpMode {
 
     public void moveMotors(String str){
         if(str == "forward"){
+            telemetry.addData("Direction", "Forward");
             tgtPowerlfw = 1;
-            tgtPowerrfw = 1;
-            tgtPowerlbw = 1;
+            tgtPowerrfw = -1;
+            tgtPowerlbw = -1;
             tgtPowerrbw = 1;
         }
         else if(str == "backward"){
+            telemetry.addData("Direction", "Backward");
             tgtPowerlfw = -1;
-            tgtPowerrfw = -1;
-            tgtPowerlbw = -1;
-            tgtPowerrbw = -1;
-        }
-        else if(str == "strafeRight"){
-            tgtPowerlfw = 1;
-            tgtPowerrfw = -1;
+            tgtPowerrfw = 1;
             tgtPowerlbw = 1;
             tgtPowerrbw = -1;
         }
-        else if(str == "strafeLeft"){
+        else if(str == "strafeRight"){
+            telemetry.addData("Direction", "StrafeRight");
             tgtPowerlfw = -1;
             tgtPowerrfw = 1;
             tgtPowerlbw = -1;
             tgtPowerrbw = 1;
         }
+        else if(str == "strafeLeft"){
+            telemetry.addData("Direction", "StrafeLeft");
+            tgtPowerlfw = 1;
+            tgtPowerrfw = -1;
+            tgtPowerlbw = 1;
+            tgtPowerrbw = -1;
+        }
         else if(str == "turnLeft"){
+            telemetry.addData("Direction", "Turn Left");
             tgtPowerlfw = 1;
             tgtPowerlbw = 1;
             tgtPowerrfw = -1;
             tgtPowerrbw = -1;
         }
         else if(str == "turnRight"){
+            telemetry.addData("Direction", "Turn Right");
             tgtPowerlfw = -1;
             tgtPowerlbw = -1;
             tgtPowerrfw = 1;
@@ -124,7 +133,6 @@ public class teleop extends LinearOpMode {
             armTgtPower = 1;
         }
     }
-
 
     public void resetMotors(){
         tgtPowerlfw = 0;
