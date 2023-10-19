@@ -10,44 +10,37 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp
 public class new_teleop extends LinearOpMode {
 
-    boolean isMoving=false;
-
-    MecanumDrive drive = new MecanumDrive(
-            new Motor(hardwareMap, "LeftFrontMotor", Motor.GoBILDA.RPM_312),
-            new Motor(hardwareMap, "RightFrontMotor", Motor.GoBILDA.RPM_312),
-            new Motor(hardwareMap, "LeftBackMotor", Motor.GoBILDA.RPM_312),
-            new Motor(hardwareMap, "RightBackMotor", Motor.GoBILDA.RPM_312)
-    );
-
-    //move robot when dpad forward
-    GamepadEx gamepad = new GamepadEx(gamepad1);
-
     @Override
     public void runOpMode(){
 
-        while(opModeIsActive()){
-            if(gamepad.getButton(GamepadKeys.Button.DPAD_UP)){
-                drive.driveRobotCentric(0, 1, 0);
-                isMoving = true;
-            }
-            else if(gamepad.getButton(GamepadKeys.Button.DPAD_DOWN)){
-                drive.driveRobotCentric(0, -1, 0);
-                isMoving = true;
-            }
-            else if(gamepad.getButton(GamepadKeys.Button.DPAD_LEFT)){
-                drive.driveRobotCentric(1, 0, 0);
-                isMoving = true;
-            }
-            else if(gamepad.getButton(GamepadKeys.Button.DPAD_RIGHT)){
-                drive.driveRobotCentric(-1, 0, 0);
-                isMoving = true;
-            }
-            else{
-                drive.driveRobotCentric(0, 0, 0);
-                isMoving = false;
-            }
+        Motor leftFront = new Motor(hardwareMap, "leftFront");
+        Motor rightFront = new Motor(hardwareMap, "rightFront");
+        Motor leftBack = new Motor(hardwareMap, "leftBack");
+        Motor rightBack = new Motor(hardwareMap, "rightBack");
 
-            telemetry.addData("Robot", isMoving);
+        leftBack.setInverted(true);
+
+        MecanumDrive drive = new MecanumDrive(
+                leftFront, rightFront, leftBack, rightBack
+        );
+
+        //move robot when dpad forward
+        GamepadEx gamepad = new GamepadEx(gamepad1);
+
+        waitForStart();
+
+        while(opModeIsActive()){
+            drive.driveRobotCentric(
+                    gamepad.getLeftX(),
+                    gamepad.getLeftY(),
+                    gamepad.getRightY()
+            );
+
+            telemetry.addData("Robot", "rujnning");
+            telemetry.addData("leftx", gamepad.getLeftX());
+            telemetry.addData("lefty", gamepad.getLeftY());
+            telemetry.addData("righy", gamepad.getRightY());
+
             telemetry.update();
         }
     }
