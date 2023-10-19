@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import org.opencv.core.Rect;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -102,7 +103,16 @@ public class ColorPipeline extends OpenCvPipeline {
         // return thresh;
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
+        while (true){
+            Scalar AVG = Core.mean(hierarchy);
+            if(AVG.val[1] >= 150){
+                canSee = true;
+                return input;
+            }
+            else if(AVG.val[0] < 150) {
+                canSee = false;
+            }
+        }
 
-        return input;
     }
 }

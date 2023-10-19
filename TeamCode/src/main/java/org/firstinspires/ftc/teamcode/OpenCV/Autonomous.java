@@ -6,6 +6,8 @@ import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.openftc.easyopencv.OpenCvPipeline;
+
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Autonomous extends LinearOpMode {
     private DcMotor leftFrontMotor;
@@ -50,13 +52,15 @@ public void runOpMode() {
     waitForStart();
     while (opModeIsActive()) {
         try {
-            if (cv.canSEEN = true) {
 
+            while(true){
+                if(cv.canSEEN == true){
+                    leftBackMotor.setPower(1);
+                }
+                else if(cv.canSEEN ==false){
+                    leftBackMotor.setPower(0);
+                }
             }
-            else{
-                telemetry.addLine("NOOOOO none detected");
-            }
-
 
         }catch (Exception e){
             telemetry.addLine(String.valueOf(e));
@@ -120,3 +124,4 @@ public void runOpMode() {
 }
 
 /*hello ryan*/
+
