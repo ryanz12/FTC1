@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,38 +10,33 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp
 public class new_teleop extends LinearOpMode {
 
+    static final boolean FIELD_CENTRIC = false;
+
     @Override
-    public void runOpMode(){
-
-        Motor leftFront = new Motor(hardwareMap, "leftFront");
-        Motor rightFront = new Motor(hardwareMap, "rightFront");
-        Motor leftBack = new Motor(hardwareMap, "leftBack");
-        Motor rightBack = new Motor(hardwareMap, "rightBack");
-
-        leftBack.setInverted(true);
-
+    public void runOpMode() throws InterruptedException {
         MecanumDrive drive = new MecanumDrive(
-                leftFront, rightFront, leftBack, rightBack
+                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312),
+                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312),
+                new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312),
+                new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312)
         );
 
-        //move robot when dpad forward
-        GamepadEx gamepad = new GamepadEx(gamepad1);
+        GamepadEx driverOp = new GamepadEx(gamepad1);
 
         waitForStart();
 
-        while(opModeIsActive()){
-            drive.driveRobotCentric(
-                    gamepad.getLeftX(),
-                    gamepad.getLeftY(),
-                    gamepad.getRightY()
-            );
+        while (!isStopRequested()) {
 
-            telemetry.addData("Robot", "rujnning");
-            telemetry.addData("leftx", gamepad.getLeftX());
-            telemetry.addData("lefty", gamepad.getLeftY());
-            telemetry.addData("righy", gamepad.getRightY());
+            if (!FIELD_CENTRIC) {
 
-            telemetry.update();
+                drive.driveRobotCentric(
+                        driverOp.getLeftX(),
+                        driverOp.getLeftY(),
+                        driverOp.getRightX(),
+                        false
+                );
+            }
         }
     }
+
 }
