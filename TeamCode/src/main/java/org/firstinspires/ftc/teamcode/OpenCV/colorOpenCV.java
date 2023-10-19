@@ -38,7 +38,6 @@ public class colorOpenCV extends LinearOpMode{
         opencv = new ColorPipeline();
         canSEEN = opencv.canSee;
         //EASY PIPELINE
-        UGBasicHighGoalPipeline pipeline = new UGBasicHighGoalPipeline();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -71,19 +70,6 @@ public class colorOpenCV extends LinearOpMode{
 
 
 
-//                if(pipeline.isRedVisible()){
-//                    Rect redRect = pipeline.getRedRect();
-//                    Point centerOfRedGoal = pipeline.getCenterofRect(redRect);
-//                    telemetry.addData("Red goal position",
-//                            centerOfRedGoal.toString());
-//
-//                    if(redRect.area() >= 60){
-//                        canSee =true;
-//                    }
-//                }
-//                else{
-//                    canSee = false;
-//                }
 
             }
 
