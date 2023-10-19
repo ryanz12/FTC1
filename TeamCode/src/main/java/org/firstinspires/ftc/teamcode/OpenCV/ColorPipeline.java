@@ -103,12 +103,6 @@ public class ColorPipeline extends OpenCvPipeline {
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
 
-        if(!hierarchy.empty() && hierarchy.size().area() >= 150){
-            canSee = true;
-        }
-        else {
-            canSee = false;
-        }
         return input;
     }
 }

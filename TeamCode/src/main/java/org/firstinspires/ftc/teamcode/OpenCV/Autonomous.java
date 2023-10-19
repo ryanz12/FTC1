@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import android.graphics.Rect;
+
+import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,6 +12,7 @@ public class Autonomous extends LinearOpMode {
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
+    UGBasicHighGoalPipeline pipeline = new UGBasicHighGoalPipeline();
 
 /*gg*/
 @Override
@@ -46,12 +50,14 @@ public void runOpMode() {
     waitForStart();
     while (opModeIsActive()) {
         try {
-            if (cv.canSEEN = true){
-                leftBackMotor.setPower(1);
+            if (cv.canSEEN = true) {
+
             }
             else{
                 telemetry.addLine("NOOOOO none detected");
             }
+
+
         }catch (Exception e){
             telemetry.addLine(String.valueOf(e));
         }

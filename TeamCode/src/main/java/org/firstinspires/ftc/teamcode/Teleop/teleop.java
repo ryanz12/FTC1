@@ -49,6 +49,9 @@ public class teleop extends LinearOpMode {
             else if(gamepad2.dpad_right){
                 moveMotors("strafeRight");
             }
+            else if(gamepad2.dpad_left){
+                moveMotors("strafeLeft");
+            }
             else if(gamepad2.left_stick_x < 0){
                 moveMotors("turnLeft");
             }
