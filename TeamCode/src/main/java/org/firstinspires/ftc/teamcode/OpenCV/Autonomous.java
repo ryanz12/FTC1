@@ -4,6 +4,7 @@ import android.graphics.Rect;
 
 import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.openftc.easyopencv.OpenCvPipeline;
@@ -64,6 +65,7 @@ public void runOpMode() {
 
         }catch (Exception e){
             telemetry.addLine(String.valueOf(e));
+
         }
     }
 //        stopStreaming
@@ -119,7 +121,6 @@ public void runOpMode() {
         rightFrontMotor.setPower(0);
         leftBackMotor.setPower(0);
         rightBackMotor.setPower(0);
-
     }
 }
 
