@@ -28,8 +28,6 @@ public class colorOpenCV extends LinearOpMode{
 
     private directionColorPipeline direction = null;
     public boolean canSEEN = false;
-    public double right  = direction.rightAvgFin;
-    public double left = direction.leftAvgFin;
 
     private LinearOpMode op;
     public colorOpenCV(LinearOpMode p_op){
@@ -50,6 +48,7 @@ public class colorOpenCV extends LinearOpMode{
             public void onOpened()
             {
                 /*
+
                  * Tell the webcam to start streaming images to us! Note that you must make sure
                  * the resolution you specify is supported by the camera. If it is not, an exception
                  * will be thrown.

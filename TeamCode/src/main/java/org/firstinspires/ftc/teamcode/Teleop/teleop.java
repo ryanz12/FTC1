@@ -22,12 +22,12 @@ public class teleop extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        leftFrontMotor = hardwareMap.get(DcMotor.class, "LeftFrontMotor");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "RightFrontMotor");
-        leftBackMotor = hardwareMap.get(DcMotor.class, "LeftBackMotor");
-        rightBackMotor = hardwareMap.get(DcMotor.class, "RightBackMotor");
-        armMotorLeft = hardwareMap.get(DcMotor.class, "armMotorLeft");
-        armMotorRight = hardwareMap.get(DcMotor.class, "armMotorRight");
+        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
+        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+        rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
+//        armMotorLeft = hardwareMap.get(DcMotor.class, "armMotor");
+//        armMotorRight = hardwareMap.get(DcMotor.class, "armMotor");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

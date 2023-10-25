@@ -1,19 +1,27 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 public class directionColorPipeline extends OpenCvPipeline {
 
     Mat YCbC = new Mat();
     Mat lCrop;
     Mat rCrop;
-    double leftAvgFin;
-    double rightAvgFin;
+    double leftAvgFin = 1;
+    double rightAvgFin = 1;
+    public boolean canSeeLeft;
+    public boolean canSeeRight;
+    public boolean canTSee;
+
     Mat output = new Mat();
     Scalar rectColor = new Scalar(255,0,0);
     @Override
@@ -36,8 +44,21 @@ public class directionColorPipeline extends OpenCvPipeline {
         leftAvgFin = leftAvg.val[0];
         rightAvgFin = rightAvg.val[0];
 
+        if(leftAvgFin > rightAvgFin){
+
+        }
+        else if(leftAvgFin < rightAvgFin){
+
+        }
+        else{
+            canTSee = true;
+        }
+
 
         return(output);
 
     }
+
 }
+
+

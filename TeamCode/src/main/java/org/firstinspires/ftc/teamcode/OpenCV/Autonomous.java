@@ -5,12 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Autonomous extends LinearOpMode {
@@ -18,11 +20,11 @@ public class Autonomous extends LinearOpMode {
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
-    UGBasicHighGoalPipeline pipeline = new UGBasicHighGoalPipeline();
 
 /*gg*/
 @Override
 public void runOpMode() {
+
 
     ////Encoder code
     leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
@@ -58,13 +60,7 @@ public void runOpMode() {
         try {
 
             while(true){
-                //
-                if(cv.left > cv.right){
-                    leftBackMotor.setPower(1);
-                }
-                else{
-                    leftBackMotor.setPower(0);
-                }
+
             }
 
         }catch (Exception e){
@@ -125,9 +121,10 @@ public void runOpMode() {
         rightFrontMotor.setPower(0);
         leftBackMotor.setPower(0);
         rightBackMotor.setPower(0);
-    }
-}
 
+    }
+
+}
 /*hello ryan*/
 
 
