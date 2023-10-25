@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Core;
@@ -15,14 +17,26 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Autonomous
 public class directionAutonomousTest extends OpMode {
     OpenCvWebcam webcam = null;
+
+    private DcMotor leftFrontMotor;
+    private DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor;
+    private DcMotor rightBackMotor;
+
     @Override
     public void init() {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         webcam.setPipeline(new directioColorPipeline());
+
+        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
+        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+        rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -77,9 +91,11 @@ public class directionAutonomousTest extends OpMode {
             if(leftAvgFin > rightAvgFin){
                 telemetry.addLine("Yay left");
 
+
             }
             else if(leftAvgFin < rightAvgFin){
                 telemetry.addLine("Yay right");
+                leftFrontMotor.setPower(1);
             }
             else{
                 canTSee = true;

@@ -39,97 +39,18 @@ public class teleop extends LinearOpMode {
         while (opModeIsActive()) {
 
             //dpad controls robot movements, joystick strafes robot, l1 arm down r1 arm up
+            if(gamepad1.right_bumper){
+                leftFrontMotor.setPower(-1);
+                rightFrontMotor.setPower(1);
+            }
 
-            if(gamepad2.dpad_up) {
-                moveMotors("forward");
-            }
-            else if(gamepad2.dpad_down){
-                moveMotors("backward");
-            }
-            else if(gamepad2.dpad_right){
-                moveMotors("strafeRight");
-            }
-            else if(gamepad2.left_stick_x < 0){
-                moveMotors("turnLeft");
-            }
-            else if(gamepad2.left_stick_x > 0){
-                moveMotors("turnRight");
-            }
-            else if(gamepad2.left_bumper){
-                moveMotors("armDown");
-            }
-            else if (gamepad2.right_bumper){
-                moveMotors("armUp");
-            }
             else{
-                resetMotors();
+                leftFrontMotor.setPower(0);
+                rightFrontMotor.setPower(0);
             }
-
-
-            leftFrontMotor.setPower(tgtPowerlfw);
-            rightFrontMotor.setPower(tgtPowerrfw);
-            leftBackMotor.setPower(tgtPowerlbw);
-            rightBackMotor.setPower(tgtPowerrbw);
-            armMotorLeft.setPower(armTgtPower);
-            armMotorRight.setPower(armTgtPower);
-
             telemetry.addData("Status", "Running");
             telemetry.addData("Status", "compliing?");
             telemetry.update();
         }
-    }
-
-
-    public void moveMotors(String str){
-        if(str == "forward"){
-            tgtPowerlfw = 1;
-            tgtPowerrfw = 1;
-            tgtPowerlbw = 1;
-            tgtPowerrbw = 1;
-        }
-        else if(str == "backward"){
-            tgtPowerlfw = -1;
-            tgtPowerrfw = -1;
-            tgtPowerlbw = -1;
-            tgtPowerrbw = -1;
-        }
-        else if(str == "strafeRight"){
-            tgtPowerlfw = 1;
-            tgtPowerrfw = -1;
-            tgtPowerlbw = 1;
-            tgtPowerrbw = -1;
-        }
-        else if(str == "strafeLeft"){
-            tgtPowerlfw = -1;
-            tgtPowerrfw = 1;
-            tgtPowerlbw = -1;
-            tgtPowerrbw = 1;
-        }
-        else if(str == "turnLeft"){
-            tgtPowerlfw = 1;
-            tgtPowerlbw = 1;
-            tgtPowerrfw = -1;
-            tgtPowerrbw = -1;
-        }
-        else if(str == "turnRight"){
-            tgtPowerlfw = -1;
-            tgtPowerlbw = -1;
-            tgtPowerrfw = 1;
-            tgtPowerrbw = 1;
-        }
-        else if(str == "armDown"){
-            armTgtPower = -1;
-        }
-        else if(str == "armUp"){
-            armTgtPower = 1;
-        }
-    }
-
-
-    public void resetMotors(){
-        tgtPowerlfw = 0;
-        tgtPowerrfw = 0;
-        tgtPowerlbw = 0;
-        tgtPowerrbw = 0;
     }
 }
