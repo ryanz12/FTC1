@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -25,7 +26,11 @@ public class colorOpenCV extends LinearOpMode{
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
 
+    private directionColorPipeline direction = null;
     public boolean canSEEN = false;
+    public double right  = direction.rightAvgFin;
+    public double left = direction.leftAvgFin;
+
     private LinearOpMode op;
     public colorOpenCV(LinearOpMode p_op){
         //you can input  a hardwareMap instead of linearOpMode if you want
@@ -36,6 +41,7 @@ public class colorOpenCV extends LinearOpMode{
     public void observeStick(){
         //create the pipeline
         opencv = new ColorPipeline();
+        direction = new directionColorPipeline();
         canSEEN = opencv.canSee;
         //EASY PIPELINE
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -59,7 +65,7 @@ public class colorOpenCV extends LinearOpMode{
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.setPipeline(opencv);
+                webcam.setPipeline(direction);
 //                webcam.setPipeline(opencv);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);

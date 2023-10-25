@@ -58,7 +58,7 @@ public void runOpMode() {
         try {
 
             while(true){
-                if(cv.canSEEN){
+                if(cv.left > cv.right){
                     leftBackMotor.setPower(1);
                 }
                 else{
