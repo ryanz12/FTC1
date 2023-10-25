@@ -26,7 +26,6 @@ public class colorOpenCV extends LinearOpMode{
     private OpenCvWebcam webcam;
     private ColorPipeline opencv = null;
 
-    private directionColorPipeline direction = null;
     public boolean canSEEN = false;
 
     private LinearOpMode op;
@@ -39,7 +38,6 @@ public class colorOpenCV extends LinearOpMode{
     public void observeStick(){
         //create the pipeline
         opencv = new ColorPipeline();
-        direction = new directionColorPipeline();
         canSEEN = opencv.canSee;
         //EASY PIPELINE
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -64,7 +62,7 @@ public class colorOpenCV extends LinearOpMode{
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.setPipeline(direction);
+                webcam.setPipeline(opencv);
 //                webcam.setPipeline(opencv);
                 //start streaming the camera
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);

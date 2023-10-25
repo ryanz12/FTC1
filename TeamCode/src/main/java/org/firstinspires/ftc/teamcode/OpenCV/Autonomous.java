@@ -57,16 +57,7 @@ public void runOpMode() {
     cv.observeStick();
     waitForStart();
     while (opModeIsActive()) {
-        try {
 
-            while(true){
-
-            }
-
-        }catch (Exception e){
-            telemetry.addLine(String.valueOf(e));
-
-        }
     }
 //        stopStreaming
     cv.stopCamera();
