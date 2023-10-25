@@ -31,7 +31,7 @@ public class directionAutonomousTest extends OpMode {
 
             @Override
             public void onError(int errorCode) {
-
+                telemetry.addLine("HSHSHHHDHDHDHDHDHD");
             }
         });
     }
