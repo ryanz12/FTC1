@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
-import android.graphics.Rect;
-
 import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
@@ -24,7 +27,7 @@ public void runOpMode() {
     ////Encoder code
     leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
     rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
-    leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+     leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
     rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
 
 //        initialize camera and pipeline
@@ -125,4 +128,6 @@ public void runOpMode() {
 }
 
 /*hello ryan*/
+
+
 
