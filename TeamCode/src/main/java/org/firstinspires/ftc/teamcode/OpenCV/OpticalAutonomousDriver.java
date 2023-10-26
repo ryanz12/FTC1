@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -17,7 +18,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class OpticalAutonomousDriver extends OpMode {
+public class OpticalAutonomousDriver extends LinearOpMode {
+
     OpenCvWebcam webcam = null;
 
     private DcMotor leftFrontMotor;
@@ -25,12 +27,17 @@ public class OpticalAutonomousDriver extends OpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
+    boolean canSeeRight = false;
+    boolean canSeeLeft = false;
+    boolean cantSee = false;
+
+
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
-        webcam.setPipeline(new directioColorPipeline());
+        webcam.setPipeline(new directionColorPipeline());
 
         leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
         rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
@@ -47,14 +54,11 @@ public class OpticalAutonomousDriver extends OpMode {
                 telemetry.addLine("HSHSHHHDHDHDHDHDHD");
             }
         });
+        while(opModeIsActive()){
+
+        }
     }
-
-
-    @Override
-    public void loop() {
-
-    }
-    class directioColorPipeline extends OpenCvPipeline {
+    class directionColorPipeline extends OpenCvPipeline {
 
         Mat YCbC = new Mat();
         Mat lCrop;
@@ -95,18 +99,14 @@ public class OpticalAutonomousDriver extends OpMode {
             }
             else if(leftAvgFin < rightAvgFin){
                 telemetry.addLine("Yay right");
-                leftFrontMotor.setPower(1);
                 //to move right
             }
             else if(leftAvgFin == rightAvgFin){
-                canTSee = true;
                 telemetry.addLine("Middle");
             }
             else{
                 telemetry.addLine("You done Fucked up");
             }
-
-
             return(output);
 
         }
