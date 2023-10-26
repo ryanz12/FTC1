@@ -103,6 +103,9 @@ public class directionAutonomousTest extends OpMode {
                 canTSee = true;
                 telemetry.addLine("Middle");
             }
+            else{
+                telemetry.addLine("You done Fucked up");
+            }
 
 
             return(output);
