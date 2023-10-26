@@ -91,11 +91,15 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             leftAvgFin = leftAvg.val[0];
             rightAvgFin = rightAvg.val[0];
 
+            //Idea
+            /*
+            SO basically first we turn the robot to see color. Once identified turn fully that
+             way. Place pixel. Turn to center the robot. Move the robot around the Object.
+             Then stop using that camera pipeline and switch to the april tag pipeline.
+             */
             if(leftAvgFin > rightAvgFin){
                 telemetry.addLine("Yay left");
                 //To move left
-
-
             }
             else if(leftAvgFin < rightAvgFin){
                 telemetry.addLine("Yay right");
