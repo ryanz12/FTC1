@@ -2,18 +2,29 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.hardware.RevIMU;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class new_teleop extends LinearOpMode {
 
+    public DcMotor armLeft;
+    public DcMotor armRight;
+
     static final boolean FIELD_CENTRIC = false;
-//mine Themika
+
     @Override
     public void runOpMode() throws InterruptedException {
+        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
+        armRight = hardwareMap.get(DcMotor.class, "armRight");
+
+        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
         leftBack.setInverted(true);
         MecanumDrive drive = new MecanumDrive(
@@ -24,17 +35,34 @@ public class new_teleop extends LinearOpMode {
         );
 
         GamepadEx driverOp = new GamepadEx(gamepad1);
+        GamepadEx driverArm = new GamepadEx(gamepad2);
 
         waitForStart();
 
         while (!isStopRequested()) {
+            drive.driveRobotCentric(
+                    -driverOp.getLeftX(),
+                    driverOp.getLeftY(),
+                    -driverOp.getRightX()
+            );
 
-                drive.driveRobotCentric(
-                        -driverOp.getLeftX(),
-                        driverOp.getLeftY(),
-                        driverOp.getRightX()
-                );
+            if(driverArm.getButton(GamepadKeys.Button.LEFT_BUMPER) == true){
+                telemetry.addData("Left Bumper Pressed", "True");
 
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armLeft.setTargetPosition(1400);
+                armRight.setTargetPosition(1400);
+
+                while(armLeft.isBusy() && armRight.isBusy()){
+                    telemetry.addData("Motors are mpoving", "true");
+                }
+
+                armLeft.setPower(0);
+                armRight.setPower(0);
+
+                telemetry.update();
+            }
         }
     }
 
