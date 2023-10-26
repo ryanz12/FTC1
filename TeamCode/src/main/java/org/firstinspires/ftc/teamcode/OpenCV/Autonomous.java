@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -18,16 +19,21 @@ import org.openftc.easyopencv.OpenCvWebcam;
 @Config
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Autonomous extends LinearOpMode {
-    private DcMotor leftFrontMotor;
-    private DcMotor rightFrontMotor;
-    private DcMotor leftBackMotor;
-    private DcMotor rightBackMotor;
+    public static DcMotor leftFrontMotor;
+    public static DcMotor rightFrontMotor;
+    public static DcMotor leftBackMotor;
+    public static DcMotor rightBackMotor;
 
+    FtcDashboard dashboard;
+
+    public static double TARGET_POS = 100;
 /*gg*/
 @Override
 public void runOpMode() {
 
+    //dashboard code
 
+    dashboard = FtcDashboard.getInstance();
     ////Encoder code
     leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
     rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
@@ -53,11 +59,14 @@ public void runOpMode() {
     rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
     ////Encoder code
 
 
     cv.observeStick();
     waitForStart();
+    leftFrontMotor.setPower(0.1);
     while (opModeIsActive()) {
 
     }

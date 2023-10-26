@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -19,6 +21,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 //Themika pipeline and camera.
 //Sean and ryan Movemnt and roadrunner
+@Config
 @Autonomous
 public class OpticalAutonomousDriver extends LinearOpMode {
 
@@ -29,6 +32,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
+    FtcDashboard dashboard;
 
     boolean canSeeMiddle = false;
     boolean canSeeRight = false;
@@ -36,6 +40,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        dashboard = FtcDashboard.getInstance();
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
