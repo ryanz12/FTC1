@@ -46,7 +46,7 @@ public class new_teleop extends LinearOpMode {
 //                    -driverOp.getRightX()
 //            );
 
-            if(driverArm.getButton(GamepadKeys.Button.LEFT_BUMPER) == true){
+            if(gamepad1.a){
                 telemetry.addData("Left Bumper Pressed", "True");
 
                 armLeft.setTargetPosition(1400);
