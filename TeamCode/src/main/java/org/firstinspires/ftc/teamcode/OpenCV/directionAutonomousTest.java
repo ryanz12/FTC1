@@ -90,16 +90,18 @@ public class directionAutonomousTest extends OpMode {
 
             if(leftAvgFin > rightAvgFin){
                 telemetry.addLine("Yay left");
+                //To move left
 
 
             }
             else if(leftAvgFin < rightAvgFin){
                 telemetry.addLine("Yay right");
                 leftFrontMotor.setPower(1);
+                //to move right
             }
-            else{
+            else if(leftAvgFin == rightAvgFin){
                 canTSee = true;
-                telemetry.addLine("Cant see");
+                telemetry.addLine("Middle");
             }
 
 
