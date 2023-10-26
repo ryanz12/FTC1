@@ -33,17 +33,17 @@ public class new_teleop extends LinearOpMode {
         );
 
         GamepadEx driverOp = new GamepadEx(gamepad1);
-        GamepadEx driverArm = new GamepadEx(gamepad2);
 
         waitForStart();
 
-//        while (!isStopRequested()) {
-////            drive.driveRobotCentric(
-////                    -driverOp.getLeftX(),
-////                    driverOp.getLeftY(),
-////                    -driverOp.getRightX()
-////            );
+        while (!isStopRequested()) {
+            drive.driveRobotCentric(
+                    -driverOp.getLeftX(),
+                    driverOp.getLeftY(),
+                    -driverOp.getRightX()
+            );
 
+        }
 //            if(gamepad1.a){
 //                telemetry.addData("Left Bumper Pressed", "True");
 //
