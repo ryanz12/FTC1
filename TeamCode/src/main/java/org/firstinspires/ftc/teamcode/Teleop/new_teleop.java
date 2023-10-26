@@ -19,20 +19,20 @@ public class new_teleop extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-        armRight = hardwareMap.get(DcMotor.class, "armRight");
+        armLeft = hardwareMap.get(DcMotor.class, "leftFront");
+        armRight = hardwareMap.get(DcMotor.class, "rightFront");
 
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
-        leftBack.setInverted(true);
-        MecanumDrive drive = new MecanumDrive(
-                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312),
-                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312),
-                leftBack,
-                new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312)
-        );
+//        Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
+//        leftBack.setInverted(true);
+//        MecanumDrive drive = new MecanumDrive(
+//                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312),
+//                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312),
+//                leftBack,
+//                new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312)
+//        );
 
         GamepadEx driverOp = new GamepadEx(gamepad1);
         GamepadEx driverArm = new GamepadEx(gamepad2);
@@ -40,19 +40,20 @@ public class new_teleop extends LinearOpMode {
         waitForStart();
 
         while (!isStopRequested()) {
-            drive.driveRobotCentric(
-                    -driverOp.getLeftX(),
-                    driverOp.getLeftY(),
-                    -driverOp.getRightX()
-            );
+//            drive.driveRobotCentric(
+//                    -driverOp.getLeftX(),
+//                    driverOp.getLeftY(),
+//                    -driverOp.getRightX()
+//            );
 
             if(driverArm.getButton(GamepadKeys.Button.LEFT_BUMPER) == true){
                 telemetry.addData("Left Bumper Pressed", "True");
 
-                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 armLeft.setTargetPosition(1400);
                 armRight.setTargetPosition(1400);
+
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 while(armLeft.isBusy() && armRight.isBusy()){
                     telemetry.addData("Motors are mpoving", "true");
