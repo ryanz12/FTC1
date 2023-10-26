@@ -103,6 +103,10 @@ public class ColorPipeline extends OpenCvPipeline {
         // return thresh;
         // note that you must not do thresh.release() if you want to return thresh
         // you also need to release the input if you return thresh(release as much as possible)
+
+        // Calculate the center of mass for each contour and find the x-coordinate
+
+
         return input;
 
     }
