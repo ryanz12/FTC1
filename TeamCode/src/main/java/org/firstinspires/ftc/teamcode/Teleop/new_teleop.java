@@ -12,8 +12,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp
 public class new_teleop extends LinearOpMode {
 
-    public DcMotor armLeft;
-    public DcMotor armRight;
 
     static final boolean FIELD_CENTRIC = false;
 
@@ -24,7 +22,7 @@ public class new_teleop extends LinearOpMode {
 //
 //        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//
+
         Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
         leftBack.setInverted(true);
         MecanumDrive drive = new MecanumDrive(
