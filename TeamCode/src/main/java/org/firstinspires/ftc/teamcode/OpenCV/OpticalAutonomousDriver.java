@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -18,7 +17,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class directionAutonomousTest extends OpMode {
+public class OpticalAutonomousDriver extends OpMode {
     OpenCvWebcam webcam = null;
 
     private DcMotor leftFrontMotor;
