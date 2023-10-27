@@ -64,6 +64,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                 telemetry.addLine("HSHSHHHDHDHDHDHDHD");
             }
         });
+
     }
 
     class directionColorPipeline extends OpenCvPipeline {
@@ -151,7 +152,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         public ColorPipeline() {
             frameList = new ArrayList<>();
         }
-/////////////////////////////////////////////////////////////////////////////Logic/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////Logic//////////////////////////////////////////////////////////////////////////////////////////////
         @Override
         public Mat processFrame(Mat input) {
             Mat mat = new Mat();
@@ -230,7 +231,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             // return thresh;
             // note that you must not do thresh.release() if you want to return thresh
             // you also need to release the input if you return thresh(release as much as possible)
-///////////////////////////////////////////////////////////////////Visualization///////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////Visualization///////////////////////////////////////////////////////////////////////////////
 
             telemetry.addLine("Logic is about to run");
             ///Finding values
@@ -265,15 +266,17 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 
             if(leftSide && rightSide){
                 telemetry.addLine("Not Found");
+                leftBackMotor.setPower(1);
                 location = loc.NotFound;
             }
             if(leftSide){
-                telemetry.addLine("Right side");
+                telemetry.addLine("Left side");
+                rightBackMotor.setPower(1);
                 location = loc.Left;
 
 
             }else{
-                telemetry.addLine("Left");
+                telemetry.addLine("Right side");
                 location = loc.Right;
             }
 
