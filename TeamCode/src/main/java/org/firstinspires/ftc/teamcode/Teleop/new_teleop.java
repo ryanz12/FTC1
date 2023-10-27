@@ -30,7 +30,7 @@ public class new_teleop extends LinearOpMode {
         while (!isStopRequested()) {
             drive.driveRobotCentric(
                     -driverOp.getLeftX(),
-                    driverOp.getLeftY(),
+                     driverOp.getLeftY(),
                     -driverOp.getRightX()
             );
 
