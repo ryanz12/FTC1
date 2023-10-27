@@ -277,12 +277,12 @@ public class OpticalAutonomousDriver extends OpMode {
             }
             if(leftSide){
                 telemetry.addLine("Right side");
-                location = loc.Right;
+                location = loc.Left;
 
 
             }else{
                 telemetry.addLine("Left");
-                location = loc.Left;
+                location = loc.Right;
             }
 
 
