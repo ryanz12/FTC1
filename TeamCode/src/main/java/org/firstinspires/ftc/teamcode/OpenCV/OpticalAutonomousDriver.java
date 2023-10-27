@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Themika pipeline and camera.
-//Sean and ryan Movemnt and roadrunner
+//Sean and ryan Movement and roadrunner
 @Autonomous
 public class OpticalAutonomousDriver extends LinearOpMode {
 //Change LinearOpMode If necessary
@@ -273,9 +273,8 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                 telemetry.addLine("Left side");
                 rightBackMotor.setPower(1);
                 location = loc.Left;
-
-
-            }else{
+            }
+            else{
                 telemetry.addLine("Right side");
                 location = loc.Right;
             }
