@@ -286,7 +286,7 @@ public class OpticalAutonomousDriver extends OpMode {
             }
 
 
-            return input;
+            return output;
 
         }
     }
