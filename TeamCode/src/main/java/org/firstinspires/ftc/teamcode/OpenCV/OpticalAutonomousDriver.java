@@ -23,8 +23,8 @@ import java.util.List;
 //Themika pipeline and camera.
 //Sean and ryan Movemnt and roadrunner
 @Autonomous
-public class OpticalAutonomousDriver extends OpMode {
-
+public class OpticalAutonomousDriver extends LinearOpMode {
+//Change LinearOpMode If necessary
     OpenCvWebcam webcam = null;
     public enum loc{
         Left,
@@ -43,7 +43,7 @@ public class OpticalAutonomousDriver extends OpMode {
     boolean canSeeLeft = false;
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
@@ -66,11 +66,6 @@ public class OpticalAutonomousDriver extends OpMode {
         });
     }
 
-    @Override
-    public void loop() {
-
-    }
-
     class directionColorPipeline extends OpenCvPipeline {
 
         //Creates a YCbc mat which is YCbCr represents color as brightness and two color difference signals, while RGB represents color as red, green and blue. In YCbCr, the Y is the brightness
@@ -80,13 +75,9 @@ public class OpticalAutonomousDriver extends OpMode {
         //Right side mat
         Mat rCrop;
         //Left average final variable which is used to identify that the left side has more of the color.
-        double leftAvgFin = 0;
+        double leftAvgFin;
         //Rght average final variable which is used to identify that the left side has more of the color.
-        double rightAvgFin = 0;
-        //Boolean which identify which directional path to go.
-        public boolean canSeeLeft;
-        public boolean canSeeRight;
-        public boolean canTSee;
+        double rightAvgFin;
 
         //Mat too see out put
         Mat output = new Mat();
@@ -160,7 +151,7 @@ public class OpticalAutonomousDriver extends OpMode {
         public ColorPipeline() {
             frameList = new ArrayList<>();
         }
-////////////////////////////////////////////////////////Logic////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////Logic/////////////////////////////////////////////////////////////////////////////////////////////
         @Override
         public Mat processFrame(Mat input) {
             Mat mat = new Mat();
@@ -239,6 +230,7 @@ public class OpticalAutonomousDriver extends OpMode {
             // return thresh;
             // note that you must not do thresh.release() if you want to return thresh
             // you also need to release the input if you return thresh(release as much as possible)
+///////////////////////////////////////////////////////////////////Visualization///////////////////////////////////////////////////////////////////////////////////////////////
 
             telemetry.addLine("Logic is about to run");
             ///Finding values
@@ -287,7 +279,6 @@ public class OpticalAutonomousDriver extends OpMode {
 
 
             return output;
-
         }
     }
 
