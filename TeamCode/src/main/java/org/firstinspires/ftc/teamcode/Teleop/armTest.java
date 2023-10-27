@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.arcrobotics.ftclib.drivebase.MecanumDrive;
-import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -18,13 +15,6 @@ public class armTest extends LinearOpMode {
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
-        while (!isStopRequested()) {
-//            drive.driveRobotCentric(
-//                    -driverOp.getLeftX(),
-//                    driverOp.getLeftY(),
-//                    -driverOp.getRightX()
-//            );
 
             if (gamepad1.a) {
                 telemetry.addData("Left Bumper Pressed", "True");
@@ -46,4 +36,4 @@ public class armTest extends LinearOpMode {
             }
         }
     }
-}
+
