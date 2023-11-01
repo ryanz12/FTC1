@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class new_teleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        ///RYAN dont touch this shit or i swear to god
 
         Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
         leftBack.setInverted(true);
