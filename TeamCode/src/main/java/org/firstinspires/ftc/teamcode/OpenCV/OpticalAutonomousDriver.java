@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
@@ -17,10 +17,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Themika pipeline and camera.
 //Sean and ryan Movemnt and roadrunner
 @Autonomous
-public class OpticalAutonomousDriver extends LinearOpMode {
+public class OpticalAutonomousDriver extends OpMode {
 
     OpenCvWebcam webcam = null;
 
@@ -35,7 +38,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     boolean canSeeLeft = false;
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void init() {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
@@ -56,10 +59,13 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                 telemetry.addLine("HSHSHHHDHDHDHDHDHD");
             }
         });
-        while(opModeIsActive()){
-
-        }
     }
+
+    @Override
+    public void loop() {
+
+    }
+
     class directionColorPipeline extends OpenCvPipeline {
 
         //Creates a YCbc mat which is YCbCr represents color as brightness and two color difference signals, while RGB represents color as red, green and blue. In YCbCr, the Y is the brightness
@@ -80,7 +86,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         //Mat too see out put
         Mat output = new Mat();
         //Color can be changed to any color knowing rbg values right now it is red
-        Scalar rectColor = new Scalar(255,0,0);
+        Scalar rectColor = new Scalar(255.0,0.0,0);
         @Override
         public Mat processFrame(Mat input) {
             //Converts the input mat to preferred color type
@@ -100,7 +106,9 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             rCrop = YCbC.submat(rightRect);
             //Finds the average amount of color on both sides
             Scalar leftAvg = Core.mean(lCrop);
+            telemetry.addData("LeftAvg", leftAvg);
             Scalar rightAvg = Core.mean(rCrop);
+            telemetry.addData("RightAvg", rightAvg);
 
             //The zero element is where the avg is stored.
             leftAvgFin = leftAvg.val[0];
@@ -123,15 +131,12 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                 canSeeRight = true;
                 //to move right
             }
-            else if(leftAvgFin == rightAvgFin){
-                telemetry.addLine("Middle");
+            else if(leftAvgFin < 130 || rightAvgFin <130){
+                telemetry.addLine("Can't see");
                 canSeeMiddle = true;
             }
             else{
-                canSeeLeft = false;
-                canSeeRight = false;
-                canSeeMiddle = false;
-                telemetry.addLine("You done Fucked up");
+                telemetry.addLine("Middle");
             }
             //returns the split screen
             return(output);
@@ -139,9 +144,6 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         }
 
     }
-
-
-
 
 }
 
