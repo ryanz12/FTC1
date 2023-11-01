@@ -44,15 +44,15 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam");
+        WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
-        webcam.setPipeline(new ColorPipeline());
+        webcam.setPipeline(detector);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(640,480, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
