@@ -12,8 +12,8 @@ public class teleop extends LinearOpMode {
 
     @Override
     public void runOpMode(){
-        armLeft = hardwareMap.get(DcMotor.class, "leftFront");
-        armRight = hardwareMap.get(DcMotor.class, "rightFront");
+        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
+        armRight = hardwareMap.get(DcMotor.class, "armRight");
 
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
