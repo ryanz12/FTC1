@@ -36,10 +36,7 @@ public class Autonomous extends LinearOpMode {
 /*gg*/
 @Override
 public void runOpMode() {
-     // trajectory
-    double circumference = 3.14*2.938;
-    int velocity = (int) (circumference*435);
-    TrajectoryConfig config = new TrajectoryConfig(velocity,0);
+
     //dashboard code
 
     dashboard = FtcDashboard.getInstance();
