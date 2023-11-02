@@ -29,7 +29,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     public enum loc{
         Left,
         Right,
-        NotFound
+        Middle
     }
     private  loc location;
     private DcMotor leftFrontMotor;
@@ -62,15 +62,19 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         });
 
         waitForStart();
-        switch (detector.getLocation()) {
-            case LEFT:
-                // ...
-                break;
-            case RIGHT:
-                // ...
-                break;
-            case NOT_FOUND:
-                // ...
+        while(opModeIsActive()){
+            if (detector.getLocation() != null) {
+                switch (detector.getLocation()) {
+                    case LEFT:
+                        // ...
+                        break;
+                    case RIGHT:
+                        // ...
+                        break;
+                    case NOT_FOUND:
+                        // ...
+                }
+            }
         }
         webcam.stopStreaming();
 
