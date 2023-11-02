@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -66,13 +68,11 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        // ...
                         break;
                     case RIGHT:
-                        // ...
                         break;
                     case NOT_FOUND:
-                        // ...
+
                 }
             }
         }

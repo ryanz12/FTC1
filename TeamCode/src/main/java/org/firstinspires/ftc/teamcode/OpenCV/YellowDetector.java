@@ -56,25 +56,25 @@ public class YellowDetector extends OpenCvPipeline {
 
         if (stoneRight) {
             location = Location.RIGHT;
-            telemetry.addData("Skystone Location", "left");
+            telemetry.addData("Prop Location", "left");
         }
         else if (stoneLeft) {
             location = Location.LEFT;
-            telemetry.addData("Skystone Location", "right");
+            telemetry.addData("Prop Location", "right");
         }
         else {
             location = Location.NOT_FOUND;
-            telemetry.addData("Skystone Location", "not found");
+            telemetry.addData("Prop Location", "not found");
         }
         telemetry.update();
 
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
-        Scalar colorStone = new Scalar(255, 0, 0);
-        Scalar colorSkystone = new Scalar(0, 255, 0);
+        Scalar color = new Scalar(255, 0, 0);
+        Scalar colorObject = new Scalar(0, 255, 0);
 
-        Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT? colorSkystone:colorStone);
-        Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT? colorSkystone:colorStone);
+        Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT? colorObject:color);
+        Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT? colorObject:color);
 
         return mat;
     }
