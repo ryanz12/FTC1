@@ -58,7 +58,6 @@ public void runOpMode() {
 
     /*leftFrontMotor.setTargetPosition(encoderDrivingTarget);*/
 
-
     leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
