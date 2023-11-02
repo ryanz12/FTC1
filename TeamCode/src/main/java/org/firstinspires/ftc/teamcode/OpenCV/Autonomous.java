@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.trajectory.TrajectoryConfig;
 import com.arcrobotics.ftclib.vision.UGBasicHighGoalPipeline;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -15,19 +17,32 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
+
 @Config
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Autonomous extends LinearOpMode {
-    private DcMotor leftFrontMotor;
-    private DcMotor rightFrontMotor;
-    private DcMotor leftBackMotor;
-    private DcMotor rightBackMotor;
+    public static DcMotor leftFrontMotor;
+    public static DcMotor rightFrontMotor;
+    public static DcMotor leftBackMotor;
+    public static DcMotor rightBackMotor;
 
+    FtcDashboard dashboard;
+
+    public static double TARGET_POS = 100;
 /*gg*/
 @Override
 public void runOpMode() {
+     // trajectory
+    double circumference = 3.14*2.938;
+    int velocity = (int) (circumference*435);
+    TrajectoryConfig config = new TrajectoryConfig(velocity,0);
+    //dashboard code
 
-
+    dashboard = FtcDashboard.getInstance();
     ////Encoder code
     leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
     rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
@@ -35,12 +50,12 @@ public void runOpMode() {
     rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
 
 //        initialize camera and pipeline
+
     colorOpenCV cv = new colorOpenCV(this);
 //      call the function to startStreaming
     int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
-    double circumference = 3.14*2.938;
-    double rotationsNeeded = 18/circumference;
-    int encoderDrivingTarget = (int)(rotationsNeeded*1200);
+
+
     /*leftFrontMotor.setTargetPosition(encoderDrivingTarget);*/
 
     leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -52,13 +67,16 @@ public void runOpMode() {
     rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
     ////Encoder code
 
-
+    int number = 1;
     cv.observeStick();
     waitForStart();
+    leftFrontMotor.setPower(0.1);
     while (opModeIsActive()) {
-
+      forward(79);
     }
 //        stopStreaming
     cv.stopCamera();
