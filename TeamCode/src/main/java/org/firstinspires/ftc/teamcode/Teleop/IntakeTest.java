@@ -16,6 +16,9 @@ public class IntakeTest extends LinearOpMode {
 
         while(!isStopRequested()){
             if(gamepad1.left_trigger > 0){
+                motorPower=-0.35;
+            }
+            else if(gamepad1.right_trigger > 0){
                 motorPower=0.35;
             }
 
