@@ -1,22 +1,19 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
+import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.ArrayList;
@@ -28,6 +25,7 @@ import java.util.List;
 public class OpticalAutonomousDriver extends LinearOpMode {
 //Change LinearOpMode If necessary
     OpenCvWebcam webcam = null;
+
     public enum loc{
         Left,
         Right,
@@ -38,7 +36,12 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
-
+    AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    int Left = 4;
+    int Center = 5;
+    int Right = 6;
+    AprilTagDetection tagOfInterest = null;
+    static final double FEET_PER_METER = 3.28084;
 
     boolean canSeeMiddle = false;
     boolean canSeeRight = false;
@@ -69,10 +72,16 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             if (detector.getLocation() != null ) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        //Autonomous code
                         break;
                     case MIDDLE:
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        //Autonomous code
                         break;
                     case RIGHT:
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        //Autonomous code
                         break;
                     case NOT_FOUND:
 
@@ -81,7 +90,21 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         }
         webcam.stopStreaming();
 
-    }
 
+    }
+    void tagToTelemetry(AprilTagDetection detection)
+    {
+        Orientation rot = Orientation.getOrientation(detection.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
+
+        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
+        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", rot.firstAngle));
+        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", rot.secondAngle));
+        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", rot.thirdAngle));
+    }
 }
+
+
 
