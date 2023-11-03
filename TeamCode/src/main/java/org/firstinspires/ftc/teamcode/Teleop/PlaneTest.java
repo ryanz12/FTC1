@@ -14,7 +14,7 @@ public class PlaneTest extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()){
-            if(gamepad1.a){
+            if(gamepad1.b){
                 planeServo.setPosition(1);
             }
 
