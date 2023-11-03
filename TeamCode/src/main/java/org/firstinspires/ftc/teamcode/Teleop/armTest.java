@@ -33,12 +33,13 @@ public class armTest extends LinearOpMode {
                 armMove = !armMove;
 
                 if(armMove){
-                    moveArm(1200);
+                    moveArm(800);;
                 }
                 else{
-                    moveArm(-1200);
+                    moveArm(-800);
                 }
             }
+
         }
 
     }
@@ -51,8 +52,8 @@ public class armTest extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(0.2);
-            armRight.setPower(0.2);
+            armLeft.setPower(.2);
+            armRight.setPower(.2);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
                 telemetry.addData("Running to",  " %7d :%7d", 2000,  2000);
