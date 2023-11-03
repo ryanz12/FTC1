@@ -51,6 +51,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
