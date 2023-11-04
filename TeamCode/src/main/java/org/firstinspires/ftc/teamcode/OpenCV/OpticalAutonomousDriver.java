@@ -58,7 +58,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 //
 //        Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d())
 //                .strafeLeft(24)
-//                .strafeTo(new Vector2d(24, 24))
+//                .lineToConstantHeading(new Vector2d(24, 24))
 //                .build();
 //
 //        Trajectory forwardTrajectory = drive.trajectoryBuilder(new Pose2d())
