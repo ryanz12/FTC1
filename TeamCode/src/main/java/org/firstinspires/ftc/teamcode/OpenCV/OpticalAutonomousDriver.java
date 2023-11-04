@@ -42,7 +42,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor rightBackMotor;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
     //IntakeMotor
-    public DcMotor intakeMotor;
+//    public DcMotor intakeMotor;
 
 
     @Override
@@ -52,21 +52,21 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
-        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
+//        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
         /////Paths
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
-        Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(24)
-                .strafeTo(new Vector2d(24, 24))
-                .build();
-
-        Trajectory forwardTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .forward(36)
-                .build();
-        Trajectory rightTrajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeTo(new Vector2d(36, 0))
-                .build();
+//        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+//
+//        Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d())
+//                .strafeLeft(24)
+//                .strafeTo(new Vector2d(24, 24))
+//                .build();
+//
+//        Trajectory forwardTrajectory = drive.trajectoryBuilder(new Pose2d())
+//                .forward(36)
+//                .build();
+//        Trajectory rightTrajectory = drive.trajectoryBuilder(new Pose2d())
+//                .strafeTo(new Vector2d(36, 0))
+//                .build();
         //////
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -87,20 +87,20 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                     case LEFT:
                         //Autonomous code
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        drive.followTrajectory(leftTrajectory);
-                        intakeMotor.setPower(-0.5);
+//                        drive.followTrajectory(leftTrajectory);
+//                        intakeMotor.setPower(-0.5);
                         break;
                     case MIDDLE:
                         //Autonomous code
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        drive.followTrajectory(forwardTrajectory);
-                        intakeMotor.setPower(-0.5);
+//                        drive.followTrajectory(forwardTrajectory);
+//                        intakeMotor.setPower(-0.5);
                         break;
                     case RIGHT:
                         //Autonomous code
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        drive.followTrajectory(rightTrajectory);
-                        intakeMotor.setPower(-0.5);
+//                        drive.followTrajectory(rightTrajectory);
+//                        intakeMotor.setPower(-0.5);
                         break;
                     case NOT_FOUND:
 
