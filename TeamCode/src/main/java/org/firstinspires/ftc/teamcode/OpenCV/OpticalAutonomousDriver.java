@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -37,28 +41,37 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    int Left = 4;
-    int Center = 5;
-    int Right = 6;
-    AprilTagDetection tagOfInterest = null;
-    static final double FEET_PER_METER = 3.28084;
+    //IntakeMotor
+    public DcMotor intakeMotor;
 
-    boolean canSeeMiddle = false;
-    boolean canSeeRight = false;
-    boolean canSeeLeft = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
+        /////Paths
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(24)
+                .strafeTo(new Vector2d(24, 24))
+                .build();
+
+        Trajectory forwardTrajectory = drive.trajectoryBuilder(new Pose2d())
+                .forward(36)
+                .build();
+        Trajectory rightTrajectory = drive.trajectoryBuilder(new Pose2d())
+                .strafeTo(new Vector2d(36, 0))
+                .build();
+        //////
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -68,20 +81,26 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         });
 
         waitForStart();
-        while(opModeIsActive()){
-            if (detector.getLocation() != null ) {
+        while (opModeIsActive()) {
+            if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         //Autonomous code
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        drive.followTrajectory(leftTrajectory);
+                        intakeMotor.setPower(-0.5);
                         break;
                     case MIDDLE:
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         //Autonomous code
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        drive.followTrajectory(forwardTrajectory);
+                        intakeMotor.setPower(-0.5);
                         break;
                     case RIGHT:
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         //Autonomous code
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        drive.followTrajectory(rightTrajectory);
+                        intakeMotor.setPower(-0.5);
                         break;
                     case NOT_FOUND:
 
@@ -90,19 +109,6 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         }
         webcam.stopStreaming();
 
-
-    }
-    void tagToTelemetry(AprilTagDetection detection)
-    {
-        Orientation rot = Orientation.getOrientation(detection.pose.R, AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
-
-        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", rot.firstAngle));
-        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", rot.secondAngle));
-        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", rot.thirdAngle));
     }
 }
 
