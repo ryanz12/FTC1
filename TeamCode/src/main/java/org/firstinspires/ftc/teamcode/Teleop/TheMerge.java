@@ -44,8 +44,7 @@ public class TheMerge extends LinearOpMode {
                 rightBack
         );
 
-        GamepadEx driverOp = new GamepadEx(gamepad1);
-
+        GamepadEx driverOp = new GamepadEx(gamepad2);
 
         //MAIN LOOP
         waitForStart();
@@ -70,7 +69,7 @@ public class TheMerge extends LinearOpMode {
 
 
             //############### ARM ###############
-            if(gamepad1.a){
+            if(gamepad1.right_bumper){
                 armMove = !armMove;
 
                 if(armMove){
@@ -96,7 +95,7 @@ public class TheMerge extends LinearOpMode {
             armRight.setPower(0.2);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
-                telemetry.addData("Running to",  " %7d :%7d", 2000,  2000);
+                telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
                 telemetry.addData("Currently at",  " at %7d :%7d",
                         armLeft.getCurrentPosition(), armRight.getCurrentPosition());
                 telemetry.update();
