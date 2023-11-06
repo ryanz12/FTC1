@@ -36,8 +36,23 @@ public class YellowDetector extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+        //Yellow HSV
         Scalar lowHSV = new Scalar(23, 50, 70);
         Scalar highHSV = new Scalar(32, 255, 255);
+        /*
+        --Red HSV
+          Scalar lowHSV = new Scalar(140, 50, 70);
+          Scalar highHSV = new Scalar(180, 255, 255);
+        --Green HSV
+          Scalar lowHSV = new Scalar(36, 50, 70);
+          Scalar highHSV = new Scalar(89, 255, 255);
+        --Blue HSV
+          Scalar lowHSV = new Scalar(90, 50, 70);
+          Scalar highHSV = new Scalar(128, 255, 255);
+        --Orange
+          Scalar lowHSV = new Scalar(10, 50, 70);
+          Scalar highHSV = new Scalar(24, 255, 255);
+         */
 
         Core.inRange(mat, lowHSV, highHSV, mat);
 
