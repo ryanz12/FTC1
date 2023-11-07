@@ -42,8 +42,8 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    //IntakeMotor
-//    public DcMotor intakeMotor;
+    //--IntakeMotor
+    //--public DcMotor intakeMotor;
 
 
     @Override
@@ -53,7 +53,8 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
-        /*        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
+        /*
+          intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
           SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
           Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d())
                   .strafeLeft(24)
@@ -70,8 +71,6 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                  .strafeRight(24)
                  .build();
         */
-
-
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -100,15 +99,16 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                         //Autonomous code
                         webcam.stopStreaming();
                         webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-                        webcam.setPipeline(aprilTagDetectionPipeline);//                        drive.followTrajectory(middleTrajectory);
-//                        intakeMotor.setPower(-0.5);
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+//                         drive.followTrajectory(middleTrajectory);
+//                         intakeMotor.setPower(-0.5);
                         break;
                     case RIGHT:
                         //Autonomous code
                         webcam.stopStreaming();
                         webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-                        webcam.setPipeline(aprilTagDetectionPipeline);//
-                        // drive.followTrajectory(rightTrajectory);
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+//                         drive.followTrajectory(rightTrajectory);
 //                         intakeMotor.setPower(-0.5);
                         break;
                     case NOT_FOUND:
