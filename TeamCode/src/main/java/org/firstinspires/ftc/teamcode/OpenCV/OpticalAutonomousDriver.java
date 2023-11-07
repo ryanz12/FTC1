@@ -90,21 +90,26 @@ public class OpticalAutonomousDriver extends LinearOpMode {
                 switch (detector.getLocation()) {
                     case LEFT:
                         //Autonomous code
+                        webcam.stopStreaming();
+                        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
                         webcam.setPipeline(aprilTagDetectionPipeline);
 //                        drive.followTrajectory(leftTrajectory);
 //                        intakeMotor.setPower(-0.5);
                         break;
                     case MIDDLE:
                         //Autonomous code
-                        webcam.setPipeline(aprilTagDetectionPipeline);
-//                        drive.followTrajectory(middleTrajectory);
+                        webcam.stopStreaming();
+                        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                        webcam.setPipeline(aprilTagDetectionPipeline);//                        drive.followTrajectory(middleTrajectory);
 //                        intakeMotor.setPower(-0.5);
                         break;
                     case RIGHT:
                         //Autonomous code
-                        webcam.setPipeline(aprilTagDetectionPipeline);
-//                        drive.followTrajectory(rightTrajectory);
-//                        intakeMotor.setPower(-0.5);
+                        webcam.stopStreaming();
+                        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                        webcam.setPipeline(aprilTagDetectionPipeline);//
+                        // drive.followTrajectory(rightTrajectory);
+//                         intakeMotor.setPower(-0.5);
                         break;
                     case NOT_FOUND:
 
