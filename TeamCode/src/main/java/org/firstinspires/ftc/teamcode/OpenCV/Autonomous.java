@@ -48,7 +48,6 @@ public void runOpMode() {
 
 //        initialize camera and pipeline
 
-    colorOpenCV cv = new colorOpenCV(this);
 //      call the function to startStreaming
     int MOTOR_TICKS_COUNT = (int) leftFrontMotor.getMotorType().getTicksPerRev();
 
@@ -69,14 +68,12 @@ public void runOpMode() {
     ////Encoder code
 
     int number = 1;
-    cv.observeStick();
     waitForStart();
     leftFrontMotor.setPower(0.1);
     while (opModeIsActive()) {
       forward(79);
     }
 //        stopStreaming
-    cv.stopCamera();
 }
 
     public void forward(int inchesForward) {

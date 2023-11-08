@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@TeleOp
 public class armTest extends LinearOpMode {
 
     public DcMotor armLeft;
@@ -12,7 +14,7 @@ public class armTest extends LinearOpMode {
     public boolean armMove=false;
     @Override
     public void runOpMode() throws InterruptedException {
-        armLeft = hardwareMap.get(DcMotor.class, "armLet");
+        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
 
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -31,12 +33,13 @@ public class armTest extends LinearOpMode {
                 armMove = !armMove;
 
                 if(armMove){
-                    moveArm(200);
+                    moveArm(800);;
                 }
                 else{
-                     moveArm(-200);
+                    moveArm(-800);
                 }
             }
+
         }
 
     }
@@ -49,8 +52,8 @@ public class armTest extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(0.1);
-            armRight.setPower(0.1);
+            armLeft.setPower(.2);
+            armRight.setPower(.2);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
                 telemetry.addData("Running to",  " %7d :%7d", 2000,  2000);
@@ -58,10 +61,6 @@ public class armTest extends LinearOpMode {
                         armLeft.getCurrentPosition(), armRight.getCurrentPosition());
                 telemetry.update();
             }
-
-            armLeft.setPower(0);
-            armRight.setPower(0);
-
             armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
