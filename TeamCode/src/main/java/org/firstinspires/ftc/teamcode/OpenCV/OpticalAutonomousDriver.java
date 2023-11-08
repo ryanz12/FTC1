@@ -64,6 +64,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         });
 
         waitForStart();
+        forward(24);
         while(opModeIsActive()){
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
@@ -80,5 +81,18 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 
     }
 
+    public void forward(int inchesForward) {
+        double circumference = 3.14 * 2.938;
+
+
+        double rotationsNeeded = inchesForward / circumference;
+        int encoderDrivingTarget = (int) (rotationsNeeded * 1200);
+        leftFrontMotor.setTargetPosition(encoderDrivingTarget);
+        rightFrontMotor.setTargetPosition(encoderDrivingTarget);
+        leftBackMotor.setTargetPosition(encoderDrivingTarget);
+        rightBackMotor.setTargetPosition(encoderDrivingTarget);
+
+    }
 }
+
 
