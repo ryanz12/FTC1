@@ -73,17 +73,17 @@ public class TheMerge extends LinearOpMode {
                 armMove = !armMove;
 
                 if(armMove){
-                    moveArm(1200);
+                    moveArm(200, 0.2);
                 }
                 else{
-                    moveArm(-1200);
+                    moveArm(200, 0.2);
                 }
             }
         }
     }
 
     //arm method
-    public void moveArm(int ticks){
+    public void moveArm(int ticks, double speed){
         if(opModeIsActive()){
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -91,8 +91,8 @@ public class TheMerge extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(0.2);
-            armRight.setPower(0.2);
+            armLeft.setPower(speed);
+            armRight.setPower(speed);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
                 telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
@@ -102,6 +102,8 @@ public class TheMerge extends LinearOpMode {
             }
             armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(3000);
         }
     }
 }
