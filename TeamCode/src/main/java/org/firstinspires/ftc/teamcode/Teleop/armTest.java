@@ -31,7 +31,7 @@ public class armTest extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested()){
-            if(gamepad1.a){
+            if(gamepad1.a == true){
 
                 armMove = !armMove;
 
