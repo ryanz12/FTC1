@@ -29,21 +29,8 @@ public class TheMerge extends LinearOpMode {
      */
     @Override
     public void runOpMode() {
-        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-        armRight = hardwareMap.get(DcMotor.class, "armRight");
+
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
-
-        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        armLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        armRight.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         // FTC LIB INITIALIZATION
