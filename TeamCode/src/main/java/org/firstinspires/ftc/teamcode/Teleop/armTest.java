@@ -61,12 +61,12 @@ public class armTest extends LinearOpMode {
                     g
                 }*/
                 if(error > 1){
-                    armLeft.setPower(0.1);
-                    armRight.setPower(0.1);
+                    armLeft.setPower(.2);
+                    armRight.setPower(.2);
                 }
                 if(error < 0){
-                    armLeft.setPower(-0.1);
-                    armRight.setPower(-0.1);
+                    armLeft.setPower(-.2);
+                    armRight.setPower(-.2);
                 }
 
             }
