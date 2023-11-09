@@ -18,7 +18,7 @@ public class climbTest extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested()){
-            if(gamepad1.a){
+            if(gamepad1.y){
                 tgtPower = -1;
             }
 
