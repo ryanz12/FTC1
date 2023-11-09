@@ -55,7 +55,7 @@ public class armTest extends LinearOpMode {
                 int error = 1200 - current_Position;
                 int error_Right = 1200-current_Position_Right;
                 // set motor power proportional to the error
-                if (error<0 && error>= -30 || error<=30 && error>0){
+                if (error<0 && error>= -100 || error<=100 && error>0){
                     error = 0;
                     error_Right = 0;
                 }
