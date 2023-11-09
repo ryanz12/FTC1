@@ -61,7 +61,6 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
         Trajectory traj1 = drive.trajectoryBuilder(new Pose2d())
-
                 .forward(24)
                 .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
