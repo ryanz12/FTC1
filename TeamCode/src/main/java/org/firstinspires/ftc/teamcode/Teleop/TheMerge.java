@@ -14,8 +14,9 @@ public class TheMerge extends LinearOpMode {
     public DcMotor armLeft;
     public DcMotor armRight;
     public DcMotor intakeMotor;
-    public double intakePower=0;
-    public boolean armMove=false;
+    public double intakePower = 0;
+    public boolean armMove = false;
+
     /*
     Controller scheme
     First controller Gamepad 1
@@ -27,13 +28,16 @@ public class TheMerge extends LinearOpMode {
     all driver movement that's all
      */
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
-        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
+        intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
         armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         armLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         armRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -58,7 +62,7 @@ public class TheMerge extends LinearOpMode {
 
         //MAIN LOOP
         waitForStart();
-        while(!isStopRequested()){
+        while (!isStopRequested()) {
             //############### ROBOT DRIVING ###############
             drive.driveRobotCentric(
                     -driverOp.getLeftX(),
@@ -68,12 +72,12 @@ public class TheMerge extends LinearOpMode {
 
 
             //############### INTAKE ###############
-            if(gamepad1.left_trigger > 0){
-                intakePower=-0.5;
-            } else if(gamepad1.right_trigger > 0){
-                intakePower=0.8;
-            }else{
-                intakePower=0;
+            if (gamepad1.left_trigger > 0) {
+                intakePower = -0.5;
+            } else if (gamepad1.right_trigger > 0) {
+                intakePower = 0.8;
+            } else {
+                intakePower = 0;
             }
             intakeMotor.setPower(intakePower);
 
@@ -90,50 +94,10 @@ public class TheMerge extends LinearOpMode {
                     moveArm(-600);
                 }
             }
-*/
 
+             */
 
-            //Solution 2
-            Gamepad currentGamepad = new Gamepad();
-            Gamepad previousGamepad1 = new Gamepad();
-            currentGamepad.copy(gamepad1);
-            previousGamepad1.copy(currentGamepad);
-            boolean intakeToggle = false;
-
-            if (currentGamepad.a && !previousGamepad1.a) {
-                intakeToggle = !intakeToggle;
-            }
-            if (intakeToggle) {
-                moveArm(600);
-            }
-            else {
-                moveArm(-600);
-            }
-            //This will turn on the arm when a is pressed, and leave it on until it is pressed again. YAY!!
         }
-        //
-    }
 
-    //arm method
-    public void moveArm(int ticks){
-        if(opModeIsActive()){
-            armLeft.setTargetPosition(ticks);
-            armRight.setTargetPosition(ticks);
-
-            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            armLeft.setPower(0.2);
-            armRight.setPower(0.2);
-
-            while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
-                telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
-                telemetry.addData("Currently at",  " at %7d :%7d",
-                        armLeft.getCurrentPosition(), armRight.getCurrentPosition());
-                telemetry.update();
-            }
-            armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
     }
 }
