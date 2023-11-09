@@ -48,12 +48,17 @@ public class armTest extends LinearOpMode {
                 }
 
             }
+
             if(armMove){
                 int current_Position = armLeft.getCurrentPosition();
                 int current_Position_Right = armRight.getCurrentPosition();
                 int error = 1200 - current_Position;
                 int error_Right = 1200-current_Position_Right;
                 // set motor power proportional to the error
+                if (error<0 && error>= -30 || error<=30 && error>0){
+                    error = 0;
+                    error_Right = 0;
+                }
                 armLeft.setPower(error);
                 armRight.setPower(error_Right);
 
