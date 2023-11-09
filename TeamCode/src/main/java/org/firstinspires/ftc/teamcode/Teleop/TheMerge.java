@@ -96,9 +96,8 @@ public class TheMerge extends LinearOpMode {
             //Solution 2
             Gamepad currentGamepad = new Gamepad();
             Gamepad previousGamepad1 = new Gamepad();
-
-            previousGamepad1.copy(currentGamepad);
             currentGamepad.copy(gamepad1);
+            previousGamepad1.copy(currentGamepad);
             boolean intakeToggle = false;
 
             if (currentGamepad.a && !previousGamepad1.a) {
