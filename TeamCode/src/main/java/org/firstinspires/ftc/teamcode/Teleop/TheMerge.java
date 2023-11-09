@@ -103,6 +103,7 @@ public class TheMerge extends LinearOpMode {
             }
             //This will turn on the arm when a is pressed, and leave it on until it is pressed again. YAY!!
         }
+        //
     }
 
     //arm method
