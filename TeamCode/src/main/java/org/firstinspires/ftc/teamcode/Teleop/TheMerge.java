@@ -93,7 +93,7 @@ public class TheMerge extends LinearOpMode {
             boolean intakeToggle = false;
 
             if (currentGamepad.a && !previousGamepad1.a) {
-                intakeToggle = !intakeToggle;
+                intakeToggle = true;
             }
             if (intakeToggle) {
                 moveArm(600);
