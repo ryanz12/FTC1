@@ -68,8 +68,8 @@ public class TheMerge extends LinearOpMode {
             }
             intakeMotor.setPower(intakePower);
 
-            //############### ARM ###############
-            //Solution 1
+
+            //Solution 1 of ############### ARM ###############
             /*
             if(gamepad1.right_bumper){
                 armMove = !armMove;
@@ -82,14 +82,16 @@ public class TheMerge extends LinearOpMode {
                 }
             }
 */
+
+
             //Solution 2
-            /*
             Gamepad currentGamepad = new Gamepad();
             Gamepad previousGamepad1 = new Gamepad();
 
             previousGamepad1.copy(currentGamepad);
             currentGamepad.copy(gamepad1);
             boolean intakeToggle = false;
+
             if (currentGamepad.a && !previousGamepad1.a) {
                 intakeToggle = !intakeToggle;
             }
@@ -99,8 +101,6 @@ public class TheMerge extends LinearOpMode {
             else {
                 moveArm(-600);
             }
- */
-
         }
     }
 
