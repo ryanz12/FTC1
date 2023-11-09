@@ -58,6 +58,7 @@ public class armTest extends LinearOpMode {
                 /*if (error<0 && error>= -200 || error<=200 && error>0){
                     error = 0;
                     error_Right = 0;
+                    g
                 }*/
                 if(error > 1){
                     armLeft.setPower(0.1);
