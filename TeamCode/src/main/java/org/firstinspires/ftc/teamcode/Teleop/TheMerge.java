@@ -16,7 +16,16 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower=0;
     public boolean armMove=false;
+    /*
+    Controller scheme
+    First controller Gamepad 1
+    A = Arm Up down
+    B = Plane test
+    Right and left trigger = intake
 
+    Second controller Gamepad 2
+    all driver movement that's all
+     */
     @Override
     public void runOpMode(){
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
@@ -93,7 +102,7 @@ public class TheMerge extends LinearOpMode {
             boolean intakeToggle = false;
 
             if (currentGamepad.a && !previousGamepad1.a) {
-                intakeToggle = true;
+                intakeToggle = !intakeToggle;
             }
             if (intakeToggle) {
                 moveArm(600);
