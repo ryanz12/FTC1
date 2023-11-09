@@ -69,20 +69,6 @@ public class TheMerge extends LinearOpMode {
             intakeMotor.setPower(intakePower);
 
 
-            //Solution 1 of ############### ARM ###############
-            /*
-            if(gamepad1.right_bumper){
-                armMove = !armMove;
-
-                if(armMove){
-                    moveArm(600);
-                }
-                else{
-                    moveArm(-600);
-                }
-            }
-
-             */
 
         }
 
