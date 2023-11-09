@@ -12,6 +12,8 @@ public class armTest extends LinearOpMode {
     public DcMotor armRight;
 
     public boolean armMove=false;
+
+    public boolean referenceIsNotReached = false;
     @Override
     public void runOpMode() throws InterruptedException {
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
@@ -30,19 +32,37 @@ public class armTest extends LinearOpMode {
 
         while(!isStopRequested()){
             if(gamepad1.a){
+
                 armMove = !armMove;
 
                 if(armMove){
-                    moveArm(1200);;
+                    moveArm(1200);
+
+                    }
+
+
                 }
                 else{
                     moveArm(-1200);
+
                 }
+
             }
+            if(armMove){
+                int current_Position = armLeft.getCurrentPosition();
+                int current_Position_Right = armRight.getCurrentPosition();
+                int error = 1200 - current_Position;
+                int error_Right = 1200-current_Position_Right;
+                // set motor power proportional to the error
+                armLeft.setPower(error);
+                armRight.setPower(error_Right);
+
+            }
+
 
         }
 
-    }
+
 
     public void moveArm(int ticks){
         if(opModeIsActive()){
