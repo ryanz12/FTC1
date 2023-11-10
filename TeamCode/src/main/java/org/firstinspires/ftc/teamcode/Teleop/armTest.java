@@ -66,6 +66,8 @@ public class armTest extends LinearOpMode {
                 telemetry.addData("Currently at",  " at %7d :%7d",
                         armLeft.getCurrentPosition(), armRight.getCurrentPosition());
                 telemetry.update();
+
+
             }
 
             armLeft.setPower(0);
