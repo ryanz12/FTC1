@@ -78,7 +78,6 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         });
 
         waitForStart();
-        //forward(24);
         while(opModeIsActive()){
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
