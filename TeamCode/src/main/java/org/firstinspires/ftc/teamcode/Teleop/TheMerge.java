@@ -82,6 +82,11 @@ public class TheMerge extends LinearOpMode {
             }
 
         }
+        telemetry.addLine("Controller 1 " +
+                "\n ARM = Right bumper" +
+                "\n Left trigger and right trigger is for input adn output "+
+                "Controller 2" +
+                "\n DRIVE BASE is all joysticks");
     }
 
     public void moveArm(int ticks){
