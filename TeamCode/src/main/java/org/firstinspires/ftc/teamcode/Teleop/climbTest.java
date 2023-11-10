@@ -11,20 +11,34 @@ public class climbTest extends LinearOpMode {
     public double tgtPower;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
 
         waitForStart();
 
-        while(!isStopRequested()){
-            if(gamepad1.y){
+        boolean climbing = false;
+
+        while (!isStopRequested()) {
+            if (gamepad1.y && !climbing) {
+                climbing = true;
                 tgtPower = -1;
+            } else if (!gamepad1.y && climbing) {
+
+                for (int i = 0; i < 100; i++) {
+                    armLeft.setPower(tgtPower * (100 - i) / 100);
+                    armRight.setPower(tgtPower * (100 - i) / 100);
+                    sleep(20);
+                }
+
+                climbing = false;
+                tgtPower = 0;
             }
 
             armLeft.setPower(tgtPower);
             armRight.setPower(tgtPower);
 
+            idle();
         }
     }
 }
