@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -44,6 +45,7 @@ public class OpticalAutonomousDriver extends LinearOpMode {
 
     public DcMotor armLeft;
     public DcMotor armRight;
+    AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
     boolean canSeeMiddle = false;
@@ -81,13 +83,25 @@ public class OpticalAutonomousDriver extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        webcam.stopStreaming();
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 //                        drive.followTrajectory(traj1);
 //                        drive.turn(Math.toRadians(-90));
                         //drop pixel
                         moveArm(-1200);
+                    case MIDDLE:
+                        webcam.stopStreaming();
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+
                     case RIGHT:
+                        webcam.stopStreaming();
+                        webcam.setPipeline(aprilTagDetectionPipeline);
+                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case NOT_FOUND:
+                        break;
 
                 }
             }
