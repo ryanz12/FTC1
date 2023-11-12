@@ -14,10 +14,34 @@ public class MyClass {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.34)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(0, 0, 0))
-                                .forward(20)
-                                .waitSeconds(10)
+                        //Path 1
+                        /**
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .splineTo(new Vector2d(0, -47), Math.toRadians(90))
+
+                                .waitSeconds(5)
                                 .build()
+                        **/
+
+                        //Path 2
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
+                                .turn(Math.toRadians(180))
+                                .forward(22)
+                                .waitSeconds(5)
+                                .build()
+
+                        //Path 3
+                        /**
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .splineTo(new Vector2d(23, -47), Math.toRadians(90))
+
+                                .waitSeconds(5)
+                                .build()
+                        **/
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
