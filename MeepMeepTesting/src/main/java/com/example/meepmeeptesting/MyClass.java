@@ -15,30 +15,37 @@ public class MyClass {
                 .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.34)
                 .followTrajectorySequence(drive ->
                         //Path 1
-                        /**
+
                         drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
                                 .turn(Math.toRadians(180))
                                 .waitSeconds(1)
-                                .splineTo(new Vector2d(0, -47), Math.toRadians(90))
-
+                                .splineTo(new Vector2d(13, -29), Math.toRadians(180))
+                                .waitSeconds(2)
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .splineTo(new Vector2d(47.2, -29), Math.toRadians(0))
                                 .waitSeconds(5)
                                 .build()
-                        **/
 
                         //Path 2
+                        /**
                         drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
                                 .turn(Math.toRadians(180))
                                 .forward(22)
+                                .waitSeconds(2)
+                                .splineTo(new Vector2d(47.2, -35), Math.toRadians(0))
                                 .waitSeconds(5)
                                 .build()
+                        **/
 
                         //Path 3
                         /**
                         drive.trajectorySequenceBuilder(new Pose2d(12, -58, Math.toRadians(270)))
                                 .turn(Math.toRadians(180))
                                 .waitSeconds(1)
-                                .splineTo(new Vector2d(23, -47), Math.toRadians(90))
-
+                                .splineTo(new Vector2d(23, 4-47), Math.toRadians(90))
+                                .waitSeconds(2)
+                                .splineTo(new Vector2d(47.2, -42), Math.toRadians(0))
                                 .waitSeconds(5)
                                 .build()
                         **/
