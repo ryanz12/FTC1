@@ -24,6 +24,11 @@ public class MyClass {
                                 .turn(Math.toRadians(180))
                                 .waitSeconds(1)
                                 .splineTo(new Vector2d(47.2, -29), Math.toRadians(0))
+                                .waitSeconds(1)
+                                .back(10)
+                                .turn(Math.toRadians(-90))
+                                .forward(10)
+                                .splineTo(new Vector2d(60, -60), Math.toRadians(0))
                                 .waitSeconds(5)
                                 .build()
 
