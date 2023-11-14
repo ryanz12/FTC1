@@ -22,7 +22,7 @@ public class climbTest extends LinearOpMode {
         while (!isStopRequested()) {
             if (gamepad1.y && !climbing) {
                 climbing = true;
-                tgtPower = -1;
+                tgtPower = 1;
             } else if (!gamepad1.y && climbing) {
 
                 for (int i = 0; i < 100; i++) {
