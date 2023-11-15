@@ -107,7 +107,6 @@ public class TheMerge extends LinearOpMode {
                         armLeft.getCurrentPosition(), armRight.getCurrentPosition());
                 telemetry.update();
 
-
             }
 
             armLeft.setPower(0);
