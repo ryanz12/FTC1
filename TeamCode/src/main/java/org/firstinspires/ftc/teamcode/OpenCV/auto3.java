@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -51,13 +52,22 @@ public class auto3 extends LinearOpMode {
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
-        Trajectory traj1 = drive.trajectoryBuilder(new Pose2d())
+        TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(25)
+                .turn(Math.toRadians(90))
+                .build();
 
+        TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(25)
+                .turn(Math.toRadians(-90))
+                .build();
+        TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(25)
 
-                                .forward(25)
-
-                                .build();
-
+                .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -75,10 +85,9 @@ public class auto3 extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        drive.followTrajectorySequence(seqL);
 
-                        drive.turn(Math.toRadians(180));
-                        drive.followTrajectory(traj1);
-                        drive.turn(Math.toRadians(-90));
+
 
                         //drop pixel
 
@@ -87,8 +96,7 @@ public class auto3 extends LinearOpMode {
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        drive.turn(Math.toRadians(180));
-                        drive.followTrajectory(traj1);
+                        drive.followTrajectorySequence(seqF);
 
 
 
@@ -97,15 +105,12 @@ public class auto3 extends LinearOpMode {
                     case RIGHT:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        drive.turn(Math.toRadians(180));
-                        drive.followTrajectory(traj1);
-                        drive.turn(Math.toRadians(90));
-                        //drop it off
+                        drive.followTrajectorySequence(seqR);
 
 
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-                        break;
+
                     case NOT_FOUND:
                         break;
 
