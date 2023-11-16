@@ -1,38 +1,27 @@
-package org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode;
+package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.OpenCV.OpticalAutonomousDriver;
-import org.firstinspires.ftc.teamcode.OpenCV.YellowDetector;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous
-public class autoonomous1 extends LinearOpMode {
+public class auto1 extends LinearOpMode {
+    //Change LinearOpMode If necessary
     OpenCvWebcam webcam = null;
     public enum loc{
         Left,
         Right,
         Middle
     }
-    private OpticalAutonomousDriver.loc location;
+    private auto3.loc location;
     private DcMotor leftFrontMotor;
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
@@ -60,17 +49,10 @@ public class autoonomous1 extends LinearOpMode {
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
         Trajectory traj1 = drive.trajectoryBuilder(new Pose2d())
 
+
                 .forward(25)
 
                 .build();
-
-        //making the trajectory
-
-        Trajectory traj2 = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(6.5)
-                .forward(25)
-                .forward(15)
-                        .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -96,7 +78,6 @@ public class autoonomous1 extends LinearOpMode {
 
                         //drop pixel
 
-
                         moveArm(-1200);
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                     case MIDDLE:
@@ -105,11 +86,7 @@ public class autoonomous1 extends LinearOpMode {
                         drive.turn(Math.toRadians(180));
                         drive.followTrajectory(traj1);
 
-                        //drop pixel
-                        drive.turn(Math.toRadians(180));
-                        drive.followTrajectory(traj1);
-                        drive.turn(Math.toRadians(-90));
-                        drive.followTrajectory(traj1);
+
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
@@ -120,11 +97,6 @@ public class autoonomous1 extends LinearOpMode {
                         drive.followTrajectory(traj1);
                         drive.turn(Math.toRadians(90));
                         //drop it off
-
-
-                        drive.turn(Math.toRadians(180));
-                        drive.followTrajectory(traj2);
-                        //drop off pixel
 
 
 
@@ -173,4 +145,8 @@ public class autoonomous1 extends LinearOpMode {
             armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
+
 }
+
+
+

@@ -17,12 +17,16 @@ public class MyClass {
                         //blue 1
                         //left
                         drive.trajectorySequenceBuilder(new Pose2d(10,60,Math.toRadians(90)))
-                                .turn(Math.toRadians(180))
+                        .turn(Math.toRadians(180))
                                 .forward(25)
-                                .turn(Math.toRadians(90))
-                                .strafeLeft(6.5)
+                        .turn(Math.toRadians(-90))
+
+                        //drop pixel
+                        .turn(Math.toRadians(-90))
                                 .forward(25)
-                                .forward(15)
+                        .turn(Math.toRadians(-90))
+                                .forward(25)
+
 
                                 .build()
                 );
