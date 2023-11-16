@@ -49,7 +49,7 @@ public class auto2 extends LinearOpMode {
         webcam.setPipeline(detector);
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d myPose = new Pose2d(-35, -60, Math.toRadians(90));
+        Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
         drive.setPoseEstimate(myPose);
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
