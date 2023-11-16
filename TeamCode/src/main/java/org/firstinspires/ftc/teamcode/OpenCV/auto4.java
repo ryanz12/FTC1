@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
@@ -32,7 +30,6 @@ public class auto4 extends LinearOpMode {
 
     public DcMotor armLeft;
     public DcMotor armRight;
-    public DcMotor intakeMotor;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
@@ -42,39 +39,14 @@ public class auto4 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
-        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-        armRight = hardwareMap.get(DcMotor.class, "armRight");
-
-        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        armRight.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
-        armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
-
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
-
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
-
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
@@ -91,7 +63,6 @@ public class auto4 extends LinearOpMode {
                 .forward(25)
 
                 .build();
-
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -115,6 +86,7 @@ public class auto4 extends LinearOpMode {
 
                         //drop pixel
 
+                        moveArm(-1200);
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                     case MIDDLE:
                         webcam.stopStreaming();
@@ -156,7 +128,7 @@ public class auto4 extends LinearOpMode {
         rightBackMotor.setTargetPosition(encoderDrivingTarget);
 
     }
-    public void moveArm(int ticks, double speed) {
+    public void moveArm(int ticks) {
         if (opModeIsActive()) {
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -164,8 +136,8 @@ public class auto4 extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(speed);
-            armRight.setPower(speed);
+            armLeft.setPower(0.2);
+            armRight.setPower(0.2);
 
             while (opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())) {
                 telemetry.addData("Running to", " %7d :%7d", ticks, ticks);
@@ -176,23 +148,6 @@ public class auto4 extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-    }
-
-    public void moveIntake(int ticks, double speed){
-        intakeMotor.setTargetPosition(ticks);
-
-        intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        intakeMotor.setPower(speed);
-
-        while(opModeIsActive() && (intakeMotor.isBusy())){
-            telemetry.addData("Running to", " %7d", ticks);
-            telemetry.addData("Currently at", " %7d", intakeMotor.getCurrentPosition());
-            telemetry.update();
-        }
-
-        intakeMotor.setPower(0);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
 
