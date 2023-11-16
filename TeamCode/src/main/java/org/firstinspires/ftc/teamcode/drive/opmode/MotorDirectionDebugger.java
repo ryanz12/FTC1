@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  *   Y / Δ         - Front Right
  *   B / O         - Rear  Right
  *   A / X         - Rear  Left
- *                                    The buttons are mapped to match the wheels spatially if you
+ *                                   The buttons are mapped to match the wheels spatially if you
  *                                    were to rotate the gamepad 45deg°. x/square is the front left
  *                    ________        and each button corresponds to the wheel as you go clockwise
  *                   / ______ \

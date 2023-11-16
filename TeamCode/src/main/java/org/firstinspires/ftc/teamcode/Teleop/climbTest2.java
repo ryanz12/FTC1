@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class climbTest extends LinearOpMode {
+public class climbTest2 extends LinearOpMode{
     public DcMotor armLeft;
     public DcMotor armRight;
     public double tgtPower;
@@ -22,7 +22,10 @@ public class climbTest extends LinearOpMode {
         while (!isStopRequested()) {
             if (gamepad1.y && !climbing) {
                 climbing = true;
-                tgtPower = 1;
+                tgtPower = .5;
+
+                telemetry.addData("trying","To move");
+                telemetry.update();
             } else if (!gamepad1.y && climbing) {
 
                 for (int i = 0; i < 100; i++) {
@@ -38,7 +41,7 @@ public class climbTest extends LinearOpMode {
             armLeft.setPower(tgtPower);
             armRight.setPower(tgtPower);
 
-            idle();
         }
     }
+
 }
