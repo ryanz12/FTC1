@@ -38,10 +38,10 @@ public class armTest extends LinearOpMode {
                 armMove = !armMove;
 
                 if(armMove){
-                    moveArm(800, 0.3);
+                    moveArm(800);
                 }
                 else{
-                    moveArm(0, 0.13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 );
+                    moveArm(0);
                 }
 
             }
@@ -50,7 +50,7 @@ public class armTest extends LinearOpMode {
 
 
     //arm mehtod
-    public void moveArm(int ticks, double speed){
+    public void moveArm(int ticks){
         if(opModeIsActive()){
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -58,8 +58,8 @@ public class armTest extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(speed);
-            armRight.setPower(speed);
+            armLeft.setPower(.4);
+            armRight.setPower(.4);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
                 telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
