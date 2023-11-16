@@ -74,10 +74,10 @@ public class TheMerge extends LinearOpMode {
             if(gamepad1.right_bumper){
                 armMove = !armMove;
                 if(armMove){
-                    moveArm(800);
+                    moveArm(800, 0.3);
                 }
                 else{
-                    moveArm(0);
+                    moveArm(0,.1);
                 }
             }
 
@@ -90,7 +90,7 @@ public class TheMerge extends LinearOpMode {
         telemetry.update();
     }
 
-    public void moveArm(int ticks){
+    public void moveArm(int ticks, double speed){
         if(opModeIsActive()){
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -98,8 +98,8 @@ public class TheMerge extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(.5);
-            armRight.setPower(.5);
+            armLeft.setPower(speed);
+            armRight.setPower(speed);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
                 telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
