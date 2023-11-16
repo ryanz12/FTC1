@@ -19,7 +19,8 @@ public class MyClass {
                         drive.trajectorySequenceBuilder(new Pose2d(10,60,Math.toRadians(90)))
                                 .turn(Math.toRadians(180))
                                 .forward(25)
-                                .turn(Math.toRadians(-90))
+                                .turn(Math.toRadians(90))
+
 
 
 
