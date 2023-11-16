@@ -174,22 +174,23 @@ public class auto1 extends LinearOpMode {
     }
 
     public void moveIntake(int ticks, double speed){
-        intakeMotor.setTargetPosition(ticks);
+        if(opModeIsActive()){
+            intakeMotor.setTargetPosition(ticks);
 
-        intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        intakeMotor.setPower(speed);
+            intakeMotor.setPower(speed);
 
-        while(opModeIsActive() && (intakeMotor.isBusy())){
-            telemetry.addData("Running to", " %7d", ticks);
-            telemetry.addData("Currently at", " %7d", intakeMotor.getCurrentPosition());
-            telemetry.update();
+            while(opModeIsActive() && (intakeMotor.isBusy())){
+                telemetry.addData("Running to", " %7d", ticks);
+                telemetry.addData("Currently at", " %7d", intakeMotor.getCurrentPosition());
+                telemetry.update();
+            }
+
+            intakeMotor.setPower(0);
+            intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-
-        intakeMotor.setPower(0);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
+        }
 }
 
 
