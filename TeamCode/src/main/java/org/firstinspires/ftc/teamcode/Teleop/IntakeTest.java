@@ -28,7 +28,7 @@ public class IntakeTest extends LinearOpMode {
                 motorPower=0.8;
             }
             else if(gamepad1.a){
-                moveIntake(400, 0.5);
+                moveIntake(400, 1);
             }
             else{
                 motorPower=0;
