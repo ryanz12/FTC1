@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -42,6 +44,8 @@ public class OpticalAutonomousDriver extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
+    //Add servo to guide arm;
+    private Servo guideArm;
 
     public DcMotor armLeft;
     public DcMotor armRight;
@@ -59,6 +63,9 @@ public class OpticalAutonomousDriver extends LinearOpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+        guideArm = hardwareMap.servo.get("guideArm");
+        guideArm.setPosition(1);
+        guideArm.setPosition(0);
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));

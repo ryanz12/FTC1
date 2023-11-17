@@ -14,6 +14,9 @@ public class PlaneTest extends LinearOpMode {
             if(gamepad1.b){
                 planeServo.setPosition(1);
             }
+            if (gamepad1.a){
+                planeServo.setPosition(0);
+            }
             telemetry.addData("servo pos", planeServo.getPosition()+ "\nDirection", planeServo.getDirection() + "\nDirection" + planeServo.getPortNumber());
             telemetry.update();
         }
