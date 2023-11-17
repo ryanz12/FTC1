@@ -54,6 +54,7 @@ public class TheMerge extends LinearOpMode {
         waitForStart();
         while (!isStopRequested()) {
             //############### ROBOT DRIVING ###############
+            // TODO: correct any reversed directions
             drive.driveRobotCentric(
                     -driverOp.getLeftX() * speedReducer,
                     driverOp.getLeftY() * speedReducer,
