@@ -30,7 +30,7 @@ public class climbTest extends LinearOpMode {
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         boolean climbing = false;
-        int interval = 100;
+        int interval = 50;
 
         waitForStart();
         while(!isStopRequested()){
