@@ -4,7 +4,9 @@ import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@TeleOp
 public class EncoderTest extends LinearOpMode {
 
     public double speedReducer = .6;
@@ -47,5 +49,4 @@ public class EncoderTest extends LinearOpMode {
             telemetry.update();
         }
     }
-
 }
