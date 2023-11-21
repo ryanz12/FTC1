@@ -71,7 +71,8 @@ public void runOpMode() {
     waitForStart();
     leftFrontMotor.setPower(0.1);
     while (opModeIsActive()) {
-      forward(79);
+      telemetry.addData("Ticcks", leftFrontMotor.getMotorType().getTicksPerRev());
+      telemetry.update();
     }
 //        stopStreaming
 }

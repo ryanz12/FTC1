@@ -20,11 +20,6 @@ public class MyClass {
                                 .turn(Math.toRadians(180))
                                 .forward(25)
                                 .turn(Math.toRadians(90))
-                                //drop pixel
-
-
-
-
 
                                 .build()
                 );
