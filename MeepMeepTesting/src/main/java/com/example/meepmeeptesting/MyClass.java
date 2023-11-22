@@ -20,9 +20,6 @@ public class MyClass {
                                 .turn(Math.toRadians(180))
                                 .forward(25)
                                 .turn(Math.toRadians(90))
-                                .strafeLeft(6.5)
-                                .forward(25)
-                                .forward(15)
 
                                 .build()
                 );
