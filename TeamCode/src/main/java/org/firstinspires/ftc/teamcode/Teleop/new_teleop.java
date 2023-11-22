@@ -11,15 +11,27 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class new_teleop extends LinearOpMode {
+
+    public double speedReducer = .6;
+
     @Override
     public void runOpMode() throws InterruptedException {
+        Motor leftFront = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312);
         Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
-        leftBack.setInverted(true);
+        Motor rightFront = new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312);
         Motor rightBack = new Motor(hardwareMap, "rightBack", Motor.GoBILDA.RPM_312);
+
+        leftFront.resetEncoder();
+        leftBack.resetEncoder();
+        rightFront.resetEncoder();
+        rightBack.resetEncoder();
+
+        leftBack.setInverted(true);
         rightBack.setInverted(true);
+
         MecanumDrive drive = new MecanumDrive(
-                new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312),
-                new Motor(hardwareMap, "rightFront", Motor.GoBILDA.RPM_312),
+                leftFront,
+                rightFront,
                 leftBack,
                 rightBack
         );
@@ -30,9 +42,9 @@ public class new_teleop extends LinearOpMode {
 
         while (!isStopRequested()) {
             drive.driveRobotCentric(
-                    -driverOp.getLeftX(),
-                    driverOp.getLeftY(),
-                    -driverOp.getRightX()
+                    -driverOp.getLeftX()*speedReducer,
+                    -driverOp.getLeftY()*speedReducer,
+                    -driverOp.getRightX()*speedReducer
             );
 
 

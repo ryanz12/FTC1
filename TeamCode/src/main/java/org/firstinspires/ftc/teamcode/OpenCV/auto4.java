@@ -93,7 +93,7 @@ public class auto4 extends LinearOpMode {
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -111,26 +111,12 @@ public class auto4 extends LinearOpMode {
                         drive.followTrajectorySequence(seqL);
 
                         //drop pixel
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case MIDDLE:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.followTrajectorySequence(seqF);
-
-
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case RIGHT:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.followTrajectorySequence(seqR);
-
-
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case NOT_FOUND:
                         break;

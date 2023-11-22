@@ -113,26 +113,14 @@ public class auto1 extends LinearOpMode {
 
                         drive.followTrajectorySequence(seqL);
 
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
                         break;
                     case MIDDLE:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
+
                         drive.followTrajectorySequence(seqF);
-
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
                         break;
                     case RIGHT:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.followTrajectorySequence(seqR);
-
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case NOT_FOUND:
                         break;
