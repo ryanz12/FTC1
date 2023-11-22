@@ -22,7 +22,7 @@ public class EncoderTest extends LinearOpMode {
         rightFront.resetEncoder();
         rightBack.resetEncoder();
 
-        leftFront.setInverted(true);
+        leftBack.setInverted(true);
         rightBack.setInverted(true);
 
         MecanumDrive drive = new MecanumDrive(
