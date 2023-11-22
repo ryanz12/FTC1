@@ -30,7 +30,7 @@ import java.util.List;
 //Themika pipeline and camera.
 //Sean and ryan Movement and roadrunner
 @Autonomous
-public class OpticalAutonomousDriver extends LinearOpMode {
+public class cameraTest extends LinearOpMode {
 //Change LinearOpMode If necessary
     OpenCvWebcam webcam = null;
     public enum loc{
