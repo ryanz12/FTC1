@@ -118,6 +118,7 @@ public class auto3 extends LinearOpMode {
                         //drop pixel
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -126,7 +127,7 @@ public class auto3 extends LinearOpMode {
 
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
+                        break;
                     case RIGHT:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -135,7 +136,7 @@ public class auto3 extends LinearOpMode {
 
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
+                        break;
                     case NOT_FOUND:
                         break;
 

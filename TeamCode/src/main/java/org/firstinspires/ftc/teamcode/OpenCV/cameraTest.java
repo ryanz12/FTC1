@@ -105,6 +105,7 @@ public class cameraTest extends LinearOpMode {
                         drive.followTrajectory(traj1);
                         moveArm(-1200);
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -118,6 +119,7 @@ public class cameraTest extends LinearOpMode {
                         drive.followTrajectory(traj1);
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
 
                     case RIGHT:
                         webcam.stopStreaming();

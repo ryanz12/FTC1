@@ -111,12 +111,14 @@ public class auto2 extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-
+                        webcam.stopStreaming();
+                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.followTrajectorySequence(seqL);
 
                         //drop pixel
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -125,7 +127,7 @@ public class auto2 extends LinearOpMode {
 
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
+                        break;
                     case RIGHT:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);

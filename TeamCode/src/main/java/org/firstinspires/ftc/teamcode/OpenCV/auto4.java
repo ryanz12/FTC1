@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -16,6 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Autonomous
 public class auto4 extends LinearOpMode {
     OpenCvWebcam webcam = null;
     public enum loc{
@@ -111,6 +113,7 @@ public class auto4 extends LinearOpMode {
                         //drop pixel
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -119,7 +122,7 @@ public class auto4 extends LinearOpMode {
 
 
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
+                        break;
                     case RIGHT:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
