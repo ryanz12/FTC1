@@ -36,7 +36,7 @@ public class climbTest extends LinearOpMode {
         while(!isStopRequested()){
             if (gamepad1.y && !climbing) {
                 climbing = true;
-                tgtPower = .5;
+                tgtPower = 1;
 
                 telemetry.addData("trying","To move");
                 telemetry.update();

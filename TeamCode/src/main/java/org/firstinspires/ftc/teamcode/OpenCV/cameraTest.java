@@ -2,27 +2,36 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+import java.util.ArrayList;
+import java.util.List;
 //hey!!
 //Themika pipeline and camera.
 //Sean and ryan Movement and roadrunner
 @Autonomous
 public class cameraTest extends LinearOpMode {
-    //Change LinearOpMode If necessary
+//Change LinearOpMode If necessary
     OpenCvWebcam webcam = null;
     public enum loc{
         Left,
@@ -35,10 +44,11 @@ public class cameraTest extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
+    //Add servo to guide arm;
+    private Servo guideArm;
 
     public DcMotor armLeft;
     public DcMotor armRight;
-    public DcMotor intakeMotor;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
@@ -48,40 +58,28 @@ public class cameraTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
-        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-        armRight = hardwareMap.get(DcMotor.class, "armRight");
-
-        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        armRight.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
-        armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
-
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+        guideArm = hardwareMap.servo.get("guideArm");
+        guideArm.setPosition(1);
+        guideArm.setPosition(0);
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
+        Trajectory traj1 = drive.trajectoryBuilder(new Pose2d())
+
+
+                                .forward(25)
+
+                                .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -95,26 +93,47 @@ public class cameraTest extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
-                        telemetry.addData("left detected", "True");
-                        telemetry.update();
+                        drive.turn(Math.toRadians(180));
+                        drive.followTrajectory(traj1);
+                        drive.turn(Math.toRadians(-90));
+
+                        //drop pixel
+                        drive.turn(Math.toRadians(-90));
+                        drive.followTrajectory(traj1);
+                        drive.turn(Math.toRadians(-90));
+                        drive.followTrajectory(traj1);
+                        moveArm(-1200);
+                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                     case MIDDLE:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
+                        drive.turn(Math.toRadians(180));
+                        drive.followTrajectory(traj1);
+
+                        //drop pixel
+                        drive.turn(Math.toRadians(180));
+                        drive.followTrajectory(traj1);
+                        drive.turn(Math.toRadians(-90));
+                        drive.followTrajectory(traj1);
+
                         webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
-                        telemetry.addData("middle detected", "True");
-                        telemetry.update();
                     case RIGHT:
                         webcam.stopStreaming();
                         webcam.setPipeline(aprilTagDetectionPipeline);
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        drive.turn(Math.toRadians(180));
+                        drive.followTrajectory(traj1);
+                        drive.turn(Math.toRadians(90));
+                        //drop it off
+                        drive.turn(Math.toRadians(90));
+                        drive.followTrajectory(traj1);
+                        drive.turn(Math.toRadians(-90));
+                        drive.followTrajectory(traj1);
 
-                        telemetry.addData("right detected", "True");
-                        telemetry.update();
+
+                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case NOT_FOUND:
                         break;
 
@@ -137,7 +156,7 @@ public class cameraTest extends LinearOpMode {
         rightBackMotor.setTargetPosition(encoderDrivingTarget);
 
     }
-    public void moveArm(int ticks, double speed) {
+    public void moveArm(int ticks) {
         if (opModeIsActive()) {
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -145,8 +164,8 @@ public class cameraTest extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(speed);
-            armRight.setPower(speed);
+            armLeft.setPower(0.2);
+            armRight.setPower(0.2);
 
             while (opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())) {
                 telemetry.addData("Running to", " %7d :%7d", ticks, ticks);
@@ -159,24 +178,6 @@ public class cameraTest extends LinearOpMode {
         }
     }
 
-    public void moveIntake(int ticks, double speed){
-        if(opModeIsActive()){
-            intakeMotor.setTargetPosition(ticks);
-
-            intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            intakeMotor.setPower(speed);
-
-            while(opModeIsActive() && (intakeMotor.isBusy())){
-                telemetry.addData("Running to", " %7d", ticks);
-                telemetry.addData("Currently at", " %7d", intakeMotor.getCurrentPosition());
-                telemetry.update();
-            }
-
-            intakeMotor.setPower(0);
-            intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-    }
 }
 
 
