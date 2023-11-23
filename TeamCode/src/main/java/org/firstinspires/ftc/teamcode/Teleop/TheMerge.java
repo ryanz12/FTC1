@@ -85,7 +85,7 @@ public class TheMerge extends LinearOpMode {
                     moveArm(800, 0.3);
                 }
                 else{
-                    moveArm(0,.1);
+                    moveArm(0,.15);
                 }
             }
 
