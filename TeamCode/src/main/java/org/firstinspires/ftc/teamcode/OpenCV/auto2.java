@@ -112,18 +112,15 @@ public class auto2 extends LinearOpMode {
                 switch (detector.getLocation()) {
                     case LEFT:
                         drive.followTrajectorySequence(seqL);
-
                         //drop pixel
                         break;
                     case MIDDLE:
                         drive.followTrajectorySequence(seqF);
-
-
-
+                        //drop pixel
                         break;
                     case RIGHT:
                         drive.followTrajectorySequence(seqR);
-
+                        //drop pixel
                         break;
                     case NOT_FOUND:
                         break;
