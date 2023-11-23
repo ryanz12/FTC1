@@ -93,9 +93,7 @@ public class auto4 extends LinearOpMode {
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened() {
-                webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
-            }
+            public void onOpened() {webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);}
 
             @Override
             public void onError(int errorCode) {
