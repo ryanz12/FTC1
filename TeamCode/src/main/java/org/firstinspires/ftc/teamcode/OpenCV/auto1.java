@@ -39,10 +39,6 @@ public class auto1 extends LinearOpMode {
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
-    boolean canSeeMiddle = false;
-    boolean canSeeRight = false;
-    boolean canSeeLeft = false;
-
     @Override
     public void runOpMode() throws InterruptedException {
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");

@@ -52,10 +52,6 @@ public class cameraTest extends LinearOpMode {
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
-    boolean canSeeMiddle = false;
-    boolean canSeeRight = false;
-    boolean canSeeLeft = false;
-
     @Override
     public void runOpMode() throws InterruptedException {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
