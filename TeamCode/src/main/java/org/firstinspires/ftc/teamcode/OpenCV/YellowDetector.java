@@ -22,14 +22,14 @@ public class YellowDetector extends OpenCvPipeline {
 
     static final Rect LEFT_ROI = new Rect(
             new Point(0, 0),
-            new Point(200, 720));
+            new Point(425, 720));
     static final Rect MIDDLE_ROI = new Rect(
-            new Point(201, 0),
+            new Point(426, 0),
             new Point(851, 720));
     static final Rect RIGHT_ROI = new Rect(
             new Point(853, 0),
             new Point(1280, 720));
-    static double PERCENT_COLOR_THRESHOLD = 0.01  ;
+    static double PERCENT_COLOR_THRESHOLD = 0.02;
 
     public YellowDetector(Telemetry t) { telemetry = t; }
 

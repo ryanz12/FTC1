@@ -26,9 +26,6 @@ public class new_teleop extends LinearOpMode {
         rightFront.resetEncoder();
         rightBack.resetEncoder();
 
-        leftBack.setInverted(true);
-        rightBack.setInverted(true);
-
         MecanumDrive drive = new MecanumDrive(
                 leftFront,
                 rightFront,

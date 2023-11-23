@@ -16,7 +16,7 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower = 0;
     public boolean armMove = false;
-    public double speedReducer=0.75;
+    public double speedReducer=0.3;
 
     @Override
     public void runOpMode() {
@@ -47,9 +47,6 @@ public class TheMerge extends LinearOpMode {
         rightFront.resetEncoder();
         rightBack.resetEncoder();
 
-        leftBack.setInverted(true);
-        rightBack.setInverted(true);
-
         MecanumDrive drive = new MecanumDrive(
                 leftFront,
                 rightFront,
@@ -73,7 +70,7 @@ public class TheMerge extends LinearOpMode {
 
             //############### INTAKE ###############
             if (gamepad1.left_trigger > 0) {
-                intakePower = -0.5;
+                intakePower = -0.3;
             } else if (gamepad1.right_trigger > 0) {
                 intakePower = 1;
             } else {
@@ -88,7 +85,7 @@ public class TheMerge extends LinearOpMode {
                     moveArm(800, 0.3);
                 }
                 else{
-                    moveArm(0,.1);
+                    moveArm(0,.15);
                 }
             }
 

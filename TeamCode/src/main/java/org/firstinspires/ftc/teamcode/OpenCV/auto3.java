@@ -42,19 +42,16 @@ public class auto3 extends LinearOpMode {
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
-    boolean canSeeMiddle = false;
-    boolean canSeeRight = false;
-    boolean canSeeLeft = false;
-
     @Override
     public void runOpMode() throws InterruptedException {
+        //Intake
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //Arm
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
 
@@ -70,11 +67,13 @@ public class auto3 extends LinearOpMode {
         armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
+        //Webcam
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d myPose = new Pose2d(10, -5, Math.toRadians(90));
@@ -89,16 +88,14 @@ public class auto3 extends LinearOpMode {
                 .forward(25)
                 .turn(Math.toRadians(-90))
                 .build();
+
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
-
                 .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened() {
-                webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
-            }
+            public void onOpened() {webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);}
 
             @Override
             public void onError(int errorCode) {
@@ -112,27 +109,21 @@ public class auto3 extends LinearOpMode {
                 switch (detector.getLocation()) {
                     case LEFT:
                         drive.followTrajectorySequence(seqL);
-
-
-
                         //drop pixel
-
+                        moveIntake(200,0.1);
                         break;
                     case MIDDLE:
                         drive.followTrajectorySequence(seqF);
-
-
-
+                        //drop pixel
+                        moveIntake(200,0.1);
                         break;
                     case RIGHT:
                         drive.followTrajectorySequence(seqR);
-
-
-
+                        //drop pixel
+                        moveIntake(200,0.1);
                         break;
                     case NOT_FOUND:
                         break;
-
                 }
             }
         }
@@ -142,15 +133,12 @@ public class auto3 extends LinearOpMode {
 
     public void forward(int inchesForward) {
         double circumference = 3.14 * 2.938;
-
-
         double rotationsNeeded = inchesForward / circumference;
         int encoderDrivingTarget = (int) (rotationsNeeded * 1200);
         leftFrontMotor.setTargetPosition(encoderDrivingTarget);
         rightFrontMotor.setTargetPosition(encoderDrivingTarget);
         leftBackMotor.setTargetPosition(encoderDrivingTarget);
         rightBackMotor.setTargetPosition(encoderDrivingTarget);
-
     }
     public void moveArm(int ticks, double speed) {
         if (opModeIsActive()) {
