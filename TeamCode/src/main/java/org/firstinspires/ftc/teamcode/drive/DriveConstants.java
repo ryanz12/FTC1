@@ -46,7 +46,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 1.88976; // in TODO: fixed
     public static double GEAR_RATIO = .920736; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 16; // in TODO: fixed
+    public static double TRACK_WIDTH = 22.86; // in TODO: fixed
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -54,16 +54,16 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.0125;
-    public static double kA = 0.0018;
-    public static double kStatic = 0.07;
+    public static double kV = 0.0176;
+    public static double kA = 0.015;
+    public static double kStatic = 0.0029;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
      * the constraints should never exceed ~80% of the robot's actual capabilities. While Road
      * Runner is designed to enable faster autonomous motion, it is a good idea for testing to start
      * small and gradually increase them later after everything is working. All distance units are
-     * inches.
+     * inches.//
      */
     public static double MAX_VEL = 52.48180821614297; //in/s
     public static double MAX_ACCEL = 52.48180821614297;

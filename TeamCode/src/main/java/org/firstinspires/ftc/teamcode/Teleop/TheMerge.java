@@ -16,7 +16,7 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower = 0;
     public boolean armMove = false;
-    public double speedReducer=0.75;
+    public double speedReducer=0.6;
 
     @Override
     public void runOpMode() {
@@ -46,9 +46,6 @@ public class TheMerge extends LinearOpMode {
         leftBack.resetEncoder();
         rightFront.resetEncoder();
         rightBack.resetEncoder();
-
-        leftBack.setInverted(true);
-        rightBack.setInverted(true);
 
         MecanumDrive drive = new MecanumDrive(
                 leftFront,
