@@ -41,13 +41,14 @@ public class auto2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //Intake
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //Arm
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
 
@@ -63,6 +64,7 @@ public class auto2 extends LinearOpMode {
         armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
+        //Webcam
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
@@ -107,14 +109,17 @@ public class auto2 extends LinearOpMode {
                     case LEFT:
                         drive.followTrajectorySequence(seqL);
                         //drop pixel
+                        moveIntake(200,0.1);
                         break;
                     case MIDDLE:
                         drive.followTrajectorySequence(seqF);
                         //drop pixel
+                        moveIntake(200,0.1);
                         break;
                     case RIGHT:
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
+                        moveIntake(200,0.1);
                         break;
                     case NOT_FOUND:
                         break;
