@@ -93,7 +93,6 @@ public class cameraTest extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-
                         drive.turn(Math.toRadians(180));
                         drive.followTrajectory(traj1);
                         drive.turn(Math.toRadians(-90));
@@ -104,10 +103,8 @@ public class cameraTest extends LinearOpMode {
                         drive.turn(Math.toRadians(-90));
                         drive.followTrajectory(traj1);
                         moveArm(-1200);
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                        break;
                     case MIDDLE:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.turn(Math.toRadians(180));
                         drive.followTrajectory(traj1);
 
@@ -117,11 +114,8 @@ public class cameraTest extends LinearOpMode {
                         drive.turn(Math.toRadians(-90));
                         drive.followTrajectory(traj1);
 
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
-
+                        break;
                     case RIGHT:
-                        webcam.stopStreaming();
-                        webcam.setPipeline(aprilTagDetectionPipeline);
                         drive.turn(Math.toRadians(180));
                         drive.followTrajectory(traj1);
                         drive.turn(Math.toRadians(90));
@@ -130,9 +124,6 @@ public class cameraTest extends LinearOpMode {
                         drive.followTrajectory(traj1);
                         drive.turn(Math.toRadians(-90));
                         drive.followTrajectory(traj1);
-
-
-                        webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
                         break;
                     case NOT_FOUND:
                         break;
