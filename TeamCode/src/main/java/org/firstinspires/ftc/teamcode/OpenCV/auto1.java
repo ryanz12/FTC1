@@ -87,6 +87,7 @@ public class auto1 extends LinearOpMode {
                 .forward(25)
                 .turn(Math.toRadians(-90))
                 .build();
+
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
@@ -133,15 +134,12 @@ public class auto1 extends LinearOpMode {
 
     public void forward(int inchesForward) {
         double circumference = 3.14 * 2.938;
-
-
         double rotationsNeeded = inchesForward / circumference;
         int encoderDrivingTarget = (int) (rotationsNeeded * 1200);
         leftFrontMotor.setTargetPosition(encoderDrivingTarget);
         rightFrontMotor.setTargetPosition(encoderDrivingTarget);
         leftBackMotor.setTargetPosition(encoderDrivingTarget);
         rightBackMotor.setTargetPosition(encoderDrivingTarget);
-
     }
     public void moveArm(int ticks, double speed) {
         if (opModeIsActive()) {
