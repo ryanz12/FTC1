@@ -125,7 +125,6 @@ public class auto3 extends LinearOpMode {
                         break;
                     case NOT_FOUND:
                         break;
-
                 }
             }
         }
