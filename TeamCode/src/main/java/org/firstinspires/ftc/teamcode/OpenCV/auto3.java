@@ -91,7 +91,6 @@ public class auto3 extends LinearOpMode {
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
-
                 .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
