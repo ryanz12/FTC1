@@ -68,7 +68,7 @@ public class RedLeftAuto extends LinearOpMode {
 
         //Paths
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(-36, -60, Math.toRadians(270));
+        Pose2d startPos = new Pose2d(10, -60, Math.toRadians(90));
 
         TrajectorySequence pathLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(4)
@@ -170,7 +170,7 @@ public class RedLeftAuto extends LinearOpMode {
                                 drive.followTrajectorySequence(seqSL);
                                 canSeen = true;
                                 break;
-                            }if(canSeeR == false){
+                            }if(canSeeR == false) {
                                 drive.followTrajectorySequence(seqSR);
                                 canSeen = true;
                                 break;
