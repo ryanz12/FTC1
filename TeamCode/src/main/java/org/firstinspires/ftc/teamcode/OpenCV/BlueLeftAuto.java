@@ -112,21 +112,36 @@ public class BlueLeftAuto extends LinearOpMode {
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(23)
-
                 .build();
 
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(5))
+                .turn(Math.toRadians(10))
                 .waitSeconds(3)
                 .build();
         TrajectorySequence backwards = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(270)))
                 .waitSeconds(1)
                 .back(20)
                 .build();
+
+        TrajectorySequence forwardleft = drive.trajectorySequenceBuilder(new Pose2d(8,35, Math.toRadians(270)))
+                .waitSeconds(1)
+                .forward(2)
+                .build();
+
+        TrajectorySequence backwards_L = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(0)))
+                .waitSeconds(1)
+                .back(3.4)
+                .build();
         TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
+        TrajectorySequence final_l = drive.trajectorySequenceBuilder(myPose)
+                .waitSeconds(1)
+                .strafeRight(25)
+                .waitSeconds(1)
+                .splineTo(new Vector2d(50,42),0)
+                        .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -149,7 +164,12 @@ public class BlueLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(seqL);
                         telemetry.addData("RUnning left Path", "False");
                         telemetry.update();
+                        drive.followTrajectorySequence(backwards_L);
                         moveIntake(-300, .1);
+                        drive.followTrajectorySequence(forwardleft);
+                        drive.followTrajectorySequence(backwards);
+
+                        drive.followTrajectorySequence(final_l);
                         Thread.sleep(100000);
                         break;
                     case MIDDLE:
@@ -185,6 +205,7 @@ public class BlueLeftAuto extends LinearOpMode {
                                 break;
                             }
                         //
+
                         break;
 
 
