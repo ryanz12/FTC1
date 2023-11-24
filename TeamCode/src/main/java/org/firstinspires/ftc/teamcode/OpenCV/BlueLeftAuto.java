@@ -103,13 +103,14 @@ public class BlueLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(5))
                 .waitSeconds(3)
                 .build();
+        TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
+                .back(20);
+                .build();
         TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
-        TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
-                .forward(-10)
-                .build();
+
 
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
