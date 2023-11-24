@@ -20,20 +20,21 @@ public class MyClass {
                                 .back(4)
                                 .turn(Math.toRadians(179))
                                 .waitSeconds(1)
-                                .splineTo(new Vector2d(-36, -35), Math.toRadians(90))
-
-                                .strafeLeft(25)
-                                .forward(25)
-                                .strafeRight(101)
+                                .splineTo(new Vector2d(-37, -34), Math.toRadians(180))
+                                .waitSeconds(10)
+                                .splineTo(new Vector2d(-37, -11), 0)
                                 .waitSeconds(1)
-                                .turn(Math.toRadians(90))
+                                .splineTo(new Vector2d(20, 0), 0)
+                                .splineTo(new Vector2d(40, -30), 0)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(179))
                                 .waitSeconds(1)
                                 .back(8)
-
-
-
+                                .waitSeconds(5)
+                                .strafeRight(20)
                                 .waitSeconds(1)
-                                .back(11)
+                                .back(10)
+                                .waitSeconds(5)
                                 .build()
                 );
 
