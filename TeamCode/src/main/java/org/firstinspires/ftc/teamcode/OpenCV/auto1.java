@@ -97,6 +97,7 @@ public class auto1 extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .turn(Math.toRadians(2))
                 .turn(Math.toRadians(-4))
+                .turn(Math.toRadians(2))
                 .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
