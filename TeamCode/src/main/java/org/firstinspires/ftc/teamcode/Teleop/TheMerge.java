@@ -16,7 +16,7 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower = 0;
     public boolean armMove = false;
-    public double speedReducer=0.3;
+    public double speedReducer=1;
 
     @Override
     public void runOpMode() {

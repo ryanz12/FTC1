@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -17,6 +18,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Disabled
 @Autonomous
 public class auto1 extends LinearOpMode {
     //Change LinearOpMode If necessary
@@ -93,6 +95,14 @@ public class auto1 extends LinearOpMode {
                 .forward(25)
                 .build();
 
+        TrajectorySequence seqS = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .turn(Math.toRadians(1))
+                .waitSeconds(3)
+                .turn(Math.toRadians(-2))
+                .waitSeconds(3)
+                .turn(Math.toRadians(1))
+                .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);}
@@ -110,21 +120,21 @@ public class auto1 extends LinearOpMode {
                     case LEFT:
                         drive.followTrajectorySequence(seqL);
                         //drop pixel
-                        moveIntake(200,0.1);
+                        moveIntake(-200,0.1);
                         break;
                     case MIDDLE:
                         drive.followTrajectorySequence(seqF);
                         //drop pixel
-                        moveIntake(200,0.1);
+                        moveIntake(-200,0.1);
                         break;
                     case RIGHT:
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
-                        moveIntake(200,0.1);
+                        moveIntake(-200,0.1);
                         break;
                     case NOT_FOUND:
+                        drive.followTrajectorySequence(seqS);
                         break;
-
                 }
             }
         }
