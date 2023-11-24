@@ -18,7 +18,7 @@ public class blueDetector extends OpenCvPipeline {
         MIDDLE,
         NOT_FOUND
     }
-    private YellowDetector.Location location;
+    private blueDetector.Location location;
 
     static final Rect LEFT_ROI = new Rect(
             new Point(0, 0),
@@ -82,19 +82,19 @@ public class blueDetector extends OpenCvPipeline {
         boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
         if (stoneRight) {
-            location = YellowDetector.Location.RIGHT;
+            location = blueDetector.Location.RIGHT;
             telemetry.addData("Prop Location", "RIGHT");
         }
         else if (stoneLeft) {
-            location = YellowDetector.Location.LEFT;
+            location = blueDetector.Location.LEFT;
             telemetry.addData("Prop Location", "LEFT");
         }
         else if(stoneMiddle){
-            location = YellowDetector.Location.MIDDLE;
+            location = blueDetector.Location.MIDDLE;
             telemetry.addData("Prop Location", "MIDDLE");
         }
         else{
-            location = YellowDetector.Location.NOT_FOUND;
+            location = blueDetector.Location.NOT_FOUND;
             telemetry.addData("Prop Location", "NOT FOUND");
         }
         telemetry.update();
@@ -104,14 +104,14 @@ public class blueDetector extends OpenCvPipeline {
         Scalar color = new Scalar(255, 0, 0);
         Scalar colorObject = new Scalar(0, 255, 0);
 
-        Imgproc.rectangle(mat, LEFT_ROI, location == YellowDetector.Location.LEFT? colorObject:color);
-        Imgproc.rectangle(mat, MIDDLE_ROI, location == YellowDetector.Location.MIDDLE? colorObject:color);
-        Imgproc.rectangle(mat, RIGHT_ROI, location == YellowDetector.Location.RIGHT? colorObject:color);
+        Imgproc.rectangle(mat, LEFT_ROI, location == blueDetector.Location.LEFT? colorObject:color);
+        Imgproc.rectangle(mat, MIDDLE_ROI, location == blueDetector.Location.MIDDLE? colorObject:color);
+        Imgproc.rectangle(mat, RIGHT_ROI, location == blueDetector.Location.RIGHT? colorObject:color);
 
         return mat;
     }
 
-    public YellowDetector.Location getLocation() {
+    public blueDetector.Location getLocation() {
         return location;
     }
 
