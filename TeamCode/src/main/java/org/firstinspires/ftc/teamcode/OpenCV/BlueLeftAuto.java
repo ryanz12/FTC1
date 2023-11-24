@@ -104,7 +104,8 @@ public class BlueLeftAuto extends LinearOpMode {
                 .waitSeconds(3)
                 .build();
         TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
-                .back(20)
+                .setReversed(true)
+                .forward(20)
                 .build();
         TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(-10))
