@@ -96,6 +96,7 @@ public class BlueLeftAuto extends LinearOpMode {
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
+
                 .build();
 
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
@@ -125,21 +126,25 @@ public class BlueLeftAuto extends LinearOpMode {
                     case LEFT:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqL);
-                        wait(10);
+                        Thread.sleep(10000);
+
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
                         moveIntake(-200, .1);
-                        wait(10);
+                        Thread.sleep(10000);
+
                         break;
                     case RIGHT:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-200,0.1);
-                        wait(10);
+                        Thread.sleep(10000);
+
                         break;
+
                     case NOT_FOUND:
                         if(canSeen == false)
                             if(canSeeL == false){
@@ -153,6 +158,7 @@ public class BlueLeftAuto extends LinearOpMode {
                             }
                         //
                         break;
+
 
 
 
