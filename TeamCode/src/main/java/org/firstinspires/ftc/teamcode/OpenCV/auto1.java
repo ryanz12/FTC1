@@ -96,13 +96,16 @@ public class auto1 extends LinearOpMode {
                 .build();
 
         TrajectorySequence seqS = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(180))
                 .turn(Math.toRadians(1))
                 .waitSeconds(3)
-                .turn(Math.toRadians(-2))
+                .turn(Math.toRadians(-1))
                 .waitSeconds(3)
-                .turn(Math.toRadians(1))
+                .turn(Math.toRadians(-1))
+                .waitSeconds(3)
                 .build();
+
+
+
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);}
@@ -135,6 +138,7 @@ public class auto1 extends LinearOpMode {
                     case NOT_FOUND:
                         drive.followTrajectorySequence(seqS);
                         break;
+
                 }
             }
         }
