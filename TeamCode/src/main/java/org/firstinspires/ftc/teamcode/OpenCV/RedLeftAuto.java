@@ -156,12 +156,15 @@ public class RedLeftAuto extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(pathLeft);
                         break;
                     case MIDDLE:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(pathMiddle);
                         break;
                     case RIGHT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(pathRight);
                         break;
                     case NOT_FOUND:
