@@ -153,6 +153,7 @@ public class auto1 extends LinearOpMode {
                                 canSeen = true;
                                 break;
                             }
+                        //
                         break;
 
 
