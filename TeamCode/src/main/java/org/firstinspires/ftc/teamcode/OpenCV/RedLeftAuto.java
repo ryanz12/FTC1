@@ -151,7 +151,7 @@ public class RedLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(pathRight);
                         break;
                     case NOT_FOUND:
-
+                        drive.followTrajectorySequence(pathMiddle);
                         break;
                 }
             }
