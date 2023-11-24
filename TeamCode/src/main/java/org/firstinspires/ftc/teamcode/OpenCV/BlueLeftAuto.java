@@ -47,6 +47,21 @@ public class BlueLeftAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+//        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
+//        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
+//        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+//        rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
+//
+//        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         //Intake
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
 
@@ -80,7 +95,7 @@ public class BlueLeftAuto extends LinearOpMode {
 
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d myPose = new Pose2d(0, 0, Math.toRadians(0));
+        Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
         drive.setPoseEstimate(myPose);
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
@@ -96,7 +111,7 @@ public class BlueLeftAuto extends LinearOpMode {
 
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
-                .forward(24)
+                .forward(23)
 
                 .build();
 
@@ -104,7 +119,7 @@ public class BlueLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(5))
                 .waitSeconds(3)
                 .build();
-        TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence backwards = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(270)))
                 .waitSeconds(1)
                 .back(20)
                 .build();
@@ -112,8 +127,6 @@ public class BlueLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
-
-
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -130,27 +143,34 @@ public class BlueLeftAuto extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        telemetry.addData("RUnning left Path", "True");
+                        telemetry.update();
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqL);
-                        Thread.sleep(10000);
-
+                        telemetry.addData("RUnning left Path", "False");
+                        telemetry.update();
+                        moveIntake(-300, .1);
+                        Thread.sleep(100000);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
-                        moveIntake(-200, .1);
-                        drive.followTrajectorySequence(backward);
-                        Thread.sleep(10000);
-
+                        moveIntake(-300, .1);
+                        drive.followTrajectorySequence(backwards);
+                        Thread.sleep(1000000);
                         break;
                     case RIGHT:
+                        telemetry.addData("RUnning right Path", "True");
+                        telemetry.update();
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
-                        moveIntake(-200,0.1);
+                        moveIntake(-300, .1);
+                        drive.followTrajectorySequence(backwards);
+                        Thread.sleep(100000);
 
-                        Thread.sleep(10000);
-
+                        telemetry.addData("RUnning right Path", "False");
+                        telemetry.update();
                         break;
 
                     case NOT_FOUND:
@@ -176,6 +196,35 @@ public class BlueLeftAuto extends LinearOpMode {
         webcam.stopStreaming();
 
     }
+    public void backward(int ticks, double speed){
+        if(opModeIsActive()){
+            leftFrontMotor.setTargetPosition(ticks);
+            leftBackMotor.setTargetPosition(ticks);
+            rightFrontMotor.setTargetPosition(ticks);
+            rightBackMotor.setTargetPosition(ticks);
+
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            leftFrontMotor.setPower(speed);
+            leftBackMotor.setPower(speed);
+            rightFrontMotor.setPower(speed);
+            rightBackMotor.setPower(speed);
+
+            while(leftFrontMotor.isBusy()){
+                telemetry.addData("Moving ","True");
+                telemetry.update();
+            }
+
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+    
 
     public void forward(int inchesForward) {
         double circumference = 3.14 * 2.938;
