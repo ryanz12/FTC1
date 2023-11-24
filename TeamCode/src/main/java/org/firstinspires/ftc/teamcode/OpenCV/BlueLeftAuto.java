@@ -95,7 +95,7 @@ public class BlueLeftAuto extends LinearOpMode {
 
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
-                .forward(25)
+                .forward(24)
 
                 .build();
 
