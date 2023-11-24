@@ -74,19 +74,19 @@ public class RedLeftAuto extends LinearOpMode {
                 .addDisplacementMarker(() -> {
                     moveIntake(-400, 0.05);
                 })
-                .splineTo(new Vector2d(-37, -11), 0)
-                .waitSeconds(1)
-                .splineTo(new Vector2d(20, 0), 0)
-                .splineTo(new Vector2d(40, -30), 0)
-                .waitSeconds(1)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .back(8)
-                .waitSeconds(5)
-                .strafeRight(20)
-                .waitSeconds(1)
-                .back(10)
-                .waitSeconds(5)
+//                .splineTo(new Vector2d(-37, -11), 0)
+//                .waitSeconds(1)
+//                .splineTo(new Vector2d(20, 0), 0)
+//                .splineTo(new Vector2d(40, -30), 0)
+//                .waitSeconds(1)
+//                .turn(Math.toRadians(179))
+//                .waitSeconds(1)
+//                .back(8)
+//                .waitSeconds(5)
+//                .strafeRight(20)
+//                .waitSeconds(1)
+//                .back(10)
+//                .waitSeconds(5)
                 .build();
 
         TrajectorySequence pathMiddle = drive.trajectorySequenceBuilder(startPos)
@@ -97,19 +97,19 @@ public class RedLeftAuto extends LinearOpMode {
                 .addDisplacementMarker(() -> {
                     moveIntake(-400, 0.05);
                 })
-                .strafeRight(76)
-                .waitSeconds(1)
-                .turn(Math.toRadians(90))
-                .waitSeconds(1)
-                .back(8)
-                .addDisplacementMarker(() -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, .2);
-                })
-                .strafeRight(25)
-                .waitSeconds(1)
-                .back(11)
+//                .strafeRight(76)
+//                .waitSeconds(1)
+//                .turn(Math.toRadians(90))
+//                .waitSeconds(1)
+//                .back(8)
+//                .addDisplacementMarker(() -> {
+//                    moveArm(800, 0.3);
+//                    moveIntake(400, 0.5);
+//                    moveArm(0, .2);
+//                })
+//                .strafeRight(25)
+//                .waitSeconds(1)
+//                .back(11)
                 .build();
 
         TrajectorySequence pathRight = drive.trajectorySequenceBuilder(startPos)
@@ -120,21 +120,22 @@ public class RedLeftAuto extends LinearOpMode {
                 .addDisplacementMarker(() -> {
                     moveIntake(-400, 0.05);
                 })
-                .strafeRight(3)
-                .waitSeconds(1)
-                .forward(44)
-                .waitSeconds(1)
-                .splineTo(new Vector2d(40, -41), 0)
-                .turn(Math.toRadians(179))
-                .back(8)
-                .addDisplacementMarker(() -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, .2);
-                })
-                .strafeRight(30)
-                .waitSeconds(1)
-                .back(10)
+//                .strafeRight(3)
+//                .waitSeconds(1)
+//                .strafeRight(25)
+//                .forward(44)
+//                .waitSeconds(1)
+//                .splineTo(new Vector2d(40, -41), 0)
+//                .turn(Math.toRadians(179))
+//                .back(8)
+//                .addDisplacementMarker(() -> {
+//                    moveArm(800, 0.3);
+//                    moveIntake(400, 0.5);
+//                    moveArm(0, .2);
+//                })
+//                .strafeRight(30)
+//                .waitSeconds(1)
+//                .back(10)
                 .build();
 
         waitForStart();
@@ -157,7 +158,7 @@ public class RedLeftAuto extends LinearOpMode {
             }
         }
         webcam.stopStreaming();
-//1
+//
     }
 
     public void moveIntake(int ticks, double speed){

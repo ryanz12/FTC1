@@ -22,13 +22,16 @@ public class MyClass {
                                 .waitSeconds(1)
                                 .splineTo(new Vector2d(-36, -35), Math.toRadians(90))
 
-                                .strafeRight(76)
+                                .strafeLeft(25)
+                                .forward(25)
+                                .strafeRight(101)
                                 .waitSeconds(1)
                                 .turn(Math.toRadians(90))
                                 .waitSeconds(1)
                                 .back(8)
 
-                                .strafeRight(25)
+
+
                                 .waitSeconds(1)
                                 .back(11)
                                 .build()
