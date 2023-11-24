@@ -17,24 +17,7 @@ public class MyClass {
                         //red
                         //left
                         drive.trajectorySequenceBuilder(new Pose2d(-36,-60,Math.toRadians(270)))
-                                .back(4)
-                                .turn(Math.toRadians(179))
-                                .waitSeconds(1)
-                                .splineTo(new Vector2d(-37, -34), Math.toRadians(180))
-                                .waitSeconds(10)
-                                .splineTo(new Vector2d(-37, -11), 0)
-                                .waitSeconds(1)
-                                .splineTo(new Vector2d(20, 0), 0)
-                                .splineTo(new Vector2d(40, -30), 0)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(179))
-                                .waitSeconds(1)
-                                .back(8)
-                                .waitSeconds(5)
-                                .strafeRight(20)
-                                .waitSeconds(1)
-                                .back(10)
-                                .waitSeconds(5)
+                                .back(20)
                                 .build()
                 );
 

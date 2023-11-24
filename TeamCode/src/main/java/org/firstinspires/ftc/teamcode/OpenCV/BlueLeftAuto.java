@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -104,7 +105,7 @@ public class BlueLeftAuto extends LinearOpMode {
                 .waitSeconds(3)
                 .build();
         TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
-                .back(20)
+                .splineTo(new Vector2d(10, 60), Math.toRadians(90))
                 .build();
         TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(-10))
