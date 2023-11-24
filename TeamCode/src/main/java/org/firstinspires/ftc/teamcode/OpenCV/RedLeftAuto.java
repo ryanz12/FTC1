@@ -23,6 +23,10 @@ public class RedLeftAuto extends LinearOpMode {
     public DcMotor armRight;
     public DcMotor intakeMotor;
 
+    boolean canSeeR = false;
+    boolean canSeeL = false;
+
+    boolean canSeen = false;
     @Override
     public void runOpMode(){
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
@@ -139,7 +143,14 @@ public class RedLeftAuto extends LinearOpMode {
 //                .waitSeconds(1)
 //                .back(10)
                 .build();
-
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(startPos)
+                .turn(Math.toRadians(5))
+                .waitSeconds(3)
+                .build();
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(startPos)
+                .turn(Math.toRadians(-10))
+                .waitSeconds(3)
+                .build();
         waitForStart();
         while(opModeIsActive()){
             if (detector.getLocation() != null) {
@@ -154,7 +165,16 @@ public class RedLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(pathRight);
                         break;
                     case NOT_FOUND:
-                        drive.followTrajectorySequence(pathMiddle);
+                        if(canSeen == false)
+                            if(canSeeL == false){
+                                drive.followTrajectorySequence(seqSL);
+                                canSeen = true;
+                                break;
+                            }if(canSeeR == false){
+                                drive.followTrajectorySequence(seqSR);
+                                canSeen = true;
+                                break;
+                            }
                         break;
                 }
             }
