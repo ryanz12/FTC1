@@ -71,6 +71,7 @@ public class RedLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(179))
                 .waitSeconds(1)
                 .splineTo(new Vector2d(-37, -34), Math.toRadians(180))
+                .back(5)
                 .addDisplacementMarker(() -> {
                     moveIntake(-400, 0.05);
                 })
@@ -117,6 +118,7 @@ public class RedLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(179))
                 .waitSeconds(1)
                 .splineTo(new Vector2d(-35, -33), 0)
+                .back(5)
                 .addDisplacementMarker(() -> {
                     moveIntake(-400, 0.05);
                 })
