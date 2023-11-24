@@ -107,6 +107,9 @@ public class BlueLeftAuto extends LinearOpMode {
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
+        TrajectorySequence backward = drive.trajectorySequenceBuilder(myPose)
+                .back(5)
+                .build();
 
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -133,6 +136,7 @@ public class BlueLeftAuto extends LinearOpMode {
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
                         moveIntake(-200, .1);
+                        drive.followTrajectorySequence(backward);
                         Thread.sleep(10000);
 
                         break;
@@ -141,6 +145,7 @@ public class BlueLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-200,0.1);
+
                         Thread.sleep(10000);
 
                         break;
