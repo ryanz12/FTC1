@@ -96,6 +96,19 @@ public class BlueLeftAuto extends LinearOpMode {
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
+                .strafeRight(76)
+//                .waitSeconds(1)
+//                .turn(Math.toRadians(90))
+//                .waitSeconds(1)
+//                .back(8)
+//                .addDisplacementMarker(() -> {
+//                    moveArm(800, 0.3);
+//                    moveIntake(400, 0.5);
+//                    moveArm(0, .2);
+//                })
+//                .strafeRight(25)
+//                .waitSeconds(1)
+//                .back(11)
                 .build();
 
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)

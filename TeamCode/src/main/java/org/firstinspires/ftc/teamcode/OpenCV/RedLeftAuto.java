@@ -169,6 +169,7 @@ public class RedLeftAuto extends LinearOpMode {
                             if(canSeeL == false){
                                 drive.followTrajectorySequence(seqSL);
                                 canSeen = true;
+
                                 break;
                             }if(canSeeR == false) {
                                 drive.followTrajectorySequence(seqSR);
