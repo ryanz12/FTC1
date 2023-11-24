@@ -38,6 +38,9 @@ public class auto1 extends LinearOpMode {
     public DcMotor armLeft;
     public DcMotor armRight;
     public DcMotor intakeMotor;
+
+    boolean canSeeR = false;
+    boolean canSeeL = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
@@ -95,14 +98,16 @@ public class auto1 extends LinearOpMode {
                 .forward(25)
                 .build();
 
-        TrajectorySequence seqS = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(180))
-                .turn(Math.toRadians(1))
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(4))
                 .waitSeconds(3)
-                .turn(Math.toRadians(-2))
-                .waitSeconds(3)
-                .turn(Math.toRadians(1))
                 .build();
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(-8))
+                .waitSeconds(3)
+                .build();
+
+
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);}
@@ -118,23 +123,38 @@ public class auto1 extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqL);
                         //drop pixel
                         moveIntake(-200,0.1);
                         break;
                     case MIDDLE:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
                         //drop pixel
                         moveIntake(-200,0.1);
                         break;
                     case RIGHT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-200,0.1);
                         break;
                     case NOT_FOUND:
-                        drive.followTrajectorySequence(seqS);
+                        if(canSeeL == false){
+                            drive.followTrajectorySequence(seqSL);
+                            canSeeL = true;
+                            break;
+                        }
+                        else if(canSeeR == false){
+                            drive.followTrajectorySequence(seqSR);
+                            canSeeR = true;
+                            break;
+                        }
                         break;
+
+
+
                 }
             }
         }
