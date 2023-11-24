@@ -121,16 +121,19 @@ public class auto1 extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqL);
                         //drop pixel
                         moveIntake(-200,0.1);
                         break;
                     case MIDDLE:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
                         //drop pixel
                         moveIntake(-200,0.1);
                         break;
                     case RIGHT:
+                        webcam.stopStreaming();
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-200,0.1);
