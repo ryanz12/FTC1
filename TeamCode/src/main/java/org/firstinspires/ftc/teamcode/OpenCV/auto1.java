@@ -97,7 +97,7 @@ public class auto1 extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .turn(Math.toRadians(1))
                 .waitSeconds(3)
-                .turn(Math.toRadians(-4))
+                .turn(Math.toRadians(-2))
                 .waitSeconds(3)
                 .turn(Math.toRadians(1))
                 .build();
