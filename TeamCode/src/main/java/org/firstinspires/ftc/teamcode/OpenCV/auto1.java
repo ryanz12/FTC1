@@ -41,6 +41,8 @@ public class auto1 extends LinearOpMode {
 
     boolean canSeeR = false;
     boolean canSeeL = false;
+
+    boolean canSeen = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
@@ -99,11 +101,11 @@ public class auto1 extends LinearOpMode {
                 .build();
 
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(4))
+                .turn(Math.toRadians(5))
                 .waitSeconds(3)
                 .build();
         TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(-8))
+                .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
 
@@ -141,16 +143,16 @@ public class auto1 extends LinearOpMode {
                         moveIntake(-200,0.1);
                         break;
                     case NOT_FOUND:
-                        if(canSeeL == false){
-                            drive.followTrajectorySequence(seqSL);
-                            canSeeL = true;
-                            break;
-                        }
-                        else if(canSeeR == false){
-                            drive.followTrajectorySequence(seqSR);
-                            canSeeR = true;
-                            break;
-                        }
+                        if(canSeen == false)
+                            if(canSeeL == false){
+                                drive.followTrajectorySequence(seqSL);
+                                canSeen = true;
+                                break;
+                            }if(canSeeR == false){
+                                drive.followTrajectorySequence(seqSR);
+                                canSeen = true;
+                                break;
+                            }
                         break;
 
 
