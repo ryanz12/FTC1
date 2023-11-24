@@ -38,6 +38,9 @@ public class auto1 extends LinearOpMode {
     public DcMotor armLeft;
     public DcMotor armRight;
     public DcMotor intakeMotor;
+
+    boolean canSeeR = false;
+    boolean canSeeL = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
@@ -95,15 +98,14 @@ public class auto1 extends LinearOpMode {
                 .forward(25)
                 .build();
 
-        TrajectorySequence seqS = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(1))
-                .waitSeconds(3)
-                .turn(Math.toRadians(-1))
-                .waitSeconds(3)
-                .turn(Math.toRadians(-1))
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(4))
                 .waitSeconds(3)
                 .build();
-
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(-8))
+                .waitSeconds(3)
+                .build();
 
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -139,8 +141,19 @@ public class auto1 extends LinearOpMode {
                         moveIntake(-200,0.1);
                         break;
                     case NOT_FOUND:
-                        drive.followTrajectorySequence(seqS);
+                        if(canSeeL == false){
+                            drive.followTrajectorySequence(seqSL);
+                            canSeeL = true;
+                            break;
+                        }
+                        else if(canSeeR == false){
+                            drive.followTrajectorySequence(seqSR);
+                            canSeeR = true;
+                            break;
+                        }
                         break;
+
+
 
                 }
             }
