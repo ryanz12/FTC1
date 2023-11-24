@@ -157,7 +157,7 @@ public class RedLeftAuto extends LinearOpMode {
             }
         }
         webcam.stopStreaming();
-
+//1
     }
 
     public void moveIntake(int ticks, double speed){
