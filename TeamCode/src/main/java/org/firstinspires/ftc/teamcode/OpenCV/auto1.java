@@ -96,7 +96,9 @@ public class auto1 extends LinearOpMode {
         TrajectorySequence seqS = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .turn(Math.toRadians(2))
+                .waitSeconds(3)
                 .turn(Math.toRadians(-4))
+                .waitSeconds(3)
                 .turn(Math.toRadians(2))
                 .build();
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -131,7 +133,6 @@ public class auto1 extends LinearOpMode {
                     case NOT_FOUND:
                         drive.followTrajectorySequence(seqS);
                         break;
-
                 }
             }
         }
