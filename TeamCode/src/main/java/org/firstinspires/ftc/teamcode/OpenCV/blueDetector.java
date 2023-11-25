@@ -53,7 +53,7 @@ public class blueDetector extends OpenCvPipeline {
           Scalar highHSV = new Scalar(24, 255, 255);
          */
         //Blue
-        Scalar lowHSV = new Scalar(90, 50, 70);
+        Scalar lowHSV = new Scalar(90 , 50, 70);
         Scalar highHSV = new Scalar(128, 255, 255);
         Core.inRange(mat, lowHSV, highHSV, mat);
 
