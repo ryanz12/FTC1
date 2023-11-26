@@ -56,6 +56,25 @@ public class TheMerge extends LinearOpMode {
 
         GamepadEx driverOp = new GamepadEx(gamepad2);
 
+        Thread armThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(!isStopRequested()){
+                    if(gamepad1.right_bumper){
+                        armMove = !armMove;
+                        if(armMove){
+                            moveArm(800, 0.3);
+                        }
+                        else{
+                            moveArm(0,.15);
+                        }
+                    }
+                }
+            }
+        });
+
+        armThread.start();
+
         //MAIN LOOP
         waitForStart();
         while (!isStopRequested()) {
@@ -67,7 +86,6 @@ public class TheMerge extends LinearOpMode {
                     -driverOp.getRightX()
             );
 
-
             //############### INTAKE ###############
             if (gamepad1.left_trigger > 0) {
                 intakePower = -1;
@@ -78,18 +96,9 @@ public class TheMerge extends LinearOpMode {
             }
             intakeMotor.setPower(intakePower);
 
-            //############## ARM ##################
-            if(gamepad1.right_bumper){
-                armMove = !armMove;
-                if(armMove){
-                    moveArm(800, 0.3);
-                }
-                else{
-                    moveArm(0,.15);
-                }
-            }
-
         }
+        armThread.interrupt();
+
         telemetry.addLine("Controller 1 " +
                 "\n ARM = Right bumper" +
                 "\n Left trigger and right trigger is for input adn output "+
@@ -97,6 +106,9 @@ public class TheMerge extends LinearOpMode {
                 "\n DRIVE BASE is all joysticks");
         telemetry.update();
     }
+
+
+
 
     public void moveArm(int ticks, double speed){
         if(opModeIsActive()){
