@@ -16,8 +16,9 @@ public class MyClass {
                 .followTrajectorySequence(drive ->
                         //red
                         //left
-                        drive.trajectorySequenceBuilder(new Pose2d(-36,-60,Math.toRadians(270)))
-                                .back(20)
+                        drive.trajectorySequenceBuilder(new Pose2d(10, 60,Math.toRadians(270)))
+
+                                .waitSeconds(5)
                                 .build()
                 );
 

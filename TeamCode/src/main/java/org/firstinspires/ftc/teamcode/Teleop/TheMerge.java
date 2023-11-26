@@ -16,7 +16,7 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower = 0;
     public boolean armMove = false;
-    public double speedReducer=1;
+    public double speedReducer=.6;
 
     @Override
     public void runOpMode() {
@@ -63,8 +63,8 @@ public class TheMerge extends LinearOpMode {
 
             drive.driveRobotCentric(
                     -driverOp.getLeftX() * speedReducer,
-                    -driverOp.getLeftY() * speedReducer,
-                    -driverOp.getRightX() * speedReducer
+                    -driverOp.getLeftY(),
+                    -driverOp.getRightX()
             );
 
 
