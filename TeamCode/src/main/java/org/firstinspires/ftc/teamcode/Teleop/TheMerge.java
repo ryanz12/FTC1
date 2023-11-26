@@ -17,6 +17,7 @@ public class TheMerge extends LinearOpMode {
     public double intakePower = 0;
     public boolean armMove = false;
     public double speedReducer=.6;
+    public static final double joystickDeadzone = 0.1;
 
     @Override
     public void runOpMode() {
@@ -81,8 +82,8 @@ public class TheMerge extends LinearOpMode {
             //############### ROBOT DRIVING ###############
 
             drive.driveRobotCentric(
-                    -driverOp.getLeftX() * speedReducer,
-                    -driverOp.getLeftY(),
+                    deadzoneCalc(-driverOp.getLeftX() * speedReducer),
+                    deadzoneCalc(-driverOp.getLeftY()),
                     -driverOp.getRightX()
             );
 
@@ -106,8 +107,6 @@ public class TheMerge extends LinearOpMode {
                 "\n DRIVE BASE is all joysticks");
         telemetry.update();
     }
-
-
 
 
     public void moveArm(int ticks, double speed){
@@ -135,6 +134,13 @@ public class TheMerge extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        }
+    }
+    public double deadzoneCalc(double input){
+        if(Math.abs(input) < joystickDeadzone){
+            return 0.0;
+        }else{
+            return input;
         }
     }
 }
