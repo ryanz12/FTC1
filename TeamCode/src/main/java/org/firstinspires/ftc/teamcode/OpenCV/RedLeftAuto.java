@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -18,7 +19,21 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
 public class RedLeftAuto extends LinearOpMode {
+    //Change LinearOpMode If necessary
+    //
     OpenCvWebcam webcam = null;
+    public enum loc{
+        Left,
+        Right,
+        Middle
+    }
+    private auto3.loc location;
+    private DcMotor leftFrontMotor;
+    private DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor;
+    private DcMotor rightBackMotor;
+
+
     public DcMotor armLeft;
     public DcMotor armRight;
     public DcMotor intakeMotor;
@@ -27,14 +42,35 @@ public class RedLeftAuto extends LinearOpMode {
     boolean canSeeL = false;
 
     boolean canSeen = false;
+    AprilTagDetectionPipeline aprilTagDetectionPipeline;
+
+
     @Override
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException {
+//        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
+//        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
+//        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
+//        rightBackMotor = hardwareMap.get(DcMotor.class, "rightBack");
+//
+//        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //Intake
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
+
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //Arm
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
 
@@ -50,11 +86,62 @@ public class RedLeftAuto extends LinearOpMode {
         armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
+        //Webcam
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
         YellowDetector detector = new YellowDetector(telemetry);
         webcam.setPipeline(detector);
+
+        //making the trajectory
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
+        drive.setPoseEstimate(myPose);
+        TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(25)
+                .turn(Math.toRadians(90))
+                .build();
+
+        TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(25)
+                .turn(Math.toRadians(-90))
+                .build();
+
+        TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(180))
+                .forward(23)
+                .build();
+
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(10))
+                .waitSeconds(3)
+                .build();
+        TrajectorySequence backwards = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(270)))
+                .waitSeconds(1)
+                .back(20)
+                .build();
+
+        TrajectorySequence forwardleft = drive.trajectorySequenceBuilder(new Pose2d(8,35, Math.toRadians(270)))
+                .waitSeconds(1)
+                .forward(2)
+                .build();
+
+        TrajectorySequence backwards_L = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(0)))
+                .waitSeconds(1)
+                .back(3.4)
+                .build();
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(-10))
+                .waitSeconds(3)
+                .build();
+        TrajectorySequence final_l = drive.trajectorySequenceBuilder(myPose)
+                .waitSeconds(1)
+                .strafeRight(25)
+                .waitSeconds(1)
+                .splineTo(new Vector2d(50,42),0)
+                .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -66,125 +153,129 @@ public class RedLeftAuto extends LinearOpMode {
             }
         });
 
-        //Paths
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(10, -60, Math.toRadians(90));
-
-        TrajectorySequence pathLeft = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-37, -34), Math.toRadians(180))
-                .back(5)
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
-                })
-//                .splineTo(new Vector2d(-37, -11), 0)
-//                .waitSeconds(1)
-//                .splineTo(new Vector2d(20, 0), 0)
-//                .splineTo(new Vector2d(40, -30), 0)
-//                .waitSeconds(1)
-//                .turn(Math.toRadians(179))
-//                .waitSeconds(1)
-//                .back(8)
-//                .waitSeconds(5)
-//                .strafeRight(20)
-//                .waitSeconds(1)
-//                .back(10)
-//                .waitSeconds(5)
-                .build();
-
-        TrajectorySequence pathMiddle = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-36, -35), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
-                })
-//                .strafeRight(76)
-//                .waitSeconds(1)
-//                .turn(Math.toRadians(90))
-//                .waitSeconds(1)
-//                .back(8)
-//                .addDisplacementMarker(() -> {
-//                    moveArm(800, 0.3);
-//                    moveIntake(400, 0.5);
-//                    moveArm(0, .2);
-//                })
-//                .strafeRight(25)
-//                .waitSeconds(1)
-//                .back(11)
-                .build();
-
-        TrajectorySequence pathRight = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-35, -33), 0)
-                .back(5)
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
-                })
-//                .strafeRight(3)
-//                .waitSeconds(1)
-//                .strafeRight(25)
-//                .forward(44)
-//                .waitSeconds(1)
-//                .splineTo(new Vector2d(40, -41), 0)
-//                .turn(Math.toRadians(179))
-//                .back(8)
-//                .addDisplacementMarker(() -> {
-//                    moveArm(800, 0.3);
-//                    moveIntake(400, 0.5);
-//                    moveArm(0, .2);
-//                })
-//                .strafeRight(30)
-//                .waitSeconds(1)
-//                .back(10)
-                .build();
-        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(startPos)
-                .turn(Math.toRadians(5))
-                .waitSeconds(3)
-                .build();
-        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(startPos)
-                .turn(Math.toRadians(-10))
-                .waitSeconds(3)
-                .build();
         waitForStart();
         while(opModeIsActive()){
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
+                        telemetry.addData("RUnning left Path", "True");
+                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(pathLeft);
+                        drive.followTrajectorySequence(seqL);
+                        telemetry.addData("RUnning left Path", "False");
+                        telemetry.update();
+                        drive.followTrajectorySequence(backwards_L);
+                        moveIntake(-300, .1);
+//                        drive.followTrajectorySequence(forwardleft);
+//                        drive.followTrajectorySequence(backwards);
+//
+//                        drive.followTrajectorySequence(final_l);
+                        Thread.sleep(100000);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(pathMiddle);
+                        drive.followTrajectorySequence(seqF);
+                        moveIntake(-300, .1);
+                        drive.followTrajectorySequence(backwards);
+                        Thread.sleep(1000000);
                         break;
                     case RIGHT:
+                        telemetry.addData("RUnning right Path", "True");
+                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(pathRight);
+                        drive.followTrajectorySequence(seqR);
+                        //drop pixel
+                        moveIntake(-300, .1);
+//                        drive.followTrajectorySequence(backwards);
+                        Thread.sleep(100000);
+
+                        telemetry.addData("RUnning right Path", "False");
+                        telemetry.update();
                         break;
+
                     case NOT_FOUND:
                         if(canSeen == false)
                             if(canSeeL == false){
                                 drive.followTrajectorySequence(seqSL);
                                 canSeen = true;
-
                                 break;
-                            }if(canSeeR == false) {
-                                drive.followTrajectorySequence(seqSR);
-                                canSeen = true;
-                                break;
-                            }
+                            }if(canSeeR == false){
+                        drive.followTrajectorySequence(seqSR);
+                        canSeen = true;
                         break;
+                    }
+                        //
+
+                        break;
+
+
+
+
                 }
             }
         }
         webcam.stopStreaming();
-//
+
+    }
+    public void backward(int ticks, double speed){
+        if(opModeIsActive()){
+            leftFrontMotor.setTargetPosition(ticks);
+            leftBackMotor.setTargetPosition(ticks);
+            rightFrontMotor.setTargetPosition(ticks);
+            rightBackMotor.setTargetPosition(ticks);
+
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            leftFrontMotor.setPower(speed);
+            leftBackMotor.setPower(speed);
+            rightFrontMotor.setPower(speed);
+            rightBackMotor.setPower(speed);
+
+            while(leftFrontMotor.isBusy()){
+                telemetry.addData("Moving ","True");
+                telemetry.update();
+            }
+
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+
+    public void forward(int inchesForward) {
+        double circumference = 3.14 * 2.938;
+        double rotationsNeeded = inchesForward / circumference;
+        int encoderDrivingTarget = (int) (rotationsNeeded * 1200);
+        leftFrontMotor.setTargetPosition(encoderDrivingTarget);
+        rightFrontMotor.setTargetPosition(encoderDrivingTarget);
+        leftBackMotor.setTargetPosition(encoderDrivingTarget);
+        rightBackMotor.setTargetPosition(encoderDrivingTarget);
+    }
+    public void moveArm(int ticks, double speed) {
+        if (opModeIsActive()) {
+            armLeft.setTargetPosition(ticks);
+            armRight.setTargetPosition(ticks);
+
+            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            armLeft.setPower(speed);
+            armRight.setPower(speed);
+
+            while (opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())) {
+                telemetry.addData("Running to", " %7d :%7d", ticks, ticks);
+                telemetry.addData("Currently at", " at %7d :%7d",
+                        armLeft.getCurrentPosition(), armRight.getCurrentPosition());
+                telemetry.update();
+            }
+            armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
 
     public void moveIntake(int ticks, double speed){
@@ -205,30 +296,7 @@ public class RedLeftAuto extends LinearOpMode {
             intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
-    public void moveArm(int ticks, double speed) {
-        if (opModeIsActive()) {
-            armLeft.setTargetPosition(ticks);
-            armRight.setTargetPosition(ticks);
-
-            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            armLeft.setPower(speed);
-            armRight.setPower(speed);
-
-            while (opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())) {
-                telemetry.addData("Running to", " %7d :%7d", ticks, ticks);
-                telemetry.addData("Currently at", " at %7d :%7d",
-                        armLeft.getCurrentPosition(), armRight.getCurrentPosition());
-                telemetry.update();
-            }
-
-            armLeft.setPower(0);
-            armRight.setPower(0);
-
-            armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
 }
+
+
+

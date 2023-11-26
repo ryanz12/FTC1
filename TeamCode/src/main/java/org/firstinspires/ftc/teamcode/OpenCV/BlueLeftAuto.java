@@ -105,7 +105,7 @@ public class BlueLeftAuto extends LinearOpMode {
 
         TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
-                .forward(25)
+                .forward(27.5)
                 .turn(Math.toRadians(-90))
                 .build();
 
@@ -166,10 +166,10 @@ public class BlueLeftAuto extends LinearOpMode {
                         telemetry.update();
                         drive.followTrajectorySequence(backwards_L);
                         moveIntake(-300, .1);
-                        drive.followTrajectorySequence(forwardleft);
-                        drive.followTrajectorySequence(backwards);
+//                        drive.followTrajectorySequence(forwardleft);
+//                        drive.followTrajectorySequence(backwards);
 
-                        drive.followTrajectorySequence(final_l);
+//                        drive.followTrajectorySequence(final_l);
                         Thread.sleep(100000);
                         break;
                     case MIDDLE:
@@ -186,7 +186,7 @@ public class BlueLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-300, .1);
-                        drive.followTrajectorySequence(backwards);
+//                        drive.followTrajectorySequence(backwards);
                         Thread.sleep(100000);
 
                         telemetry.addData("RUnning right Path", "False");

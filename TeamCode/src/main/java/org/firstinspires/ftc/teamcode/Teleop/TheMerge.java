@@ -70,7 +70,7 @@ public class TheMerge extends LinearOpMode {
 
             //############### INTAKE ###############
             if (gamepad1.left_trigger > 0) {
-                intakePower = -0.3;
+                intakePower = -1;
             } else if (gamepad1.right_trigger > 0) {
                 intakePower = 1;
             } else {
