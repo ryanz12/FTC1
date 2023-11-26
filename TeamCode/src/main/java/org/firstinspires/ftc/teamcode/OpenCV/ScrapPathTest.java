@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -37,84 +38,20 @@ public class ScrapPathTest extends LinearOpMode {
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(-36, -60, Math.toRadians(270));
+        Pose2d startPos = new Pose2d(0,0,0);
 
-        TrajectorySequence pathLeft = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-37, -34), Math.toRadians(180))
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
+        TrajectorySequence test2 = drive.trajectorySequenceBuilder(startPos)
+                .forward(10)
+                .UNSTABLE_addDisplacementMarkerOffset(0,()->{
+                    moveIntake(400, 1);
                 })
-                .splineTo(new Vector2d(-37, -11), 0)
-                .waitSeconds(1)
-                .splineTo(new Vector2d(20, 0), 0)
-                .splineTo(new Vector2d(40, -30), 0)
-                .waitSeconds(1)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .back(8)
-                .waitSeconds(5)
-                .strafeRight(20)
-                .waitSeconds(1)
-                .back(10)
-                .waitSeconds(5)
-                .build();
-
-        TrajectorySequence pathMiddle = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-36, -35), Math.toRadians(90))
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
-                })
-                .strafeRight(76)
-                .waitSeconds(1)
-                .turn(Math.toRadians(90))
-                .waitSeconds(1)
-                .back(8)
-                .addDisplacementMarker(() -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, .2);
-                })
-                .strafeRight(25)
-                .waitSeconds(1)
-                .back(11)
-                .build();
-
-        TrajectorySequence pathRight = drive.trajectorySequenceBuilder(startPos)
-                .back(4)
-                .turn(Math.toRadians(179))
-                .waitSeconds(1)
-                .splineTo(new Vector2d(-35, -33), 0)
-                .addDisplacementMarker(() -> {
-                    moveIntake(-400, 0.05);
-                })
-                .strafeRight(3)
-                .waitSeconds(1)
-                .forward(44)
-                .waitSeconds(1)
-                .splineTo(new Vector2d(40, -41), 0)
-                .turn(Math.toRadians(179))
-                .back(8)
-                .addDisplacementMarker(() -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, .2);
-                })
-                .strafeRight(30)
-                .waitSeconds(1)
-                .back(10)
+                .strafeRight(5)
                 .build();
 
         waitForStart();
-        while(!isStopRequested()){
-            drive.followTrajectorySequence(pathMiddle);
-        }
+        if(isStopRequested()) return;
 
+        drive.followTrajectorySequence(test2);
     }
 
     public void moveArm(int ticks, double speed){

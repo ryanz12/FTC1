@@ -35,15 +35,9 @@ public class armTest extends LinearOpMode {
         while(!isStopRequested()){
 
             if(gamepad1.right_bumper){
-                armMove = !armMove;
-
-                if(armMove){
-                    moveArm(800);
-                }
-                else{
-                    moveArm(0);
-                }
-
+                armLeft.setPower(1);
+            }else{
+                armLeft.setPower(0);
             }
         }
     }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,8 +13,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class new_teleop extends LinearOpMode {
 
     public DcMotor intakeMotor;
-    public double speedReducer = .6;
-    public boolean dowemoveintake = false;
+    public double speedReducer = .7;
+
+    public DcMotor armLeft;
+    public DcMotor armRight;
+    public boolean armMove = false;
+    public double joystickDeadzone = .5;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -23,6 +28,21 @@ public class new_teleop extends LinearOpMode {
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
+        armRight = hardwareMap.get(DcMotor.class, "armRight");
+
+        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        armRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
+        armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         Motor leftFront = new Motor(hardwareMap, "leftFront", Motor.GoBILDA.RPM_312);
         Motor leftBack = new Motor(hardwareMap, "leftBack", Motor.GoBILDA.RPM_312);
@@ -43,18 +63,20 @@ public class new_teleop extends LinearOpMode {
 
         GamepadEx driverOp = new GamepadEx(gamepad2);
 
+        RevIMU imu = new RevIMU(hardwareMap);
+        imu.init();
+
         Thread intakeThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(!isStopRequested()){
-                    if(gamepad1.left_bumper){
-                        dowemoveintake = !dowemoveintake;
-                        telemetry.addData("Trying to rotate the ntake", 's');
-                        telemetry.update();
-                        if(dowemoveintake){
-                            moveIntake(400, 0.05);
-                        }else{
-                            moveIntake(0, 0.05 );
+                    if(gamepad1.right_bumper){
+                        armMove = !armMove;
+                        if(armMove){
+                            moveArm(800, 0.3);
+                        }
+                        else{
+                            moveArm(0,.15);
                         }
                     }
                 }
@@ -66,31 +88,50 @@ public class new_teleop extends LinearOpMode {
         waitForStart();
 
         while (!isStopRequested()) {
-            drive.driveRobotCentric(
-                    -driverOp.getLeftX()*speedReducer,
-                    -driverOp.getLeftY(),
-                    -driverOp.getRightX()
+            drive.driveFieldCentric(
+                    deadzoneCalc(-driverOp.getLeftX()*speedReducer),
+                    deadzoneCalc(-driverOp.getLeftY()*speedReducer),
+                    -driverOp.getRightX()*.8,
+                    imu.getRotation2d().getDegrees(),
+                    false
             );
         }
         intakeThread.interrupt();
     }
 
-    public void moveIntake(int ticks, double speed){
+    public void moveArm(int ticks, double speed){
         if(opModeIsActive()){
-            intakeMotor.setTargetPosition(ticks);
+            armLeft.setTargetPosition(ticks);
+            armRight.setTargetPosition(ticks);
 
-            intakeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            intakeMotor.setPower(speed);
+            armLeft.setPower(speed);
+            armRight.setPower(speed);
 
-            while(opModeIsActive() && (intakeMotor.isBusy())){
-                telemetry.addData("Running to", " %7d", ticks);
-                telemetry.addData("Currently at", " %7d", intakeMotor.getCurrentPosition());
+            while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
+                telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
+                telemetry.addData("Currently at",  " at %7d :%7d",
+                        armLeft.getCurrentPosition(), armRight.getCurrentPosition());
                 telemetry.update();
+
             }
 
-            intakeMotor.setPower(0);
-            intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            armLeft.setPower(0);
+            armRight.setPower(0);
+
+            armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
+    }
+
+    public double deadzoneCalc(double input){
+        if(Math.abs(input) < joystickDeadzone){
+            return 0.0;
+        }else{
+            return input;
         }
     }
 

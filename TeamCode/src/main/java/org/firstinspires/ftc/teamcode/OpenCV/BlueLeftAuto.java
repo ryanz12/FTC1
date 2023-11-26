@@ -141,7 +141,7 @@ public class BlueLeftAuto extends LinearOpMode {
                 .strafeRight(25)
                 .waitSeconds(1)
                 .splineTo(new Vector2d(50,42),0)
-                        .build();
+                .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
