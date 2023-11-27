@@ -9,7 +9,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class YellowDetector extends OpenCvPipeline {
+public class redDetector extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
     public enum Location {
@@ -31,7 +31,7 @@ public class YellowDetector extends OpenCvPipeline {
             new Point(1280, 720));
     static double PERCENT_COLOR_THRESHOLD = 0.08;
 
-    public YellowDetector(Telemetry t) { telemetry = t; }
+    public redDetector(Telemetry t) { telemetry = t; }
 
     @Override
     public Mat processFrame(Mat input) {
