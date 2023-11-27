@@ -48,13 +48,21 @@ public class leftblue extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
                 .forward(30)
-                .waitSeconds(1)  //place pixel
+                .addDisplacementMarker(0, () -> {
+                    //drop pixel method
+                })
+                .waitSeconds(1)
                 .back(20)
                 .waitSeconds(1)
                 .splineTo(new Vector2d(44, 41),0)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
-                .waitSeconds(1) //place golden arm
+                .addDisplacementMarker(0, () -> {
+                    moveArm(800, 0.3);
+                    moveIntake(400, 0.5);
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
                 .strafeRight(18)
                 .waitSeconds(1)
                 .back(14)
@@ -68,9 +76,17 @@ public class leftblue extends LinearOpMode {
                 .forward(20)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
-                .waitSeconds(1) //place purple
+                .addDisplacementMarker(0, () -> {
+                    //drop pixel method
+                })
+                .waitSeconds(1)
                 .back(33)
-                .waitSeconds(1) //place golden
+                .addDisplacementMarker(0, () -> {
+                    moveArm(800, 0.3);
+                    moveIntake(400, 0.5);
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
                 .strafeRight(24)
                 .waitSeconds(1)
                 .back(14)
@@ -82,10 +98,18 @@ public class leftblue extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .forward(25)
                 .turn(Math.toRadians(180))
-                .waitSeconds(1) //place purple
+                .addDisplacementMarker(0, () -> {
+                    //drop pixel method
+                })
+                .waitSeconds(1)
                 .turn(Math.toRadians(90))
                 .back(33)
-                .waitSeconds(1) //place golden
+                .addDisplacementMarker(0, () -> {
+                    moveArm(800, 0.3);
+                    moveIntake(400, 0.5);
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
                 .strafeRight(30)
                 .waitSeconds(1)
                 .back(14)
