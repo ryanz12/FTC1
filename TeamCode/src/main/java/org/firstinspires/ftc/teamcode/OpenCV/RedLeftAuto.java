@@ -90,7 +90,7 @@ public class RedLeftAuto extends LinearOpMode {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
-        YellowDetector detector = new YellowDetector(telemetry);
+        redDetector detector = new redDetector(telemetry);
         webcam.setPipeline(detector);
 
         //making the trajectory
