@@ -438,7 +438,7 @@ public class FtcRobotControllerActivity extends Activity
       }
     });
   }
-
+//
   @Override
   protected void onResume() {
     super.onResume();
