@@ -37,10 +37,10 @@ public class armTest extends LinearOpMode {
             if(gamepad1.right_bumper){
                 armMove = !armMove;
                 if(armMove){
-                    moveArm(800, 0.3);
+                    moveArm(800);
                 }
                 else{
-                    moveArm(0,.15);
+                    moveArm(0);
                 }
             }
         }
@@ -48,7 +48,7 @@ public class armTest extends LinearOpMode {
 
 
     //arm mehtod
-    public void moveArm(int ticks, double speed){
+    public void moveArm(int ticks){
         if(opModeIsActive()){
             armLeft.setTargetPosition(ticks);
             armRight.setTargetPosition(ticks);
@@ -56,10 +56,12 @@ public class armTest extends LinearOpMode {
             armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            armLeft.setPower(speed);
-            armRight.setPower(speed);
-
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
+                double speed = 1/-160000 * armLeft.getCurrentPosition() * (armLeft.getCurrentPosition() - 8000);
+
+                armLeft.setPower(speed);
+                armRight.setPower(speed);
+
                 telemetry.addData("Running to",  " %7d :%7d", ticks,  ticks);
                 telemetry.addData("Currently at",  " at %7d :%7d",
                         armLeft.getCurrentPosition(), armRight.getCurrentPosition());
