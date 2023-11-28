@@ -57,7 +57,7 @@ public class armTest extends LinearOpMode {
             armRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             while(opModeIsActive() && (armLeft.isBusy() && armRight.isBusy())){
-                double speed = 1/-160000 * armLeft.getCurrentPosition() * (armLeft.getCurrentPosition() - 8000);
+                double speed = 1/-160000 * armLeft.getCurrentPosition() * (armLeft.getCurrentPosition() - 800);
 
                 armLeft.setPower(speed);
                 armRight.setPower(speed);
