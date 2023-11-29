@@ -71,6 +71,52 @@ public class MyClass {
                                 .build()
                 );
 
+        RoadRunnerBotEntity blueRightLeft = new DefaultBotBuilder(meepMeep)
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(-35.5, 60,Math.toRadians(90)))
+                                .back(5)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .forward(25)
+                                .waitSeconds(1)
+                                .forward(18)
+                                .waitSeconds(1)
+                                .strafeLeft(80)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(-90))
+                                .waitSeconds(1)
+                                .strafeRight(18)
+                                .waitSeconds(1)
+                                .strafeLeft(18)
+                                .waitSeconds(1)
+                                .back(14)
+                                .build()
+                );
+
+        RoadRunnerBotEntity blueRightMiddle = new DefaultBotBuilder(meepMeep)
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(-35.5, 60,Math.toRadians(90)))
+                                .back(5)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .forward(22)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(-90))
+                                .waitSeconds(1)
+                                .back(80)
+                                .waitSeconds(1)
+                                .strafeLeft(23)
+                                .back(14)
+                                .build()
+                );
+
+
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
@@ -78,6 +124,9 @@ public class MyClass {
                 .addEntity(blueLeft)
                 .addEntity(blueMiddle)
                 .addEntity(blueRight)
+
+                .addEntity(blueRightLeft)
+                .addEntity(blueRightMiddle)
                 .start();
     }
 }

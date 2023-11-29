@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
 @Autonomous
-public class leftblue extends LinearOpMode {
+public class rightblue extends LinearOpMode {
     private DcMotor armLeft;
     private DcMotor armRight;
     private DcMotor intakeMotor;
@@ -42,30 +42,24 @@ public class leftblue extends LinearOpMode {
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
+        Pose2d startPos = new Pose2d(-35.5,60, Math.toRadians(90));
 
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
-                .forward(30)
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
-                })
+                .forward(25)
                 .waitSeconds(1)
-                .back(20)
+                .forward(18)
                 .waitSeconds(1)
-                .splineTo(new Vector2d(44, 41),0)
+                .strafeLeft(80)
                 .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .addDisplacementMarker(0, () -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, 0.15);
-                })
+                .turn(Math.toRadians(-90))
                 .waitSeconds(1)
                 .strafeRight(18)
+                .waitSeconds(1)
+                .strafeLeft(18)
                 .waitSeconds(1)
                 .back(14)
                 .build();
@@ -75,47 +69,16 @@ public class leftblue extends LinearOpMode {
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
-                .forward(20)
+                .forward(22)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
-                })
                 .waitSeconds(1)
-                .back(33)
-                .addDisplacementMarker(0, () -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, 0.15);
-                })
+                .back(80)
                 .waitSeconds(1)
-                .strafeRight(24)
-                .waitSeconds(1)
+                .strafeLeft(23)
                 .back(14)
                 .build();
 
-        TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
-                .back(5)
-                .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .forward(25)
-                .turn(Math.toRadians(180))
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
-                })
-                .waitSeconds(1)
-                .turn(Math.toRadians(90))
-                .back(33)
-                .addDisplacementMarker(0, () -> {
-                    moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, 0.15);
-                })
-                .waitSeconds(1)
-                .strafeRight(30)
-                .waitSeconds(1)
-                .back(14)
-                .build();
 
         waitForStart();
         if(isStopRequested()) return;
