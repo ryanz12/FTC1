@@ -21,7 +21,7 @@ public class leftblue extends LinearOpMode {
     @Override
     public void runOpMode(){
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
+//h
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
