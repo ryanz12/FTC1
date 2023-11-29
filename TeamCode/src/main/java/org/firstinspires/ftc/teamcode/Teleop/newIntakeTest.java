@@ -10,10 +10,10 @@ public class newIntakeTest extends LinearOpMode {
     @Override
     public void runOpMode(){
         intakeServo = hardwareMap.get(Servo.class, "intakeServo");
-        if(gamepad1.a){
+        if(gamepad1.y){
             intakeServo.setPosition(0);
         }
-        if(gamepad1.b){
+        if(gamepad1.x){
             intakeServo.setPosition(1);
         }
     }
