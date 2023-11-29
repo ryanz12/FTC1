@@ -56,23 +56,30 @@ public class leftblue extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
                 .forward(30)
+                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
+                    sleep(1000);
                 })
+                .waitSeconds(.3)
+                .back(1)
                 .waitSeconds(1)
-                .strafeLeft(32)
+                .strafeLeft(38)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(800, 0.3);
+                    moveArm(1000, 0.3);
                     sleep(1000);
-                    moveIntake(800, 0.5);
-
+                    moveIntake(1600, 1);
                 })
                 .waitSeconds(1)
-                .strafeRight(18)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, .5);
+                })
                 .waitSeconds(1)
-                .back(14)
+                .strafeRight(45)
+                .waitSeconds(1)
+                .back(25)
                 .build();
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
