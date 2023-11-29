@@ -16,10 +16,9 @@ public class blueDetector extends OpenCvPipeline {
         LEFT,
         RIGHT,
         MIDDLE,
-
         NOT_FOUND
     }
-    private blueDetector.Location location;
+    private Location location;
 
     static final Rect LEFT_ROI = new Rect(
             new Point(0, 0),
@@ -30,7 +29,7 @@ public class blueDetector extends OpenCvPipeline {
     static final Rect RIGHT_ROI = new Rect(
             new Point(853, 0),
             new Point(1280, 720));
-    static double PERCENT_COLOR_THRESHOLD = 0.08;
+    static double PERCENT_COLOR_THRESHOLD = 0.02;
 
     public blueDetector(Telemetry t) { telemetry = t; }
 
@@ -54,7 +53,7 @@ public class blueDetector extends OpenCvPipeline {
           Scalar highHSV = new Scalar(24, 255, 255);
          */
         //Blue
-        Scalar lowHSV = new Scalar(90 , 50, 70);
+        Scalar lowHSV = new Scalar(90, 50, 70);
         Scalar highHSV = new Scalar(128, 255, 255);
         Core.inRange(mat, lowHSV, highHSV, mat);
 
@@ -83,19 +82,19 @@ public class blueDetector extends OpenCvPipeline {
         boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
         if (stoneRight) {
-            location = blueDetector.Location.RIGHT;
+            location = Location.RIGHT;
             telemetry.addData("Prop Location", "RIGHT");
         }
         else if (stoneLeft) {
-            location = blueDetector.Location.LEFT;
+            location = Location.LEFT;
             telemetry.addData("Prop Location", "LEFT");
         }
         else if(stoneMiddle){
-            location = blueDetector.Location.MIDDLE;
+            location = Location.MIDDLE;
             telemetry.addData("Prop Location", "MIDDLE");
         }
         else{
-            location = blueDetector.Location.NOT_FOUND;
+            location = Location.NOT_FOUND;
             telemetry.addData("Prop Location", "NOT FOUND");
         }
         telemetry.update();
@@ -105,14 +104,14 @@ public class blueDetector extends OpenCvPipeline {
         Scalar color = new Scalar(255, 0, 0);
         Scalar colorObject = new Scalar(0, 255, 0);
 
-        Imgproc.rectangle(mat, LEFT_ROI, location == blueDetector.Location.LEFT? colorObject:color);
-        Imgproc.rectangle(mat, MIDDLE_ROI, location == blueDetector.Location.MIDDLE? colorObject:color);
-        Imgproc.rectangle(mat, RIGHT_ROI, location == blueDetector.Location.RIGHT? colorObject:color);
+        Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT? colorObject:color);
+        Imgproc.rectangle(mat, MIDDLE_ROI, location == Location.MIDDLE? colorObject:color);
+        Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT? colorObject:color);
 
         return mat;
     }
 
-    public blueDetector.Location getLocation() {
+    public Location getLocation() {
         return location;
     }
 

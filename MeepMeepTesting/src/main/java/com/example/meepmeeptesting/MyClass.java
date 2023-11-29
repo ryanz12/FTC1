@@ -10,123 +10,22 @@ public class MyClass {
     public static void main(String[] args){
         MeepMeep meepMeep = new MeepMeep(700);
         //sean
-        RoadRunnerBotEntity blueLeft = new DefaultBotBuilder(meepMeep)
+        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, 60,Math.toRadians(90)))
-                                .back(5)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1)
-                                .forward(30)
-                                .waitSeconds(1)  //place pixel
-                                .back(20)
-                                .waitSeconds(1)
-                                .splineTo(new Vector2d(44, 41),0)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1) //place golden arm
-                                .strafeRight(18)
-                                .waitSeconds(1)
-                                .back(14)
+                        //red
+                        //left
+                        drive.trajectorySequenceBuilder(new Pose2d(10, 60,Math.toRadians(270)))
+
+                                .waitSeconds(5)
                                 .build()
                 );
-
-        RoadRunnerBotEntity blueMiddle = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, 60,Math.toRadians(90)))
-                                .back(5)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1)
-                                .forward(20)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(-90))
-                                .waitSeconds(1)
-                                .back(33)
-                                .waitSeconds(1)
-                                .strafeRight(24)
-                                .back(14)
-                                .build()
-                );
-
-        RoadRunnerBotEntity blueRight = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, 60,Math.toRadians(90)))
-                                .back(5)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .forward(25)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(90))
-                                .back(33)
-                                .strafeRight(30)
-                                .back(14)
-                                .build()
-                );
-
-        RoadRunnerBotEntity blueRightLeft = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35.5, 60,Math.toRadians(90)))
-                                .back(5)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1)
-                                .forward(25)
-                                .waitSeconds(1)
-                                .forward(18)
-                                .waitSeconds(1)
-                                .strafeLeft(80)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(-90))
-                                .waitSeconds(1)
-                                .strafeRight(18)
-                                .waitSeconds(1)
-                                .strafeLeft(18)
-                                .waitSeconds(1)
-                                .back(14)
-                                .build()
-                );
-
-        RoadRunnerBotEntity blueRightMiddle = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(52.48180821614297, 52.48180821614297, Math.toRadians(184.02607784577722), Math.toRadians(184.02607784577722), 16.92)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35.5, 60,Math.toRadians(90)))
-                                .back(5)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(180))
-                                .waitSeconds(1)
-                                .forward(22)
-                                .waitSeconds(1)
-                                .turn(Math.toRadians(-90))
-                                .waitSeconds(1)
-                                .back(80)
-                                .waitSeconds(1)
-                                .strafeLeft(23)
-                                .back(14)
-                                .build()
-                );
-
-
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(blueLeft)
-                .addEntity(blueMiddle)
-                .addEntity(blueRight)
-
-                .addEntity(blueRightLeft)
-                .addEntity(blueRightMiddle)
+                .addEntity(myBot)
                 .start();
     }
 }

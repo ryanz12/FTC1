@@ -97,6 +97,8 @@ public class BlueLeftAuto extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
         drive.setPoseEstimate(myPose);
+
+        //strating paths
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
@@ -165,7 +167,7 @@ public class BlueLeftAuto extends LinearOpMode {
                         telemetry.addData("RUnning left Path", "False");
                         telemetry.update();
                         drive.followTrajectorySequence(backwards_L);
-                        moveIntake(-300, .1);
+                        moveIntake(-300, .2);
                         drive.followTrajectorySequence(forwardleft);
                         drive.followTrajectorySequence(backwards);
 
@@ -175,7 +177,7 @@ public class BlueLeftAuto extends LinearOpMode {
                     case MIDDLE:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
-                        moveIntake(-300, .1);
+                        moveIntake(-300, .2);
                         drive.followTrajectorySequence(backwards);
                         Thread.sleep(1000000);
                         break;

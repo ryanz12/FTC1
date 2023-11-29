@@ -18,7 +18,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class RedLeftAuto extends LinearOpMode {
+public class BlueRightAuto extends LinearOpMode {
     //Change LinearOpMode If necessary
     //
     OpenCvWebcam webcam = null;
@@ -90,7 +90,7 @@ public class RedLeftAuto extends LinearOpMode {
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName,cameraViewID);
-        redDetector detector = new redDetector(telemetry);
+        blueDetector detector = new blueDetector(telemetry);
         webcam.setPipeline(detector);
 
         //making the trajectory
@@ -98,7 +98,7 @@ public class RedLeftAuto extends LinearOpMode {
         Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
         drive.setPoseEstimate(myPose);
 
-        //starting paths
+        //strating paths
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
                 .forward(25)
@@ -116,8 +116,6 @@ public class RedLeftAuto extends LinearOpMode {
                 .forward(23)
                 .build();
 
-
-        //camera detection path
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(10))
                 .waitSeconds(3)
@@ -127,20 +125,35 @@ public class RedLeftAuto extends LinearOpMode {
                 .back(20)
                 .build();
 
-        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(-10))
-                .waitSeconds(3)
+        TrajectorySequence forwardleft = drive.trajectorySequenceBuilder(new Pose2d(8,35, Math.toRadians(270)))
+                .waitSeconds(1)
+                .forward(2)
                 .build();
-
-
 
         TrajectorySequence backwards_L = drive.trajectorySequenceBuilder(new Pose2d(10,35, Math.toRadians(0)))
                 .waitSeconds(1)
                 .back(3.4)
                 .build();
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+                .turn(Math.toRadians(-10))
+                .waitSeconds(3)
+                .build();
+        TrajectorySequence final_l = drive.trajectorySequenceBuilder(myPose)
+                .waitSeconds(1)
+                .strafeRight(25)
+                .waitSeconds(1)
+                .splineTo(new Vector2d(50,42),0)
+                .build();
 
 
 
+        TrajectorySequence parking = drive.trajectorySequenceBuilder(myPose)
+                .lineTo(new Vector2d(10, 60))
+
+                .lineTo(new Vector2d(58, 58))
+
+
+                .build();
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -164,15 +177,17 @@ public class RedLeftAuto extends LinearOpMode {
                         telemetry.addData("RUnning left Path", "False");
                         telemetry.update();
                         drive.followTrajectorySequence(backwards_L);
-                        moveIntake(-300, .1);
+                        moveIntake(-300, .2);
+                        drive.followTrajectorySequence(forwardleft);
+                        drive.followTrajectorySequence(backwards);
 
-//
+                        drive.followTrajectorySequence(final_l);
                         Thread.sleep(100000);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
                         drive.followTrajectorySequence(seqF);
-                        moveIntake(-300, .1);
+                        moveIntake(-300, .2);
                         drive.followTrajectorySequence(backwards);
                         Thread.sleep(1000000);
                         break;
@@ -183,7 +198,7 @@ public class RedLeftAuto extends LinearOpMode {
                         drive.followTrajectorySequence(seqR);
                         //drop pixel
                         moveIntake(-300, .1);
-//                        drive.followTrajectorySequence(backwards);
+                        drive.followTrajectorySequence(backwards);
                         Thread.sleep(100000);
 
                         telemetry.addData("RUnning right Path", "False");
@@ -294,6 +309,3 @@ public class RedLeftAuto extends LinearOpMode {
         }
     }
 }
-
-
-

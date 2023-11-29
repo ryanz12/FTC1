@@ -74,6 +74,10 @@ public class RedRightAuto extends LinearOpMode {
         TrajectorySequence pathRight = drive.trajectorySequenceBuilder(startPos)
                 .build();
 
+
+
+           
+
         waitForStart();
         while(opModeIsActive()){
             if (detector.getLocation() != null) {
