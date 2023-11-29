@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -17,9 +18,12 @@ public class leftblue extends LinearOpMode {
     private DcMotor armLeft;
     private DcMotor armRight;
     private DcMotor intakeMotor;
+    private Servo intakeServo;
 
     @Override
     public void runOpMode(){
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
 
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -44,25 +48,26 @@ public class leftblue extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
 
+        drive.setPoseEstimate(startPos);
+
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
                 .forward(30)
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
                 })
                 .waitSeconds(1)
-                .back(20)
+                .strafeLeft(32)
                 .waitSeconds(1)
-                .splineTo(new Vector2d(44, 41),0)
-                .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .addDisplacementMarker(0, () -> {
+                .turn(Math.toRadians(-90))
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(800, 0.3);
-                    moveIntake(400, 0.5);
-                    moveArm(0, 0.15);
+                    sleep(1000);
+                    moveIntake(800, 0.5);
+
                 })
                 .waitSeconds(1)
                 .strafeRight(18)
@@ -78,14 +83,20 @@ public class leftblue extends LinearOpMode {
                 .forward(20)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
                 })
                 .waitSeconds(1)
                 .back(33)
-                .addDisplacementMarker(0, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(0, 0.15);
                 })
                 .waitSeconds(1)
@@ -100,15 +111,21 @@ public class leftblue extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .forward(25)
                 .turn(Math.toRadians(180))
-                .addDisplacementMarker(0, () -> {
-                    //drop pixel method
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
                 })
                 .waitSeconds(1)
                 .turn(Math.toRadians(90))
                 .back(33)
-                .addDisplacementMarker(0, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(0, 0.15);
                 })
                 .waitSeconds(1)
