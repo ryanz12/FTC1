@@ -70,7 +70,7 @@ public class leftblue extends LinearOpMode {
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(1000, 0.3);
                     sleep(1000);
-                    moveIntake(1600, 1);
+                    moveIntake(800, 1);
                 })
                 .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
