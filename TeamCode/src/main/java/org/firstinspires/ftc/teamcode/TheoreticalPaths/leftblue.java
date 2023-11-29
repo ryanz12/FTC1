@@ -43,7 +43,7 @@ public class leftblue extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
-
+//k
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)
