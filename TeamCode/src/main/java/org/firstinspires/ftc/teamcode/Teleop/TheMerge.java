@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class TheMerge extends LinearOpMode {
@@ -16,11 +17,16 @@ public class TheMerge extends LinearOpMode {
     public DcMotor intakeMotor;
     public double intakePower = 0;
     public boolean armMove = false;
-    public double speedReducer=.6;
+    public double speedReducer=0.9;
     public static final double joystickDeadzone = 0.1;
+    public Servo planeServo;
+    public Servo intakeServo;
 
     @Override
     public void runOpMode() {
+        planeServo = hardwareMap.servo.get("planeServo");
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
         armLeft = hardwareMap.get(DcMotor.class, "armLeft");
         armRight = hardwareMap.get(DcMotor.class, "armRight");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
@@ -96,6 +102,15 @@ public class TheMerge extends LinearOpMode {
                 intakePower = 0;
             }
             intakeMotor.setPower(intakePower);
+
+
+            //servos;
+            if(gamepad1.b){
+                planeServo.setPosition(1);
+            }
+            if (gamepad1.a){
+                planeServo.setPosition(0);
+            }
 
         }
         armThread.interrupt();
