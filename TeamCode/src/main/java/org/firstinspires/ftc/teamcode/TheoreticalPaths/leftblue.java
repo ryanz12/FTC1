@@ -94,7 +94,9 @@ public class leftblue extends LinearOpMode {
                     intakeServo.setPosition(0);
                 })
                 .waitSeconds(1)
-                .back(33)
+                .forward(33)
+                .turn(Math.toRadians(-180))
+                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(800, 0.3);
                 })
@@ -107,7 +109,7 @@ public class leftblue extends LinearOpMode {
                     moveArm(0, 0.15);
                 })
                 .waitSeconds(1)
-                .strafeRight(24)
+                .strafeLeft(24)
                 .waitSeconds(1)
                 .back(14)
                 .build();

@@ -77,10 +77,11 @@ public class leftred extends LinearOpMode {
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .strafeLeft(45)
+                .strafeLeft(30)
                 .waitSeconds(1)
-                .back(25)
+                .back(15)
                 .build();
+
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
@@ -113,17 +114,16 @@ public class leftred extends LinearOpMode {
                 .build();
 
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
-                .back(5)
+                .back(30)
                 .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .forward(25)
-                .turn(Math.toRadians(180))
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
+                    sleep(1000);
                 })
                 .waitSeconds(1)
-                .turn(Math.toRadians(90))
-                .back(33)
+                .turn(Math.toRadians(-90))
+                .back(35)
+                .strafeLeft(10)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(800, 0.3);
                 })
@@ -136,7 +136,7 @@ public class leftred extends LinearOpMode {
                     moveArm(0, 0.15);
                 })
                 .waitSeconds(1)
-                .strafeRight(30)
+                .strafeLeft(20)
                 .waitSeconds(1)
                 .back(14)
                 .build();
