@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -17,9 +18,12 @@ public class rightblue extends LinearOpMode {
     private DcMotor armLeft;
     private DcMotor armRight;
     private DcMotor intakeMotor;
+    private Servo intakeServo;
 
     @Override
     public void runOpMode(){
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
 
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -42,26 +46,21 @@ public class rightblue extends LinearOpMode {
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(-35.5,60, Math.toRadians(90));
+        Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
+
+        drive.setPoseEstimate(startPos);
 
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
-                .forward(25)
+                .forward(30)
                 .waitSeconds(1)
-                .forward(18)
-                .waitSeconds(1)
-                .strafeLeft(80)
-                .waitSeconds(1)
-                .turn(Math.toRadians(-90))
-                .waitSeconds(1)
-                .strafeRight(18)
-                .waitSeconds(1)
-                .strafeLeft(18)
-                .waitSeconds(1)
-                .back(14)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                    sleep(1000);
+                })
                 .build();
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
@@ -69,16 +68,21 @@ public class rightblue extends LinearOpMode {
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
-                .forward(22)
+                .forward(20)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
-                .waitSeconds(1)
-                .back(80)
-                .waitSeconds(1)
-                .strafeLeft(23)
-                .back(14)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                })
                 .build();
 
+        TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
+                .back(30)
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                })
+                .build();
 
         waitForStart();
         if(isStopRequested()) return;
@@ -126,3 +130,4 @@ public class rightblue extends LinearOpMode {
         }
     }
 }
+
