@@ -64,22 +64,20 @@ public class leftblue extends LinearOpMode {
                 .waitSeconds(.3)
                 .back(1)
                 .waitSeconds(1)
-                .strafeLeft(38)
+                .strafeLeft(41)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(1000, 0.3);
+                    moveArm(900, 0.3);
                     sleep(1000);
                     moveIntake(800, 1);
-                })
-                .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    sleep(1000);
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
                 .strafeRight(45)
                 .waitSeconds(1)
-                .back(25)
+                .back(26)
                 .build();
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
@@ -87,62 +85,63 @@ public class leftblue extends LinearOpMode {
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
-                .forward(20)
+                .forward(24)
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
+                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
+                    sleep(1000);
                 })
+                .waitSeconds(1)
+                .strafeRight(10)
                 .waitSeconds(1)
                 .back(33)
+                .waitSeconds(1)
+                .strafeLeft(10)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(800, 0.3);
+                    moveArm(900, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                    sleep(1000);
+                    moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveIntake(400, 0.5);
-                })
+                .strafeRight(45)
                 .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(0, 0.15);
-                })
-                .waitSeconds(1)
-                .strafeRight(24)
-                .waitSeconds(1)
-                .back(14)
+                .back(26)
                 .build();
 
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
                 .back(30)
                 .waitSeconds(1)
-
+                .forward(10)
+                .back(10)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
+                    sleep(1000);
                 })
                 .waitSeconds(1)
                 .turn(Math.toRadians(90))
+                .waitSeconds(1)
                 .back(33)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(800, 0.3);
+                    moveArm(900, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                    sleep(1000);
+                    moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveIntake(400, 0.5);
-                })
+                .strafeRight(45)
                 .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(0, 0.15);
-                })
-                .waitSeconds(1)
-                .strafeRight(30)
-                .waitSeconds(1)
-                .back(14)
+                .back(26)
                 .build();
 
         waitForStart();
         if(isStopRequested()) return;
 
-        drive.followTrajectorySequence(trajLeft);
+        drive.followTrajectorySequence(trajRight);
     }
 
     public void moveIntake(int ticks, double speed){

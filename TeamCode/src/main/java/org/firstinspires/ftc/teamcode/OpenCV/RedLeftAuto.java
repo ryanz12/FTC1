@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
@@ -43,10 +44,13 @@ public class RedLeftAuto extends LinearOpMode {
 
     boolean canSeen = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    private Servo intakeServo;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
 //        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
 //        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
 //        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
