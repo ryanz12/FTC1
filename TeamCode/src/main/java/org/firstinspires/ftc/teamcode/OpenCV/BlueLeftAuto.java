@@ -238,15 +238,15 @@ public class BlueLeftAuto extends LinearOpMode {
                 switch (detector.getLocation()) {
                     case LEFT:
                         webcam.stopStreaming();
-
+                        drive.followTrajectorySequence(trajLeft);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
-
+                        drive.followTrajectorySequence(trajMiddle);
                         break;
                     case RIGHT:
                         webcam.stopStreaming();
-
+                        drive.followTrajectorySequence(trajRight);
                         break;
 
                     case NOT_FOUND:
