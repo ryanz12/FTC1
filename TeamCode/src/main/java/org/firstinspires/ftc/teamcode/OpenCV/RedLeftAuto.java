@@ -48,6 +48,9 @@ public class RedLeftAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
+        intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
 //        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
 //        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
 //        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");
@@ -96,11 +99,11 @@ public class RedLeftAuto extends LinearOpMode {
 
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d myPose = new Pose2d(10, -60, Math.toRadians(90));
-        drive.setPoseEstimate(myPose);
+        Pose2d startPos = new Pose2d(10, -60, Math.toRadians(90));
+        drive.setPoseEstimate(startPos);
 
         //starting paths
-        TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
@@ -133,7 +136,7 @@ public class RedLeftAuto extends LinearOpMode {
                 .build();
 
 
-        TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
                 .back(30)
                 .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
@@ -161,14 +164,40 @@ public class RedLeftAuto extends LinearOpMode {
                 .back(14)
                 .build();
 
-        TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
+
+        TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
+                .back(5)
+                .waitSeconds(1)
                 .turn(Math.toRadians(180))
-                .forward(23)
+                .waitSeconds(1)
+                .forward(20)
+                .waitSeconds(1)
+                .turn(Math.toRadians(-90))
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                })
+                .waitSeconds(1)
+                .back(33)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
+                .strafeRight(24)
+                .waitSeconds(1)
+                .back(14)
                 .build();
 
 
         //camera detection path
-        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(startPos)
                 .turn(Math.toRadians(10))
                 .waitSeconds(3)
                 .build();
@@ -177,7 +206,7 @@ public class RedLeftAuto extends LinearOpMode {
                 .back(20)
                 .build();
 
-        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(startPos)
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
@@ -207,37 +236,22 @@ public class RedLeftAuto extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        telemetry.addData("RUnning left Path", "True");
-                        telemetry.update();
-                        webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqL);
-                        telemetry.addData("RUnning left Path", "False");
-                        telemetry.update();
-                        drive.followTrajectorySequence(backwards_L);
-                        moveIntake(-300, .1);
+
+                        drive.followTrajectorySequence(trajLeft);
+
 
 //
                         Thread.sleep(100000);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqF);
-                        moveIntake(-300, .1);
-                        drive.followTrajectorySequence(backwards);
-                        Thread.sleep(1000000);
+
+                        drive.followTrajectorySequence(trajMiddle);
+
                         break;
                     case RIGHT:
-                        telemetry.addData("RUnning right Path", "True");
-                        telemetry.update();
-                        webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqR);
-                        //drop pixel
-                        moveIntake(-300, .1);
-//                        drive.followTrajectorySequence(backwards);
-                        Thread.sleep(100000);
 
-                        telemetry.addData("RUnning right Path", "False");
-                        telemetry.update();
+                        drive.followTrajectorySequence(trajRight);
                         break;
 
                     case NOT_FOUND:
