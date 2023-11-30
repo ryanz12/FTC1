@@ -34,7 +34,7 @@ public class RedLeftAuto extends LinearOpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
-
+    private Servo intakeServo;
     public DcMotor armLeft;
     public DcMotor armRight;
     public DcMotor intakeMotor;
@@ -68,7 +68,7 @@ public class RedLeftAuto extends LinearOpMode {
 
         //Intake
         intakeMotor=hardwareMap.get(DcMotor.class, "intakeMotor");
-
+        intakeServo = hardwareMap.servo.get("intakeServo");
         intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -137,9 +137,31 @@ public class RedLeftAuto extends LinearOpMode {
 
 
         TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(180))
-                .forward(25)
+                .back(30)
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                    sleep(1000);
+                })
+                .waitSeconds(1)
                 .turn(Math.toRadians(-90))
+                .back(35)
+                .strafeLeft(10)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
+                .strafeLeft(20)
+                .waitSeconds(1)
+                .back(14)
                 .build();
 
         TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
