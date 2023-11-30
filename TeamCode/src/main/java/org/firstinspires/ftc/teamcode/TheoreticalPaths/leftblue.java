@@ -113,11 +113,9 @@ public class leftblue extends LinearOpMode {
                 .build();
 
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
-                .back(5)
+                .back(30)
                 .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .forward(25)
-                .turn(Math.toRadians(180))
+
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                 })

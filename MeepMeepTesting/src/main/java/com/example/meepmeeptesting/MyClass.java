@@ -18,8 +18,36 @@ public class MyClass {
                         //left
                         drive.trajectorySequenceBuilder(new Pose2d(10, 60,Math.toRadians(270)))
 
-                                .waitSeconds(5)
-                                .build()
+                                .back(5)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(180))
+                                .waitSeconds(1)
+                                .forward(30)
+                                .waitSeconds(1)
+                                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                                    intakeServo.setPosition(0);
+                                    sleep(1000);
+                                })
+                                .waitSeconds(.3)
+                                .forward(1)
+                                .waitSeconds(1)
+                                .strafeRight(38)
+                                .waitSeconds(1)
+                                .turn(Math.toRadians(90))
+                                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                                    moveArm(1000, 0.3);
+                                    sleep(1000);
+                                    moveIntake(800, 1);
+                                })
+                                .waitSeconds(1)
+                                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                                    moveArm(0, .5);
+                                })
+                                .waitSeconds(1)
+                                .strafeLeft(45)
+                                .waitSeconds(1)
+                                .back(25)
+                                .build();
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

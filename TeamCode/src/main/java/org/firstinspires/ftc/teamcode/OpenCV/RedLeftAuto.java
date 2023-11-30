@@ -95,15 +95,42 @@ public class RedLeftAuto extends LinearOpMode {
 
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
+        Pose2d myPose = new Pose2d(10, -60, Math.toRadians(90));
         drive.setPoseEstimate(myPose);
 
         //starting paths
         TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
+                .back(5)
+                .waitSeconds(1)
                 .turn(Math.toRadians(180))
-                .forward(25)
+                .waitSeconds(1)
+                .forward(30)
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                    sleep(1000);
+                })
+                .waitSeconds(.3)
+                .forward(1)
+                .waitSeconds(1)
+                .strafeRight(38)
+                .waitSeconds(1)
                 .turn(Math.toRadians(90))
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(1000, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, .5);
+                })
+                .waitSeconds(1)
+                .strafeLeft(30)
+                .waitSeconds(1)
+                .back(15)
                 .build();
+
 
         TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
                 .turn(Math.toRadians(180))
