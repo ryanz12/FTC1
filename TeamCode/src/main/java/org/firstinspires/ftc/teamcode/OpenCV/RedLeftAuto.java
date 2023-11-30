@@ -44,13 +44,10 @@ public class RedLeftAuto extends LinearOpMode {
 
     boolean canSeen = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    private Servo intakeServo;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
-        intakeServo = hardwareMap.servo.get("intakeServo");
-
 //        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFront");
 //        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFront");
 //        leftBackMotor = hardwareMap.get(DcMotor.class, "leftBack");

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
@@ -43,6 +44,7 @@ public class BlueLeftAuto extends LinearOpMode {
 
     boolean canSeen = false;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    private Servo intakeServo;
 
 
     @Override
@@ -86,6 +88,8 @@ public class BlueLeftAuto extends LinearOpMode {
         armLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
+        intakeServo = hardwareMap.servo.get("intakeServo");
+
         //Webcam
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraViewID = hardwareMap.appContext.getResources().getIdentifier("cameraViewId", "id", hardwareMap.appContext.getPackageName());
@@ -95,28 +99,101 @@ public class BlueLeftAuto extends LinearOpMode {
 
         //making the trajectory
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d myPose = new Pose2d(10, 60, Math.toRadians(90));
-        drive.setPoseEstimate(myPose);
+        Pose2d startPos = new Pose2d(10, 60, Math.toRadians(90));
+        drive.setPoseEstimate(startPos);
 
-        //strating paths
-        TrajectorySequence seqL = drive.trajectorySequenceBuilder(myPose)
-                .turn(Math.toRadians(180))
-                .forward(25)
-                .turn(Math.toRadians(90))
-                .build();
 
-        TrajectorySequence seqR = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
+                .back(5)
+                .waitSeconds(1)
                 .turn(Math.toRadians(180))
-                .forward(25)
+                .waitSeconds(1)
+                .forward(30)
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                    sleep(1000);
+                })
+                .waitSeconds(.3)
+                .back(1)
+                .waitSeconds(1)
+                .strafeLeft(38)
+                .waitSeconds(1)
                 .turn(Math.toRadians(-90))
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(1000, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, .5);
+                })
+                .waitSeconds(1)
+                .strafeRight(45)
+                .waitSeconds(1)
+                .back(25)
                 .build();
 
-        TrajectorySequence seqF = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
+                .back(5)
+                .waitSeconds(1)
                 .turn(Math.toRadians(180))
-                .forward(23)
+                .waitSeconds(1)
+                .forward(20)
+                .waitSeconds(1)
+                .turn(Math.toRadians(-90))
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                })
+                .waitSeconds(1)
+                .forward(33)
+                .turn(Math.toRadians(-180))
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
+                .strafeLeft(24)
+                .waitSeconds(1)
+                .back(14)
                 .build();
 
-        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
+                .back(30)
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    intakeServo.setPosition(0);
+                })
+                .waitSeconds(1)
+                .turn(Math.toRadians(90))
+                .back(33)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(800, 0.3);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveIntake(400, 0.5);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    moveArm(0, 0.15);
+                })
+                .waitSeconds(1)
+                .strafeRight(30)
+                .waitSeconds(1)
+                .back(14)
+                .build();
+
+        TrajectorySequence seqSL = drive.trajectorySequenceBuilder(startPos)
                 .turn(Math.toRadians(10))
                 .waitSeconds(3)
                 .build();
@@ -134,11 +211,11 @@ public class BlueLeftAuto extends LinearOpMode {
                 .waitSeconds(1)
                 .back(3.4)
                 .build();
-        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence seqSR = drive.trajectorySequenceBuilder(startPos)
                 .turn(Math.toRadians(-10))
                 .waitSeconds(3)
                 .build();
-        TrajectorySequence final_l = drive.trajectorySequenceBuilder(myPose)
+        TrajectorySequence final_l = drive.trajectorySequenceBuilder(startPos)
                 .waitSeconds(1)
                 .strafeRight(25)
                 .waitSeconds(1)
@@ -160,39 +237,16 @@ public class BlueLeftAuto extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        telemetry.addData("RUnning left Path", "True");
-                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqL);
-                        telemetry.addData("RUnning left Path", "False");
-                        telemetry.update();
-                        drive.followTrajectorySequence(backwards_L);
-                        moveIntake(-300, .2);
-                        drive.followTrajectorySequence(forwardleft);
-                        drive.followTrajectorySequence(backwards);
-
-                        drive.followTrajectorySequence(final_l);
-                        Thread.sleep(100000);
+                        drive.followTrajectorySequence(trajLeft);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqF);
-                        moveIntake(-300, .2);
-                        drive.followTrajectorySequence(backwards);
-                        Thread.sleep(1000000);
+                        drive.followTrajectorySequence(trajMiddle);
                         break;
                     case RIGHT:
-                        telemetry.addData("RUnning right Path", "True");
-                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqR);
-                        //drop pixel
-                        moveIntake(-300, .1);
-                        drive.followTrajectorySequence(backwards);
-                        Thread.sleep(100000);
-
-                        telemetry.addData("RUnning right Path", "False");
-                        telemetry.update();
+                        drive.followTrajectorySequence(trajRight);
                         break;
 
                     case NOT_FOUND:
