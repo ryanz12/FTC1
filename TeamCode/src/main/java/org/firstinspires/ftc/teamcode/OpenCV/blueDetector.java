@@ -16,6 +16,7 @@ public class blueDetector extends OpenCvPipeline {
         LEFT,
         RIGHT,
         MIDDLE,
+
         NOT_FOUND
     }
     private Location location;
@@ -29,7 +30,7 @@ public class blueDetector extends OpenCvPipeline {
     static final Rect RIGHT_ROI = new Rect(
             new Point(853, 0),
             new Point(1280, 720));
-    static double PERCENT_COLOR_THRESHOLD = 0.02;
+    static double PERCENT_COLOR_THRESHOLD = 0.06;
 
     public blueDetector(Telemetry t) { telemetry = t; }
 
