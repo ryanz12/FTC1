@@ -46,16 +46,19 @@ public class leftred extends LinearOpMode {
         armRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE.getBehavior());
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
+        Pose2d startPos = new Pose2d(12,-60, Math.toRadians(270));
 
         drive.setPoseEstimate(startPos);
 
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
+
                 .back(5)
                 .waitSeconds(1)
                 .turn(Math.toRadians(180))
                 .waitSeconds(1)
                 .forward(30)
+                .waitSeconds(1)
+                .strafeLeft(4)
                 .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
@@ -64,22 +67,20 @@ public class leftred extends LinearOpMode {
                 .waitSeconds(.3)
                 .forward(1)
                 .waitSeconds(1)
-                .strafeRight(38)
+                .strafeRight(34)
                 .waitSeconds(1)
                 .turn(Math.toRadians(90))
+                .waitSeconds(1)
+                .strafeLeft(5)
+                .waitSeconds(1)
+                .back(3)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(1000, 0.3);
+                    moveArm(900, 0.3);
                     sleep(1000);
                     moveIntake(800, 1);
-                })
-                .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                    sleep(1000);
                     moveArm(0, .5);
                 })
-                .waitSeconds(1)
-                .strafeLeft(30)
-                .waitSeconds(1)
-                .back(15)
                 .build();
 
 
@@ -97,15 +98,11 @@ public class leftred extends LinearOpMode {
                 .waitSeconds(1)
                 .back(33)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(800, 0.3);
-                })
-                .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveIntake(400, 0.5);
-                })
-                .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(0, 0.15);
+                    moveArm(900, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                    sleep(1000);
+                    moveArm(0, .5);
                 })
                 .waitSeconds(1)
                 .strafeRight(24)

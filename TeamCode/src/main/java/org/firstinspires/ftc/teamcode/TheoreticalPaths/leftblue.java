@@ -75,7 +75,7 @@ public class leftblue extends LinearOpMode {
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .strafeRight(45)
+                .strafeRight(42)
                 .waitSeconds(1)
                 .back(26)
                 .build();
@@ -105,7 +105,7 @@ public class leftblue extends LinearOpMode {
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .strafeRight(45)
+                .strafeRight(42)
                 .waitSeconds(1)
                 .back(26)
                 .build();
@@ -133,7 +133,7 @@ public class leftblue extends LinearOpMode {
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .strafeRight(55)
+                .strafeRight(49)
                 .waitSeconds(1)
                 .back(26)
                 .build();
@@ -141,7 +141,7 @@ public class leftblue extends LinearOpMode {
         waitForStart();
         if(isStopRequested()) return;
 
-        drive.followTrajectorySequence(trajMiddle);
+        drive.followTrajectorySequence(trajRight);
     }
 
     public void moveIntake(int ticks, double speed){

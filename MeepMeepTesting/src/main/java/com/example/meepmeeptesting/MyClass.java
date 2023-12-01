@@ -16,8 +16,7 @@ public class MyClass {
                 .followTrajectorySequence(drive ->
                         //red
                         //left
-                        drive.trajectorySequenceBuilder(new Pose2d(10, -60,Math.toRadians(270)))
-
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -60,Math.toRadians(270)))
                                 .back(5)
                                 .waitSeconds(1)
                                 .turn(Math.toRadians(180))
@@ -25,19 +24,24 @@ public class MyClass {
                                 .forward(20)
                                 .waitSeconds(1)
                                 .turn(Math.toRadians(-90))
-
+                                .waitSeconds(1)
+                                .strafeLeft(4)
+                                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
+                                })
                                 .waitSeconds(1)
                                 .forward(33)
-                                .turn(Math.toRadians(-180))
                                 .waitSeconds(1)
+                                .strafeRight(4)
+                                .turn(Math.toRadians(180))
+                                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
 
-
-
+                                })
                                 .waitSeconds(1)
                                 .strafeLeft(24)
                                 .waitSeconds(1)
                                 .back(14)
                                 .build()
+
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

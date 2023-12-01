@@ -127,9 +127,9 @@ public class BlueLeftAuto extends LinearOpMode {
                     moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .strafeRight(45)
+                .strafeRight(42)
                 .waitSeconds(1)
-                .back(26)
+                .back(23)
                 .build();
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
