@@ -49,7 +49,6 @@ public class leftblue extends LinearOpMode {
         Pose2d startPos = new Pose2d(12,60, Math.toRadians(90));
 
         drive.setPoseEstimate(startPos);
-
         TrajectorySequence trajLeft = drive.trajectorySequenceBuilder(startPos)
                 .back(5)
                 .waitSeconds(1)

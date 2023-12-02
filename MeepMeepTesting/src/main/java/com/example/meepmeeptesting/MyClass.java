@@ -25,7 +25,7 @@ public class MyClass {
                                 .waitSeconds(1)
                                 .turn(Math.toRadians(-90))
                                 .waitSeconds(1)
-                                .strafeLeft(4)
+                                .strafeLeft(2.5)
                                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                                 })
                                 .waitSeconds(1)
@@ -36,10 +36,6 @@ public class MyClass {
                                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
 
                                 })
-                                .waitSeconds(1)
-                                .strafeLeft(24)
-                                .waitSeconds(1)
-                                .back(14)
                                 .build()
 
                 );

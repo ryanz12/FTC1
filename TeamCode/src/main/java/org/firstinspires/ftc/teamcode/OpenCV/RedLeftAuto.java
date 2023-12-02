@@ -163,6 +163,8 @@ public class RedLeftAuto extends LinearOpMode {
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
                 .back(30)
                 .waitSeconds(1)
+                .strafeLeft(5)
+                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);
@@ -172,20 +174,15 @@ public class RedLeftAuto extends LinearOpMode {
                 .back(35)
                 .strafeLeft(10)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(800, 0.3);
+                    moveArm(900, 0.3);
+                    sleep(1000);
+                    moveIntake(800, 1);
+                    sleep(1000);
+                    moveArm(0, .5);
                 })
                 .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveIntake(400, 0.5);
-                })
-                .waitSeconds(1)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(0, 0.15);
-                })
-                .waitSeconds(1)
-                .strafeLeft(20)
-                .waitSeconds(1)
-                .back(14)
+                .forward(10)
+                .back(10)
                 .build();
 
 
