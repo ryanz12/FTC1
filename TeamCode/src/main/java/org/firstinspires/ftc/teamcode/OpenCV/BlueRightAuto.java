@@ -164,39 +164,16 @@ public class BlueRightAuto extends LinearOpMode {
             if (detector.getLocation() != null) {
                 switch (detector.getLocation()) {
                     case LEFT:
-                        telemetry.addData("RUnning left Path", "True");
-                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqL);
-                        telemetry.addData("RUnning left Path", "False");
-                        telemetry.update();
-                        drive.followTrajectorySequence(backwards_L);
-                        moveIntake(-300, .2);
-                        drive.followTrajectorySequence(forwardleft);
-                        drive.followTrajectorySequence(backwards);
-
-                        drive.followTrajectorySequence(final_l);
                         Thread.sleep(100000);
                         break;
                     case MIDDLE:
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqF);
-                        moveIntake(-300, .2);
-                        drive.followTrajectorySequence(backwards);
-                        Thread.sleep(1000000);
+                        Thread.sleep(100000);
                         break;
                     case RIGHT:
-                        telemetry.addData("RUnning right Path", "True");
-                        telemetry.update();
                         webcam.stopStreaming();
-                        drive.followTrajectorySequence(seqR);
-                        //drop pixel
-                        moveIntake(-300, .1);
-                        drive.followTrajectorySequence(backwards);
                         Thread.sleep(100000);
-
-                        telemetry.addData("RUnning right Path", "False");
-                        telemetry.update();
                         break;
 
                     case NOT_FOUND:

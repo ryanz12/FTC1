@@ -184,8 +184,6 @@ public class RedLeftAuto extends LinearOpMode {
                 .forward(10)
                 .back(10)
                 .build();
-
-
         //camera detection path
         TrajectorySequence seqSL = drive.trajectorySequenceBuilder(startPos)
                 .turn(Math.toRadians(10))
