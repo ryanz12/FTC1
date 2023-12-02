@@ -23,12 +23,7 @@ public class RedLeftAuto extends LinearOpMode {
     //Change LinearOpMode If necessary
     //
     OpenCvWebcam webcam = null;
-    public enum loc{
-        Left,
-        Right,
-        Middle
-    }
-    private auto3.loc location;
+
     private DcMotor leftFrontMotor;
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
@@ -43,7 +38,6 @@ public class RedLeftAuto extends LinearOpMode {
     boolean canSeeL = false;
 
     boolean canSeen = false;
-    AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
 
     @Override

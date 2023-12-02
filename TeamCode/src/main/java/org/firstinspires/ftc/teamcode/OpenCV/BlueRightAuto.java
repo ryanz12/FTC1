@@ -4,7 +4,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -18,18 +17,11 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
 @Autonomous
 public class BlueRightAuto extends LinearOpMode {
     //Change LinearOpMode If necessary
     //
     OpenCvWebcam webcam = null;
-    public enum loc{
-        Left,
-        Right,
-        Middle
-    }
-    private auto3.loc location;
     private DcMotor leftFrontMotor;
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;

@@ -23,12 +23,7 @@ public class BlueLeftAuto extends LinearOpMode {
     //Change LinearOpMode If necessary
     //
     OpenCvWebcam webcam = null;
-    public enum loc{
-        Left,
-        Right,
-        Middle
-    }
-    private auto3.loc location;
+
     private DcMotor leftFrontMotor;
     private DcMotor rightFrontMotor;
     private DcMotor leftBackMotor;
