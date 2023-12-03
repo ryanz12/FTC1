@@ -120,16 +120,20 @@ public class leftred extends LinearOpMode {
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
                 .back(30)
                 .waitSeconds(1)
-                .strafeLeft(5)
+                .strafeLeft(3)
                 .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);
                 })
                 .waitSeconds(1)
+                .back(5)
+                .waitSeconds(1)
+                .strafeLeft(40)
+                .waitSeconds(1)
                 .turn(Math.toRadians(-90))
-                .back(35)
-                .strafeLeft(10)
+                .waitSeconds(1)
+                .strafeLeft(20)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(900, 0.3);
                     sleep(1000);
@@ -145,7 +149,7 @@ public class leftred extends LinearOpMode {
         waitForStart();
         if(isStopRequested()) return;
 
-        drive.followTrajectorySequence(trajMiddle);
+        drive.followTrajectorySequence(trajRight);
     }
 
     public void moveIntake(int ticks, double speed){

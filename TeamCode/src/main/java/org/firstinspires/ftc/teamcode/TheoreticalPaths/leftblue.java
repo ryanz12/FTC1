@@ -122,8 +122,7 @@ public class leftblue extends LinearOpMode {
                 .strafeRight(50)
                 .waitSeconds(1)
                 .turn(Math.toRadians(90))
-                .back(3
-                )
+                .back(3)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     moveArm(900, 0.3);
                     sleep(1000);
