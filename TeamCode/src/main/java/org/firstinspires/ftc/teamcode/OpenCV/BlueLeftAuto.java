@@ -104,6 +104,7 @@ public class BlueLeftAuto extends LinearOpMode {
                 .waitSeconds(1)
                 .forward(30)
                 .waitSeconds(1)
+                .strafeLeft(2.5)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);

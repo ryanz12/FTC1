@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpenCV;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.OpenCV.AprilTagCode.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -19,7 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class RedLeftAuto extends LinearOpMode {
+public class redfarauto extends LinearOpMode {
     //Change LinearOpMode If necessary
     //
     OpenCvWebcam webcam = null;
@@ -101,32 +99,14 @@ public class RedLeftAuto extends LinearOpMode {
                 .waitSeconds(.5)
                 .forward(30)
                 .waitSeconds(1)
-                .strafeLeft(5)
-                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);
                 })
-                .waitSeconds(.3)
-                .forward(1)
-                .waitSeconds(.5)
-                .strafeRight(34)
-                .waitSeconds(.5)
-                .turn(Math.toRadians(90))
-                .waitSeconds(.5)
-                .strafeLeft(5)
                 .waitSeconds(1)
-                .back(15)
-                .strafeLeft(5)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(900, 0.3);
-                    sleep(1000);
-                    moveIntake(1600, 1);
-                    sleep(1000);
-                    moveArm(0, .5);
-                })
-                .forward(10)
-                .back(13)
+                .strafeRight(5)
+                .waitSeconds(1)
+                .back(1)
                 .build();
 
         TrajectorySequence trajMiddle = drive.trajectorySequenceBuilder(startPos)
@@ -138,55 +118,29 @@ public class RedLeftAuto extends LinearOpMode {
                 .waitSeconds(1)
                 .turn(Math.toRadians(-90))
                 .waitSeconds(1)
+                .forward(5)
+                .waitSeconds(1)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);
                 })
                 .waitSeconds(1)
-                .strafeRight(6)
+                .strafeRight(10)
                 .waitSeconds(1)
-                .forward(33)
-                .waitSeconds(1)
-                .turn(Math.toRadians(180))
-                .waitSeconds(1)
-                .back(11)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(900, 0.3);
-                    sleep(1000);
-                    moveIntake(1600, 1);
-                    sleep(1000);
-                    moveArm(0, .5);
-                })
-                .forward(10)
-                .back(10)
+                .forward(5)
                 .build();
 
         TrajectorySequence trajRight = drive.trajectorySequenceBuilder(startPos)
-                .back(30)
+                .back(27)
                 .waitSeconds(.5)
                 .strafeLeft(3)
                 .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
                     intakeServo.setPosition(0);
                     sleep(1000);
                 })
-                .back(5)
-                .waitSeconds(.5)
-                .strafeLeft(40)
-                .waitSeconds(.5)
-                .turn(Math.toRadians(-90))
-                .waitSeconds(.5)
-                .strafeLeft(24)
-                .back(2)
-                .UNSTABLE_addDisplacementMarkerOffset(0, () -> {
-                    moveArm(900, 0.3);
-                    sleep(1000);
-                    moveIntake(1600, 1);
-                    sleep(1000);
-                    moveArm(0, .5);
-                })
-                .waitSeconds(.5)
-                .forward(10)
-                .back(10)
+                .waitSeconds(1)
+                .strafeRight(10)
+                .waitSeconds(1)
                 .build();
 
         //camera detection path
